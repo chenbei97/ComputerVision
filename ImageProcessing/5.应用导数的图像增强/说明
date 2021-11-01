@@ -1,0 +1,174 @@
+<1> 梯度和拉普拉斯算子
+    （1）梯度
+    前向差分
+    ∂F/∂x = F(x+1)-F(x)  [[-1,1]]
+    ∂F/∂y = F(y+1)-F(y)  [[-1],[1]]
+    中心差分
+    ∂F/∂x = [ F(x+1)-F(x-1) ] / 2  [[-1,0,1]]
+    ∂F/∂y = [ F(y+1)-F(y-1) ] / 2  [[-1],[0],[1]]
+    梯度
+    ▽F = [∂F/∂x,∂F/∂y]
+    ||▽F||和θ=tan-1(∂F/∂y / ∂F/∂x)
+    图像边缘是图像的尖峰或者低谷，也就是像素剧烈变化的位置，需要导数求取
+    由于二维的导数使用梯度，故梯度的大小衡量了像素强度，方向则是对y的偏导数比上对x的偏导数的反正切
+    前向差分核 fowardker_x = [[-1,1]] ,中心差分核 gatherker_x =[[-1,0,1]]
+               forwardker_y = [[-1],[1]] ,gatherker_y = [[-1],[0],[1]]
+    对图像的导数计算使用scipy.signal.convolved2d即可
+    （2）拉普拉斯算子
+    二阶偏导
+    ∂2F/∂x2 = F(x+1)+F(x-1)-2F(x)
+    ∂2F/∂y2 = F(y+1)+F(y-1)-2F(y)
+    二阶算子 : 不同于梯度，是标量而非向量，没有方向信息
+    由于是二阶偏导数之和，阶数越高噪声增加越多，故对噪声十分敏感
+    所以使用拉普拉斯算子之前一般使用高斯滤波器进行平滑以消除噪声
+    ▽2F = ∂2F/∂x2 + ∂2F/∂y2
+         = F(x+1,y)+F(x-1,y) + F(x,y+1)+F(x,y-1)-4F(x,y)
+    卷积核 : 只有单个核，不同于梯度有x，y两个方向的核
+      [1]
+    [1][-4][1]
+      [1]
+<2> 锐化和反锐化掩膜
+    锐化是为了突出图像中的细节或增强模糊的细节
+    （1）拉普拉斯滤波器
+    对原始图像应用拉普拉斯滤波器后的输出再叠加到原图像即可得到锐化图像
+    借助skimage.filters.laplace实现
+    （2）反锐化掩膜
+    锐化图像 = 原始图像 + (原始图像 - 模糊图像) × 总数(α)
+    总数(α)是一个参数
+<3> 利用导数和滤波器边缘检测
+    （1）检测边缘核
+    对于边缘检测分为4种方向【水平】【垂直】【西北东南】【东北西南】
+    对于【水平】可分为【左】和【右】，【垂直】可分为【上】【下】
+    【左】【下】掩膜可看成【右】和【上】的取反操作
+    一般的【右】掩膜具有的形式为 ：
+    [ cornor  edge  cornor ]
+    [   0      0       0   ]
+    [ -cornor -edge -cornor]
+    一般的【上】掩膜具有的形式为 ：
+    [ -cornor  0  cornor ]
+    [   -edge  0   edge  ]
+    [ -cornor  0  cornor ]
+    （2）轮廓线核
+    [outer, outer, outer],
+    [outer, inner, outer],
+    [outer, outer, outer]]
+    （3）浮雕
+    [[-diag, -iden, 0],
+    [-iden, iden,  iden],
+    [0,     iden,  diag]]
+    （4）模糊
+    [[corner, edge,  corner],
+    [edge,   inner, edge],
+    [corner, edge,  corner]]
+    （5）锐化
+    [[0,    edge,  0],
+    [edge, inner, edge],
+    [0,    edge,  0]]
+    （6）亮化
+    [[0, 0,    0],
+    [0, iden, 0],
+    [0, 0,    0]]
+
+    逼近一阶图像导数常用导数滤波器有sobel、prewitt、scharr、roberts、canny
+    一般sobel好于prewitt，scharr的旋转方差小于sobel
+    逼近二阶导数的laplace，下边会分别介绍它们使用的掩膜核
+
+    （1）非最大抑制算法 P146页
+        可以将像素邻域内梯度方向上去除一个非局部最大值的像素
+        首先检测边缘的角度或方向，若一个像素值在与其边缘相切的直线上为非最大值，则可以将其从边缘映射中删除
+    （2）基于skimage.filters的滤波器
+        1）Sobel边缘检测器
+            水平右掩膜Sx+：[[-1,0,1]]
+            竖直上掩膜Sy+：[[1],[2],[1]]
+            固定1个掩膜为正方向再去改变另一个掩膜方向
+            ① Sy+ × Sx+ ：【上】掩膜
+                [ -1  0  1 ]
+                [ -2  0  2 ]
+                [ -1  0  1 ]
+            类似的可得 Sy+ × Sx- ：【下】掩膜
+            ② Sx+ × Sy- ： 【右】掩膜
+                [ 1    2   1 ]
+                [ 0    0   0 ]
+                [ -1  -2  -1 ]
+            类似的可得 Sx+ × Sy+ ：【左】掩膜
+            ③ sobel、sobel_h、sobel_v 函数
+            im_x = skimage.filters.sobel_h(im) # 使用了水平右掩膜
+            im_y = skimage.filters.sobel_v(im) # 使用了垂直下掩膜
+        2）Prewitt边缘检测器
+            skimage.filters.prewitt_v()  # 乘了1/3
+            skimage.filters.prewitt_h()
+            垂直方向：            水平方向：
+                [ 1  0  -1 ]        [ 1  1  1 ]
+                [ 1  0  -1 ]        [ 0  0  0 ]
+                [ 1  0  -1 ]        [ -1 -1 -1]
+        3）Scharr边缘检测器
+            skimage.filters.scharr_h()
+            skimage.filters.scharr_v()
+            垂直方向：            水平方向：
+            [ 3   0  -3 ]        [ 3  10  3 ]
+            [ 10  0  -10 ]       [ 0   0  0 ]
+            [ 3   0  -3 ]        [ -3 -10 -3]
+        4）Roberts边缘检测器
+            skimage.filters.roberts_pos_diag() # 水平方向
+            skimage.filters.roberts_neg_diag() # 垂直方向
+            垂直方向：       水平方向：
+            [ 0   1 ]        [ 1  0  ]
+            [ -1  0 ]        [ 0  -1 ]
+        5）canny边缘检测器
+            skimage.feature.canny(im,sigma=3)
+            canny = 5×5 gaussian_filter + sobel + 非最大抑制算法 + 链接和滞后梯度阈值(min_val,max_val)
+            非最大抑制算法就是将宽的边缘细化为单个像素宽度，然后定义2个阈值去检测边缘
+            强边缘梯度一定会高于max_val,非边缘梯度低于min_val(双阈值)
+            低阈值会出现很多边，但是不是全要，跟高阈值边相连的才要
+            介于中间，则根据是否和确定边的像素相连决定是否为边缘的一部分，可以消除小像素噪声
+    （3）基于scipy.ndimage的高斯拉普拉斯
+        Log和Dog滤波器
+            G(x,y) = 1 / ( 2pi*σ^2 ) * exp( - (x^2+y^2)/2σ^2 )
+            Log 为 Laplacian of Gaussian 高斯拉普拉斯，因为二阶导数对噪声很敏感，故对纯laplcae滤波器进行改进
+            可以视为对高斯滤波器求二阶导数，得到的滤波器进行应用，LoG有两种尺度的高斯滤波器方差近似
+            Guussian(x,y) = exp(-(x^2+y^2)/2σ^2) / 2Πσ^2
+            G'x(x,y) = -xG(x,y)/σ^2    G''x(x,y) = G(x,y)[x/σ^2 - 1] / σ^2
+            类似的可计算 G''y(x,y) = G(x,y)[y/σ^2 - 1] / σ^2
+            LoG(x,y) = ▽2 G(x,y) = G(x,y)/σ^2  * [  (x+y)/σ^2 - 2 ]
+            LoG(x,y) = -1/( pi * σ^4) * ( 1 - (x^2+y^2)/2σ^2 ) * exp( - (x^2+y^2)/2σ^2 )
+            LoG(x,y) = c * (1 + t) * e^t
+            也可以采用近似不使用两个二阶导数相加，而采用指定σ的两个高斯滤波器作差分，而非求导数，即Dog近似
+            DoG(x,y) ≈ Gσ1(x,y) - Gσ2(x,y) 其中 σ1 = sqrt(2)*σ，σ2 = σ/ sqrt(2)
+            DoG(x,y) = c1 * e^t1 - c2 * e^t2
+
+            若不自行定义，也可以使用scipy.ndimage.gaussian_lapalce()
+
+            LoG得到的结果如果还需要进行边缘检测，还需要计算零交叉点
+                ① 将LoG图像转为二值图像，非0即1
+                ② 寻找非零区域的边界，考虑某个非零像素，如果周边的8个相邻元素任1个均为0则说明该像素是边界
+    （4）基于PIL.ImageFilter
+         filters = [ImageFilter.FIND_EDGES,ImageFilter.EDGE_ENHANCE,ImageFilter.EDGE_ENHANCE_MORE]
+<4> 金字塔融合图像
+    （1）金字塔基于调用实现
+        1）高斯金字塔 ： 在迭代二次抽样之前首先使用高斯平滑来抗混叠
+            im_guass_generator = skimage.transform.pyramid_gaussian(im,downscale=2,sigma=3,multichannel=True) # 返回一个迭代器
+            im_guass_pyramid = list(im_guass_generator) # 返回迭代器需要list或tuple解包
+            每个图像分辨率都是上一层图像的1/2
+        2）拉普拉斯金字塔 ：从高斯金字塔的底层开始，上采样加平滑，然后减去下层图像得到本层图像
+            直到恢复至图像的本来大小
+            im_laplace_generator = skimage.transform.pyramid_laplacian(im,downscale=2,sigma=3,multichannel=True) # 返回一个迭代器
+            im_pyramid = list(im_laplace_generator) # 存放了金字塔图像
+    （2）金字塔自定义实现
+        SIFT(Scale-Invariant Feature Transform，尺度不变特征转换)在目标识别、图像配准领域具有广泛的应用
+        高斯金字塔是SIFT特征提取的第一步，之后特征空间中极值点的确定，都是基于高斯金字塔
+        1）自定义高斯金字塔
+            利用skimage.transform.pyramid_reduce 平滑下采样实现
+        2）自定义拉普拉斯金字塔
+            skimage.transform.pyramid_expand 上采样且平滑
+            skimage.transform.resize 调整尺寸大小
+            拉普拉斯上一层 = 高斯上一层 - 调整尺寸后的高斯下一层上采样平滑
+            分辨率均从顶层到底层由大到小，底层分辨率最低，即L(-1)=G(-1)最低
+            L(i) = G(i) - Resize(Smooth(Up(G(i+1)))) i = -2,-3,...,1,0
+        3）金字塔融合
+            已知图片A、B以及掩膜M
+            分别计算A、B的拉普拉斯金字塔，然后计算M的高斯金字塔
+            使用M的每个层级权重重新分配A、B对应层级的像素
+            将得到的新层按从大到小得到重建的拉普拉斯金字塔
+            使用重建图像函数得到输出
+
+
