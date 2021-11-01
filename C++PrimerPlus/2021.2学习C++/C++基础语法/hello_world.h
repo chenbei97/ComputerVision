@@ -1,0 +1,21 @@
+#pragma once
+int hello_world();
+int create_array();
+int two_arrays();
+int print_array(int[2][3]);
+int max(int,int);
+int add(int,int);
+void create_func();
+int create_pointer();
+void const_pointer();
+int poiner_array();
+void print_Array(int* arr, int len);
+void bubble_sort(int* arr, int len);
+void swap2(int* a, int* b);
+void swap1(int a, int b);
+int  pointer_func();
+int Struct();
+int struct_struct();
+void print_student_addr(const struct  student* s);
+void print_student_value(struct student s);
+int struct_func();
