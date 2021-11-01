@@ -1,0 +1,110 @@
+<1> 逐点强度变换
+    （1）对数变换
+        前述学习已经接触过对数变换,目的是为了更好的看到其他频率分量,因为直流分量很大
+        matplotlib.colors.LogNorm , 20.np.log10(0.1+freq) 等都是对数变换
+    （2）幂律变换 直接平方
+    （3）对比度拉伸
+        利用原始图像的累积分布函数得到一个阈值m，低于m将像素变暗，高于m变亮，配合PIL的point使用
+        使用PIL.ImageEnhance.Contrast,此类可用于控制图像的对比度,1.0原始图像,0.0灰度图
+        较低的因子意味着较少的颜色（亮度、对比度等），较高的值意味着更多,这个值没有限制
+    （4）二值化
+        相比于拉伸没有多段函数，非0即255
+        1）固定阈值的方式最简单，低于阈值0，高于阈值255即可，一般对灰度图处理
+        2）半色调二值化处理，对每个像素值加入独立的均匀分布随机数，范围[-128,128]
+        3）Floyd-Steinberg算法，利用误差扩散技术,扩散系数定义为右方、左下方、下方、右下方4个
+        [          *     7/16  ...]
+        [...3/16, 5/16 , 1/16, ...]
+<2> 直方图处理: 均衡化和匹配
+    对比度拉伸技术使用PIL.point只能应用线性缩放函数,直方图处理技术可以应用非线性和非单调函数
+    （1）基于skimage的对比度拉伸和直方图均衡化
+        均衡化使用单调的非线性映射，使输出图像强度分布均匀，加强对比度
+        1）exposure.rescale_intensity 对比度拉伸
+        2）exposure.equalize_hist 全局均衡
+        3）exposure.equalize_adapthist 自适应均衡
+        4）exposure.cumulative_distribution(img,nbin) 累积分布系数
+    （2）直方图匹配:让原图像的像素点累积分布等同于模板图像的过程
+        特别的，对于彩色图需要对不同的通道分别进行直方图匹配，也就是灰度图匹配
+        使用一维线性插值y = np.interp(x,xp,fp)
+        x:要插值的x坐标 xp:数据点的x坐标 fp:数据点的y坐标 返回长度与x相同,即插值的y坐标
+
+        exg : x = 2.5 , xp = [1,2,3] yp = [3,2,0]
+        数据点实际上就是[1,3],[2,2],[3,0],拟合为两段直线,根据计算公式，设两点分别为(x0,y0),(x1,y1)
+        两点间直线为 y = y0 * (x1-x)/(x1-x0) + y1 * (x-x0)/(x1-x0),故计算第二段直线为 y = 2(3-x)
+        由于拟合的点为 x = 2.5,则 y = 1.0
+        那么当 x 为序列时，实际上依次计算每个点在该点所处直线对应的值即可
+        决定插值精度和效果的是xp,fp,越长则多段插值直线连接越接近曲线
+
+        img_cdf , bins = exposure.cumulative_distribution(img,nbin)返回的bins长度未必是256
+        bins是像素点强度最小和最大之间的序列,例如bins=[6,7,8,9,10,..,235,236,237],含义是像素点强度在[6,237]分布
+        但不是说[6,237]的每个大小都会有像素点,根据len(set(im_cdf))=115可以知道[6,237]的232个类型只取到了115种
+        或者使用len(set(im.flatten()))=115,含义是相同的
+
+        img_cdf长度和bins相同,从6开始计算为0一直到237计算为1,中间比如像素值为120的时候不存在,img_cdf的累积不变
+        为了得到完整的累积分布，对img_cdf的开头和结尾进行扩充,添加[0]序列和[1]序列
+
+        从而返回的img_cdf 开始的6个累积分数为0,但是只从不为0开始记录,所以若需要显示完整的累积分布,需自行insert[0]序列
+        到了第237个像素强度后,所有像素点都已经遍历过,后续不会增加,需自行append[1]序列
+
+        此时img_cdf的长度为256
+
+        模板图像的累积分数和像素强度建立映射关系pixels = f(im_cdfs[1]),即256段直线构成
+        代入原始图像的im_cdfs[0]得到新的newpixels
+        [ 23. 23. 23. 23. 23. 23. 24.2 25.0503 84 99.1945582 101.26301328 105.78233167
+         105.78233167 109.56249281, 112.71607686 120.46250157 120.46250157 125.25074627
+         129.19239312, 135.60560921 135.60560921 139.12435546 140.53385438 145.05701016,...
+         212.1497967  212.1497967, 213.21026574 213.53...255,255...]
+        关键代码：newpixels[ims[0].ravel()] 对原始图像每个像素点进行匹配，共99540个
+        每个像素点的大小作为位置去索引,如 5 索引到 23, 6 索引到 24.2
+
+        得到了一张新的映射表
+        [ 0, 1, 2, 3 , ... 253, 254, 255]---->[23, 23, 23, 23, ..., 255, 255, 255]
+                       /|\                                     /|\
+                        |                                       |
+                        |   im.ravel()  ---->  newim_ravel()    |
+                        |                                       |
+                 old pixel table                           new pixel table
+<3> 线性噪声平滑
+    （1）基于PIL
+        1）ImageFilter平滑  ImageFilter.Blur
+        2）盒核 : 普通均值滤波器 ImageFilter.Kernel((n,n),kernel.flatten())
+        实际上就是将像素点邻域进行平均
+        3）高斯核 : 加权均值滤波器 ImageFilter.GaussianBlur
+        多了权重，权重随着相邻像素间距指数级衰减
+    （2）基于Scipy.ndimage
+        使用scipy.ndimage.gaussian_filter 和 scipy.ndimage.uniform_filter
+        输入的是图像时域，输出也是图像时域
+        类似的scipy,ndimage.fourier_guassian,scipy,ndimage.fourier_uniform,scipy,ndimage.fourier_ellipsoid
+        输入图像频域，输出是图像频域
+
+<4> 非线性噪声平滑
+    有条件的使用邻域内的像素，不显式使用一般形式的乘积和的系数
+    适用于非高斯噪声、脉冲噪声，常用中值滤波器、双边滤波器和非局部均值滤波器
+    （1）基于PIL
+        1）中值滤波器
+        使用邻域内像素值的中值替代每个像素，需要给定邻域强度优先级并选择中间值
+        优点是对异常值具有较强的平复性，适应性强，模糊程度低
+        PIL的ImageFilter.MedianFilter(size)
+        2）最大、最小滤波器
+        ImageFilter.MaxFilter(size)
+        ImageFilter.MinFilter(size)
+    （2）基于skimage
+        1）双边滤波器
+        边缘识别的滤波器，中心像素被设置为某些邻域像素值的加权平均，且这些像素值亮度和中心像素接近
+         skimage.restoration.denoise_bilateral(img,sigma_color,sigma_spatial,multichannel)
+        2）非局部均值滤波器
+        仅使用与感兴趣的像素具有相似局部邻域的邻近像素的加权平均值来设置它的值
+        换言之，将以其他像素为中心的小斑块和以感兴趣像素为中心的斑块进行比较
+
+        skimage.restoration.denoise_nl_means(image, patch_size=7, patch_distance=11, h=0.1,
+                     multichannel=False, fast_mode=True)
+        对 2-D 或 3-D 灰度图像和 2-D RGB 图像执行非局部均值去噪
+        函数的h参数用于设置斑块权重的衰减，是斑块之间距离的函数，h越大不同斑块之间的平滑更多
+        一般h参数借助噪声偏差估计estimate_sigma(image, multichannel=False)设定
+
+        比较去噪前后可以使用峰值信噪比PSNR skimage.metrics.peak_signal_noise_ratio(img,img_noise)
+
+    （3）基于scipy ndimage
+         函数为percentile_filter()中值滤波器的一个通用版本 计算多维百分位过滤器
+         percentile 为百分位可以传入负数 -20%等价于80%
+         percentile_filter(input, percentile, size=None, footprint=None,
+                      output=None, mode="reflect", cval=0.0, origin=0)
