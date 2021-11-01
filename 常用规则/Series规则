@@ -1,0 +1,227 @@
+'''
+-----------------------------------------------------------------------------------
+INDEX	   API	                            EXPLANATIION
+1	DataFrame._iter_	          遍历信息轴
+2	DataFrame.abs	              返回具有每个元素的绝对数值的Series / DataFrame
+3	DataFrame.add	              获取数据帧和其他元素的加法（二进制运算符add）
+4	DataFrame.add_prefix	      带字符串前缀的前缀标签
+5	DataFrame.add_suffix	      带字符串后缀的后缀标签
+6	DataFrame.agg	              使用指定轴上的一项或多项操作进行汇总
+7	DataFrame.aggregate	          使用指定轴上的一项或多项操作进行汇总
+8	DataFrame.align	              用指定的join方法将两个对象对齐
+9	DataFrame.all	              返回是否所有元素都为True（可能在某个轴上
+10	DataFrame.any	              返回是否有任何元素为True（可能在某个轴上
+11	DataFrame.append	          将其他行附加到调用方的末尾，并返回一个新对象
+12	DataFrame.apply	              沿DataFrame的轴应用功能
+13	DataFrame.applymap	          将功能应用于元素的数据框
+14	DataFrame.asfreq	          将时间序列转换为特定频率
+15	DataFrame.asof	              返回哪里没有任何NaN的最后一行
+16	DataFrame.assign	          将新列分配给DataFrame
+17	DataFrame.astype	          将pandas对象转换为指定的dtype
+18	DataFrame.at	              访问行/列标签对的单个值
+19	DataFrame.at_time	          选择一天中特定时间的值（例如上午9:30）
+20	DataFrame.attrs	              是用于存储此DataFrame的全局元数据的字典
+21	DataFrame.axes	              返回一个表示DataFrame轴的列表
+22	DataFrame.backfill	          DataFrame.fillna（）的同义词，方法为“ bfill”
+23	DataFrame.between_time	      选择一天中特定时间之间的值（例如9：00-9：30 AM）
+24	DataFrame.bfill	              DataFrame.fillna（）的同义词，方法为“ bfill”
+25	DataFrame.bool	              返回单个元素Series或DataFrame的逻辑值
+26	DataFrame.boxplot	          从DataFrame列制作箱形图
+27	DataFrame.clip	              修剪输入阈值处的值
+28	DataFrame.columns	          DataFrame的列标签
+29	DataFrame.combine	          与另一个DataFrame进行按列合并
+30	DataFrame.combine_first	      使用其他位置相同位置的值更新空元素
+31	DataFrame.compare	          与另一个DataFrame进行比较并显示差异
+32	DataFrame.convert_dtypes	  使用支持pd.NA的dtypes将列转换为最佳可能的dtypes
+33	DataFrame.copy	              复制该对象的索引和数据
+34	DataFrame.corr	              计算列的成对相关，不包括NA /空值
+35	DataFrame.corrwith	          计算成对相关
+36	DataFrame.count	              为每一列或每一行计算非NA单元
+37	DataFrame.cov	              计算列的成对协方差，不包括NA /空值
+38	DataFrame.cummax	          返回DataFrame或Series轴上的累积最大
+39	DataFrame.cummin	          返回DataFrame或Series轴上的累积最小值
+40	DataFrame.cumprod	          通过DataFrame或Series轴返回累积乘积
+41	DataFrame.cumsum	          返回DataFrame或Series轴上的累积总和
+42	DataFrame.describe	          生成描述性统计信息
+43	DataFrame.diff	              元素的第一个离散差
+44	DataFrame.div	              获取数据帧和其他逐元素的浮点除法（二进制运算符truediv）
+45	DataFrame.dot	              计算DataFrame与其他框架之间的矩阵乘法
+46	DataFrame.drop	              从行或列中删除指定的标签
+47	DataFrame.drop_duplicates	  返回删除重复行的DataFrame
+48	DataFrame.droplevel	          返回已删除请求的索引/列级别的DataFrame
+49	DataFrame.dropna	          删除缺失的值
+50	DataFrame.dtypes	          DataFrame中的dtypes类型
+51	DataFrame.duplicated	      返回表示重复行的布尔系列
+52	DataFrame.empty	              指示DataFrame是否为空
+53	DataFrame.eq	              等于数据帧和其他逐元素（二进制运算符eq）
+54	DataFrame.equals	          测试两个对象是否包含相同的元素
+55	DataFrame.eval	              评估描述DataFrame列上的操作的字符串
+56	DataFrame.ewm	              提供指数加权（EW）功能
+57	DataFrame.expanding	          提供扩展的转换
+58	DataFrame.explode	          将类似列表的每个元素转换为一行，复制索引值
+59	DataFrame.ffill	              DataFrame.fillna（）与method ='ffill'的同义词
+60	DataFrame.fillna	          使用指定的方法填充NA / NaN值
+61	DataFrame.filter	          根据指定的索引标签对数据框行或列进行子集
+62	DataFrame.first	              根据日期偏移量选择时间序列数据的初始期间
+63	DataFrame.first_calid_index	  返回第一个非NA /空值的索引
+64	DataFrame.floordiv	          获取数据帧和其他逐元素的整数分割（二进制运算符floordiv）
+65	DataFrame.from_dict	          从类似数组或字典的字典构造DataFrame
+66	DataFrame.from_records	      将结构化或记录ndarray转换为DataFrame
+67	DataFrame.ge	              获取大于或等于dataframe和其他逐元素（二进制运算符ge）的值
+68	DataFrame.get	              从对象获取给定键的项目（例如：DataFrame列）
+69	DataFrame.groupby	          使用映射器或按一系列列对DataFrame进行分组
+70	DataFrame.gt	              获得大于dataframe和其他逐个元素（二进制运算符gt）的值
+71	DataFrame.head	              返回前n行
+72	DataFrame.head	              返回前n行
+73	DataFrame.hist	              制作DataFrame的直方图
+74	DataFrame.iat	              通过整数位置访问行/列对的单个值
+75	DataFrame.idxmax	          返回在请求轴上第一次出现最大值的索引
+76	DataFrame.idxmin	          在请求的轴上第一次出现最小值的返回索引
+77	DataFrame.iloc	              通过行号+列号访问一组行和列
+78	DataFrame.index	              DataFrame的索引（行标签）
+79	DataFrame.infer_objects	      尝试为对象列推断更好的dtype
+80	DataFrame.info	              打印DataFrame的简要摘要
+81	DataFrame.insert	          将列插入到DataFrame中的指定位置
+82	DataFrame.interrpolate	      请注意，具有MultiIndex的DataFrame / Series仅支持method ='linear'
+83	DataFrame.isin	              DataFrame中的每个元素是否包含在值中
+84	DataFrame.isna	              检测缺失值
+85	DataFrame.isnull	          检测缺失值
+86	DataFrame.items	              遍历（列名，系列）对
+87	DataFrame.iteritems	          遍历DataFrame列，返回一个带有列名称和内容为Series的元组
+88	DataFrame.iterrows	          将DataFrame行作为（索引，系列）对进行迭代
+89	DataFrame.itertuples	      以namedtuple的形式遍历DataFrame行
+90	DataFrame.join	              连接另一个DataFrame的列
+91	DataFrame.keys	              这是Series的索引，DataFrame的列
+92	DataFrame.kurt	              在请求的轴上返回无偏峰度
+93	DataFrame.kurtosis	          在请求的轴上返回无偏峰度
+94	DataFrame.last	              根据日期偏移量选择时间序列数据的最后时期
+95	DataFrame.last_valid_index	  最后一个非NA /空值的返回索引
+96	DataFrame.le	              获取小于或等于dataframe和其他逐元素（二进制运算符le）
+97	DataFrame.loc	              通过行号+列名访问一组行和列
+98	DataFrame.lookup	          DataFrame基于标签的“花式索引”功能
+99	DataFrame.lt	              获取小于数据帧和其他元素级的（二进制运算符lt）
+100	DataFrame.mad	              返回所请求轴的值的平均绝对偏差
+101	DataFrame.mask	              替换条件为True的值
+102	DataFrame.max	              返回所请求轴的最大值
+103	DataFrame.mean	              返回所请求轴的值的平均值
+104	DataFrame.median	          返回所请求轴的值的中位数
+105	DataFrame.melt	              取消将DataFrame从宽格式转为长格式，可以选择保留标识符
+106	DataFrame.memeory_usage	      返回每列的内存使用情况（以字节为单位）
+107	DataFrame.merge	              通过数据库样式的联接合并DataFrame或命名的Series对象
+108	DataFrame.min	              返回所请求轴的最小值
+109	DataFrame.mod	              获取数据帧的模数和其他逐元素的模数（二进制运算符mod）
+110	DataFrame.mode	              获取沿选定轴的每个元素的模式
+111	DataFrame.mul	              获取数据帧和其他逐元素的乘法（二进制运算符mul）
+112	DataFrame.ndim	              返回一个表示列数/数组维数的整数
+113	DataFrame.ne	              获取不等于dataframe和其他按元素计的值（二进制运算符ne）
+114	DataFrame.nlargest	          返回按列降序排列的前n行
+115	DataFrame.notna	              检测现有（非缺失）值
+116	DataFrame.notnull	          检测现有（非缺失）值
+117	DataFrame.nsmallest	          返回按列升序排列的前n行
+118	DataFrame.nunique	          计算请求轴上的不同观测值
+119	DataFrame.pad	              DataFrame.fillna（）与method ='ffill'的同义词
+120	DataFrame.pct_change	      当前元素与先前元素之间的百分比变化
+121	DataFrame.pine	              应用func（self，* args，** kwargs）
+122	DataFrame.pivot	              返回按给定的索引/列值组织的重整型DataFrame
+123	DataFrame.pivot_table	      将电子表格样式的数据透视表创建为DataFrame
+124	DataFrame.plot	              是形式为DataFrame.plot。<kind>的特定绘图方法的可调用方法和名称空间属性
+125	DataFrame.plot.area	          绘制堆叠区域图
+126	DataFrame.plot.bar	          垂直条形图
+127	DataFrame.plot.barh	          制作水平条形图
+128	DataFrame.plot.box	          绘制DataFrame列的箱形图
+129	DataFrame.plot.density	      使用高斯核生成核密度估计图
+130	DataFrame.plot.hexbin	      生成六角形装仓图
+131	DataFrame.plot.hist	          绘制一个DataFrame列的直方图
+132	DataFrame.plot.kde	          使用高斯核生成核密度估计图
+133	DataFrame.plot.line	          将图系列或DataFrame绘制为线
+134	DataFrame.plot.pie	          生成饼图
+135	DataFrame.plot.scatter	      创建具有不同标记点大小和颜色的散点图
+136	DataFrame.pop	              返回项目并从框架中放下
+137	DataFrame.pow	              获取数据帧和其他逐元素的指数幂（二进制运算符pow）
+138	DataFrame.prod	              返回所请求轴的值的乘积
+139	DataFrame.product	          返回所请求轴的值的乘积
+140	DataFrame.quantile	          在请求的轴上以给定的分位数返回值
+141	DataFrame.query	              使用布尔表达式查询DataFrame的列
+142	DataFrame.radd	              获取数据帧和其他元素的加法（二进制运算符radd）
+143	DataFrame.rank	              沿轴计算数值数据等级（1到n）
+144	DataFrame.rdiv	              获取数据帧和其他元素的浮点除法（二进制运算符rtruediv）
+145	DataFrame.recorder_levels	  使用输入顺序重新排列索引级别
+146	DataFrame.reindex	          通过可选的填充逻辑使Series / DataFrame与新索引一致
+147	DataFrame.reindex_like	      返回具有匹配索引的对象作为其他对象
+148	DataFrame.rename	          更改轴标签
+149	DataFrame.rename_axis	      设置索引或列的轴名称
+150	DataFrame.replace	          将to_replace中给出的值替换为value
+151	DataFrame.resample	          重新采样时间序列数据
+152	DataFrame.reset_index	      重置索引或索引的级别
+153	DataFrame.rfloordiv	          获取数据帧和其他逐元素的整数分割（二进制运算符rfloordiv）
+154	DataFrame.rmod	              获取数据帧和其他按元素的模数（二进制运算符rmod）
+155	DataFrame.rmul	              **
+156	DataFrame.rolling	          提供滚动窗口计算
+157	DataFrame.round	              将DataFrame舍入到小数位数可变
+158	DataFrame.rpow	              获取数据帧和其他逐元素的指数幂（二进制运算符rpow）
+159	DataFrame.rsub	              **
+160	DataFrame.rtruediv	          获取数据帧和其他元素的浮点除法（二进制运算符rtruediv）
+161	DataFrame.sample	          从对象轴返回随机的项目样本
+162	DataFrame.select_dtypes	      根据列dtypes返回DataFrame列的子集
+163	DataFrame.sem	              返回要求轴上的平均值的无偏标准误差
+164	DataFrame.set_axis	          将所需的索引分配给给定的轴
+165	DataFrame.set_index	          使用现有列设置DataFrame索引
+166	DataFrame.shape	              返回一个表示DataFrame维数的元组
+167	DataFrame.shift	              按期望的周期数移动索引，并带有可选的时间频率
+168	DataFrame.size	              返回一个int表示此对象中元素的数量
+169	DataFrame.skew	              在请求的轴上返回无偏斜
+170	DataFrame.slice_shift	      等效于不复制数据的移位
+171	DataFrame.sorrt_index	      按标签对对象排序（沿轴）
+172	DataFrame.sort_values	      沿任一轴的值排序
+173	DataFrame.sparse.density	  非稀疏点与总（密集）数据点的比率
+174	DataFrame.sparse.from_spmatrix从稀疏稀疏矩阵创建一个新的DataFrame
+175	DataFrame.sparse.to_coo	      以稀疏的SciPy COO矩阵形式返回框架的内容
+176	DataFrame.sparse.to_dense	  将稀疏值的DataFrame转换为密集
+177	DataFrame.squeeze	          将一维轴对象压缩为标量
+178	DataFrame.stack	              从列到索引堆叠指定级别
+179	DataFrame.std	              返回要求轴上的样品标准偏差。
+180	DataFrame.style	              返回一个Styler对象
+181	DataFrame.sub	              获取数据帧和其他元素的减法（二进制运算符sub
+182	DataFrame.sum	              返回所请求轴的值之和
+183	DataFrame.swapaxes	          适当交换轴和交换值轴
+184	DataFrame.swaplevel	          在特定轴上的MultiIndex中交换级别i和j
+185	DataFrame.T	                  转置索引和列
+186	DataFrame.tail	              返回最后n行
+187	DataFrame.tail	              返回最后n行
+188	DataFrame.take	              沿轴返回给定位置索引中的元素
+189	DataFrame.to_clipboard	      将对象复制到系统剪贴板
+190	DataFrame.to_csv	          将对象写入以逗号分隔的值（csv）文件
+191	DataFrame.to_dict	          将DataFrame转换为字典
+192	DataFrame.to_excel	          将对象写入Excel工作表
+193	DataFrame.to_feather	      将DataFrame写入二进制Feather格式
+194	DataFrame.to_gbq	          将DataFrame写入Google BigQuery表
+195	DataFrame.to_hdf	          使用HDFStore将包含的数据写入HDF5文件
+196	DataFrame.to_html	          将DataFrame呈现为HTML表格
+197	DataFrame.to_json	          将对象转换为JSON字符串
+198	DataFrame.to_latex	          将对象渲染为LaTeX表格，长表或嵌套表/表格
+199	DataFrame.to_markdown	      以Markdown友好格式打印DataFrame
+200	DataFrame.to_parquet	      将DataFrame写入二进制拼花格式
+201	DataFrame.to_period	          将DataFrame从DatetimeIndex转换为PeriodIndex
+202	DataFrame.to_pickle	          将对象腌制（序列化）到文件
+203	DataFrame.to_records	      将DataFrame转换为NumPy记录数组
+204	DataFrame.to_sql	          将存储在DataFrame中的记录写入SQL数据库
+205	DataFrame.to_stata	          将DataFrame对象导出为Stata dta格式
+206	DataFrame.to_string	          将DataFrame渲染到控制台友好的表格输出
+207	DataFrame.to_timestamp	      在时段开始时转换为时间戳的DatetimeIndex
+208	DataFrame.to_xarray	          从pandas对象返回一个xarray对象
+209	DataFrame.transform	          自我调用func会生成具有转换值的DataFrame
+210	DataFrame.transpose	          转置索引和列
+211	DataFrame.truediv	          获取数据帧和其他逐元素的浮点除法（二进制运算符truediv）
+212	DataFrame.truncate	          在某个索引值之前和之后截断Series或DataFrame
+213	DataFrame.tshift	         （不建议使用）移动时间索引，使用时标的频率（如果有）
+214	DataFrame.tz_convert	      将可感知tz的轴转换为目标时区
+215	DataFrame.tz_localize	      将Series或DataFrame的tz天真索引本地化为目标时区
+216	DataFrame.unstack	          枢转某个级别（必要的层次结构）索引标签
+217	DataFrame.update	          使用来自另一个DataFrame的非NA值进行就地修改
+218	DataFrame.value_counts	      返回一个包含DataFrame中唯一行数的Series
+219	DataFrame.values	          返回DataFrame的Numpy表示形式
+220	DataFrame.var	              返回请求轴上的无偏方差
+221	DataFrame.where	              替换条件为False的值
+222	DataFrame.xs	              从Series / DataFrame返回横截面
+-----------------------------------------------------------------------------------
+'''
