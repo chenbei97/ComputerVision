@@ -1,0 +1,62 @@
+形态学运算对二值图像操作最适宜，也可以拓展到灰度图
+常见的运算有二值图像的膨胀和腐蚀、开运算和闭运算、骨架化和形态边缘检测器
+（1）基于skimage..morphology
+    1）二值图像
+        ① 腐蚀和膨胀
+            腐蚀可以缩小前景对象的大小、平滑对象边界和删除图形和小的对象
+            selem = skimage.morphology.rectangle(1,5) # 生成扁平的矩形结构元素
+            im_erosion = skimage.morphology.binary_erosion(im,selem=selem) 可以删除时钟的小刻度对象
+            膨胀可以扩展前景对象大小、平滑图像边界、闭合二值图像的孔和缝隙，是腐蚀的双重作用
+            selem = skimage.morphology.disk(4) # 生成扁平的盘状结构元素
+            im_dilation = skimage.morphology.binary_dilation(im,selem=selem)
+        ② 开闭运算
+            开运算 = 先腐蚀后膨胀，删除小对象
+            闭运算 = 先膨胀再腐蚀，删除小洞
+            im_opening = skimage.morphology.binary_opening(im,selem=skimage.morphology.disk(12))
+            im_closing = skimage.morphology.binary_closing(im,selem=skimage.morphology.disk(6))
+            eg：使用开闭运算进行指纹清洗 先开后闭
+        ③ 骨架化和凸包运算
+            骨架化将每个连接组件简化为单个像素宽的骨架
+            凸包由包围所有前景的最小凸多边形定义
+            im_skeleton = skimage.morphology.skeletonize(im)
+            im_convex_hull = skimage.morphology.convex_hull_image(im)
+        ④ 删除小对象和提取边界
+            删除指定阈值大小的小对象，阈值越大删除的对象越多
+            腐蚀运算可以提取二值图像的边界，边界 = 原图 - 腐蚀
+            im_remove_small_obeject = skimage.morphology.remove_small_objects(im,min_size)
+        ⑤ 白顶帽和黑顶帽运算
+            计算比结构元素更小的亮点或者黑点
+            分别定义为原图与开运算和闭运算的差值图像
+            原图像的黑点经过黑顶帽运算就变成亮点
+            selem = skimage.morphology.square(5)# 生成扁平的方形结构元素
+            im_white = skimage.morphology.white_tophat(im,selem)
+            im_black = skimage.morphology.black_tophat(im,selem)
+    2）灰度图像：和二值相同
+        ① 腐蚀和膨胀
+        ② 开闭运算
+（2）基于skimage.filter.rank
+    1）对比度增强:可与曝光模块的自适应直方图均衡对比使用，都属于局部滤波器
+        im_contrast = skimage.filters.rank.enhance_contrast(im,skimage.morphology.disk(5))
+    2）中值滤波器去噪
+        im_median = skimage.filters.rank.median(im,skimage.morphology.disk(5))
+    3）计算局部熵
+        定义 H = -Σ(0-255)Pilog2(Pi)
+        skimage.filters.rank.entropy(im,skimage.morphology.disk(5))
+（3）基于scipy.ndimage.morphology
+    1）填充二值图像孔洞
+        填补二值对象的孔洞
+        scipy.ndimage.binary_fill_holes(im,structure=np.ones((3,3)))  方形边越大填充的孔越少
+    2）开闭运算去噪
+        灰度图像开闭运算，可以去除椒盐噪声
+        scipy.ndimage.grey_closing(scipy.ndimage.grey_opening(im,size=(2,2)),size=(2,2))
+    3）计算形态学Beucher梯度
+        定义为输入灰度图像的膨胀运算和腐蚀运算的差值图像
+        beucher = dilation - erosion
+        ndimage梯度 = morphological_gradient
+        差分梯度 :  beucher - ndimage梯度(基本相同)
+        im_bg = scipy.ndimage.grey_dilation(im,size=(3,3)) - scipy.ndimage.grey_erosion(im,size=(3,3))
+        im_beucher = scipy.ndimage.morphological_gradient(im,size=(3,3))
+    4）计算形态学拉普拉斯
+        使用形态学梯度，结构元素要小
+        使用形态学拉普拉斯，结构元素要大
+        scipy.ndimage.morphological_laplace(im,size=(5,5))
