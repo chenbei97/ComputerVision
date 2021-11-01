@@ -1,0 +1,83 @@
+（1）霍夫线圆变换
+    skimage.transform.hough_line 返回所有的线空间、线角度和线长
+    skimage.transform.hough_line_peaks 投票后最可能的线空间及其线段长度、夹角
+    skimage.transform.hough_circle 返回指定搜索半径的圆空间
+    skimage.transform.hough_circle_peaks 返回投票后的圆空间坐标和半径
+（2）二值化和Ostu分割
+    将目标从图像的背景分割出来的技术
+    一般有2种阈值算法，一种基于直方图(假定直方图某些特性为双峰型)，一种基于局部的阈值算法
+    Ostu分割法是基于直方图的,借助skimage.filters.threshold_otsu即可求解
+（3）基于边缘/区域的图像分割
+    1）基于边缘(canny)
+        ① 使用canny计算边缘
+        ② 使用binary_fill_holes二进制填充边缘
+        ③ 移除小对象remove_small_objects
+    2）基于区域(形态学分水岭算法)
+        类似的紧凑型分水岭算法（详细见典型图像分割算法/基于紧凑型分水岭）
+        分水岭算法必须使用灰度图求梯度
+        ① 计算灰度图像对比度或者梯度,可以使用sobel梯度
+        ② 寻找原图像的标记markers，依据直方图极值划分做标记
+            极值为高频率像素分割处
+        ③ 使用分水岭算法得到新边缘seg
+            seg = skimage.morphology.watershed(image, markers=None)
+        ④ 使用二进制填充seg
+        ⑤ 调整图像特征区域
+            scipy.ndimage.label
+        ⑥ 标签图像转为RGB
+            skimage.color.label2rgb
+        比对原始和新图像区别不大
+（4）典型图像分割算法
+    1）基于费尔森茨瓦布高效图
+        计算 Felsenszwalb 基于图形的高效图像分割
+       ①  返回指示段标签的整数掩码 (width, height) ndarray
+            skimage.segmentation.felzenszwalb
+       ② 返回布尔数组，其中标记区域之间的边界为 True（只返回边界像素为真的掩码）
+            skimage.segmentation.find_boundaries
+       ③ 返回带有突出显示标记区域之间边界的图像（边界直接高亮的图像）
+            skimage.segmentation.mark_boundaries
+    2）基于k均值聚类SLIC
+        在 Color-(x,y,z) 空间中使用 k-means 聚类分割图像
+        返回指示段标签的整数掩码 2D or 3D array
+            skimage.segmentation.slic
+        若SLIC算法过度分割，可以使用区域邻接图RAG改善，合并过度分割区域直到没有高度相似的区域存在
+            skimage.future.graph.rag_mean_color
+            skimage.future.graph.merge_hierarchical
+    3）基于快速移位QuickShift
+        在 Color-(x,y) 空间中使用 quickshift 聚类分割图像
+        返回指示段标签的整数掩码 (width, height) ndarray
+            skimage.segmentation.quickshift
+    4）基于紧凑型分水岭watershed
+        在从给定的标记淹没的图像中查找流域盆地
+        分水岭算法必须使用灰度图求梯度
+        形态学分水岭 skimage.morphology.watershed（详细见基于边缘/区域的图像分割）
+        返回与标记具有相同类型和形状的标记矩阵 ndarray
+            紧凑型分水岭 skimage.segmentation.watershed
+    5）基于连续阈值的区域生长(SimpleTIK)
+        书P243页
+        一个像素的邻域强度与当前像素强度相似，则认为处于同一分割片段
+        用一个固定的种子点启动算法，改变上阈值查看分割效果
+        上阈值越大，得到的分割区域越大
+            sitk.ConnectedThreshold
+    6）基于活动轮廓学蛇算法active_contour
+        浮点数组上计算偏微分方程
+        需要事先指定轮廓中心，轮廓，轮廓个数，浮动半径
+            skimage.segmentation.active_contour
+    7）基于形态学蛇算法
+        类似于活动轮廓，但是数值更稳定，且计算速度更快，二进制数组使用了腐蚀/膨胀
+        获取初始水平集
+            skimage.segmentation.checkerboard_level_set
+        分为两种算法
+        ① 基于形态学测地线活动轮廓 MorphGAC
+            要求图像轮廓清晰，所以需要预处理，可以使用高斯梯度反变换
+                skimage.segmentation.inverse_gaussian_gradient
+                skimage.segmentation.morphological_geodesic_active_contour
+        ② 基于形态学无边缘活动轮廓 MorghACWE
+            不要求图像轮廓清晰，可以直接使用
+            skimage.segmentation.morphological_chan_vese
+    8）基于GrabCut(cv2)
+        书P250页不再给出
+
+
+
+
+
