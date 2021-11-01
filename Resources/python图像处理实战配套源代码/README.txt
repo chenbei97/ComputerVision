@@ -1,1 +1,0 @@
-All Chapter (1 to 12) have codes.
