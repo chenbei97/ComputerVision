@@ -1,0 +1,64 @@
+（1）特征检测器和描述符
+    描述符可以捕捉某些光度特性，例如强度和梯度的分布，常用的SIFT
+    图像的全局特征一般不值得提取，而是提取局部特征，如某些区域，角点、边和斑点
+    常用的有颜色、角点、特征点、轮廓、纹理等特征
+    描述符具备的特点：
+        可重复性，每个图像都可以去检测这些特征
+        不受平移、旋转和缩放影响
+        对噪声、模糊、遮挡】杂波和光照变化具有鲁棒性
+        区域内应包括感兴趣的结构，可辨别性
+    局部特征检测用于估计、匹配、索引和检测
+（2）哈里斯角点检测器
+    Harris角点检测是特征点检测的基础，提出了应用邻近像素点灰度差值概念，从而进行判断是否为角点、边缘、平滑区域
+    Harris角点检测原理是利用移动的窗口在图像中计算灰度变化值
+    其中关键流程包括转化为灰度图像、计算差分图像、高斯平滑、计算局部极值、确认角点
+    旋转性质对角点不变化，缩放性质会改变角点
+    主要的使用函数：
+        skimage.feature.corner_harris
+        skimage.feature.corner_subpix
+        skimage.feature.peak_local_max
+        skimage.measure.ransac RANSAC随机抽样一致性算法对参数鲁棒估计
+（3）基于LoG、DoG和DoH的斑点检测器
+    1）基于scipy.ndimage.gaussian_lapalce()的高斯拉普拉斯LoG算子
+    2）使用高斯差分DoG近似LoG，检测斑点的速度比LoG快但是准确率低
+       1）和 2）详见第5章<利用导数和滤波器边缘检测.py>
+    3）黑塞矩阵DoH：计算图像黑塞行列式矩阵的极大值来检测斑点，速度最快，且斑点大小对检测速度没有影响
+    可以检测深色背景的亮斑和浅色背景的暗斑，但是不能检测小亮斑
+    利用下方API可以计算三个斑点检测器返回的斑点坐标和黑塞矩阵行列式高斯标准差
+        skimage.feature.blob_log
+        skimage.feature.blob_dog
+        skimage.feature.blob_doh
+    利用plt.Circle()来绘制斑点，单次只能绘制1个坐标生成patch,然后使用axe.add_patch(patch)添加
+（4）基于方向梯度直方图的特征提取
+    调用函数skimage.feature.blob_hog即可
+    内部实现：
+        1）图像全局归一化处理
+        2）计算水平和垂直梯度图像
+        3）计算梯度直方图
+        4）块集归一化处理
+        5）扁平组合成特征描述符向量
+（5）尺度不变特征变换SIFT
+    SIFT算法可以将图像内容转换为不受平移、旋转、缩放和其他成像参数影响的局部特征坐标
+    该描述符可以用于图像匹配，关于cv2的使用单独开辟
+    其他的特征描述符还有BRIEF和ORB
+    BRIEF是短二进制特征描述符，不提供旋转不变性，skimage可以实现该算法
+    ORB是BRIEF的改进版，采用了定向的FAST检测法和旋转的BRIEF描述符
+    有更大的尺度和旋转不变性，是SIFT的有效替代品，可使用skimage和cv2实现
+    1）基于cv2实现SIFT图像匹配
+        利用cv2的sift函数计算关键点和描述符
+        sift = cv2.SIFT_create()
+        key_points = sift.detect(gray,None) or
+        kp , des = sift.detectAndCompute(gray,None) # 返回关键点和描述符
+        对于SIFT算法可以使用比率检测
+    2）基于cv2实现ORB图像匹配
+    3）基于skimage实现BRIEF匹配
+    4）基于skimage实现ORB图像匹配
+
+（6）类Haar特征及其在人脸检测的应用
+    1）类Harr特征描述符主要有5种
+    [type-2-x,type-2-y,type-3-x,type-3-y,type-4]
+    可以使用skimage.feature.haar_like_feature_coord和skimage.feature.draw_haar_like_feature
+    分别得到和绘制特征描述符
+    2）类Haar特征在图像(人脸)检测的应用
+    每个haar特征是弱分类器，需组合多个成为强分类器
+    下载地址：https://opencv.org/releases/
