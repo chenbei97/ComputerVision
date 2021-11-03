@@ -2297,12 +2297,41 @@ const string& verson1(string & s1 , const string & s2)
 ​	主要的注意事项有：
 
 1. 构造和析构函数可以重载
+
 2. 构造函数可以列表初始化
+
+   ```c++
+   class Person
+   {
+       private:
+       	string name1 ;
+       	string name2 ;
+       	bool isname ;
+       public:
+       	Person(const string & s1 = "none",const string & s2 = "none" , bool b = false) ; // 列表初始化的构造语法
+       	// 等价于
+       	Person(const string & s1,const string & s2,bool b) // 普通构造语法
+           {
+               name1 = s1 ;
+               name2 = s2 ;
+               isname = b ;
+           }
+   }
+   // 列表构造在实现时必须指明参数赋值对象
+   Person :: Person(const string & s1,const string & s2,bool b) : name1(s1),name2(s2),isname(b){}// !!!!!
+   ```
+
 3. 类的实例可以组成对象数组
+
 4. 定义一个所有类实例化对象都使用的常量应当使用static，这样所有实例共享一个内存减小开销
+
 5. 类成员函数的参数名不要和私有成员变量名相同
+
 6. 类成员函数如果要求不修改私有成员，应当在函数定义末尾加上const，这样限制的是调用对象隐式的自身不被修改，而在参数名中使用const，是限制显示的访问对象的值不被修改
+
 7. this指针就是当前类实例化的当前对象自身地址，而对于指针类型需要使用箭头而不是句点运算
+
+8. 可以使用protected定义派生类可访问的私有成员
 
 ```c++
 // 包含于一个头文件person.h
@@ -2555,13 +2584,760 @@ cout << "p： " << p << "/done" ; // valid
 
 #### 17.4.3友元成员函数
 
-### 17.5继承
+### 17.5类继承
+
+#### 17.5.1派生类构造函数注意事项
+
+​	继承时使用冒号和public即可继承
+
+```c++
+class son : public parent{}
+```
+
+​	关于类继承的注意事项：
+
+​	<u>基类最好使用且唯一使用列表构造，不要使用其他的构造</u>；派生类的默认构造可以隐式的调用基类的默认构造，有参构造或者列表构造都是合法的,但是都是调用基类的列表构造
+
+​	如果基类同时存在默认构造和列表构造，定义派生类的默认构造时会产生二义性，不知使用哪种基类构造；
+
+​	如果基类同时存在列表构造和有参构造，同样定义派生类的有参构造或者列表构造时会产生二义性；
+
+​	如果<u>基类只有有参构造</u>，定义派生类的有参构造和列表构造都是合法的，但是都是调用基类的有参构造；而且<u>不能定义默认构造</u>，因为基类的列表构造不会覆盖掉默认构造，但是有参构造会覆盖；
+
+​	<u>如果派生类中要重新定义基类的方法，名称不变（并不是show_person和show_cb的关系，这两种是使用新函数定义，而不是重新定义），需要指明为虚方法virtual</u>；
+
+​	构造函数不能是虚函数，创建派生类对象时将调用派生类的构造函数而不是基类的构造函数；
+
+​	析构函数应当是虚函数，除非类不作基类，即使基类无需显式的析构函数，提供一个可以提升效率；
+
+​	友元不能作为虚函数，类成员函数才能作为虚函数；
+
+​	派生类重新定义基类方法是覆盖的关系，而非重载的关系；
+
+```c++
+// 类继承.h
+#pragma once
+#include <string>
+#include <iostream>
+class Person // 基类
+{
+	std :: string _name  ;
+	int _age;
+	std::string _address;
+public:
+	// Person(const std::string& name, const std::string address, int age); // : 不使用有参构造,会导致派生类没有默认构造
+	//Person(); // 不使用默认构造
+	Person(const std::string& name = "none", const std::string& address = "beijing",const int age = 18); // 列表构造
+	// 列表构造的注意事项是实参必须在实现文件中指明传递给那个参数
+	Person(const Person& p);// 复制构造
+	void show_person() const;// 不改变自身
+    virtual void show_person_v() const;
+protected:
+    int temp = 10 ;
+};
+
+class CB : public Person  // 派生类
+{
+	std :: string _favorite_fruit;
+	std :: string _favorite_sport;
+	double _height;
+	int _has_cars;
+	bool _has_girlfriend;
+	public :
+		CB();
+		CB(const std::string& ff, const std::string& fs, double height, int has_cars, bool has_girlfriend,
+			const std::string& name, const std::string& address, int age);
+		CB(const std::string& ff, const std::string& fs, double height, int has_cars, bool has_girlfriend, const Person& p);
+		void show_cb() const;// 使用另一个方法
+    	virtual void show_person_v() const; // 使用virtul可以重写函数
+};
+
+
+// 类继承.cpp
+#include "类继承.h"
+//Person :: Person() // 不使用默认构造
+//{
+//}
+//Person :: Person(const std::string& name, const std::string address, int age) // 不使用有参构造
+//{
+//	this->_address = address;
+//	this->_age = age;
+//	this->_name = name;
+//}
+Person::Person(const std::string& name , const std::string& address, const int age)// 列表构造
+	: _name(name) , _address(address) , _age(age)//列表构造的注意事项是实参必须在实现文件中指明传递给那个参数
+{} 
+Person :: Person(const Person & p) // 复制构造
+{
+	_address = p._address;
+	_age = p._age;
+	_name = p._name;
+}
+void  Person::show_person() const
+{
+	std::cout <<"基类：" << "name = " << _name << "   address=" << _address << "   age = " << _age << " years" << std::endl;
+}
+void Person::show_person_v() const
+{
+	std::cout <<"基类：" << "name = " << _name << "   address=" << _address << "   age = " << _age << " years" << std::endl;
+}
+
+
+// 派生类的默认构造只能使用基类的默认构造或列表构造或有参构造
+// 否则派生类使用Person()构造时不知使用列表构造还是默认构造
+// 即Person()可以对应Person()也可以对应Person(const std::string& name = "none", const std::string& address = "beijing",const int age = 18);
+// 还可以对应Person(const std::string& name, const std::string address, int age); 
+
+// 推荐基类使用列表构造，因为如果使用有参构造，则基类没有了默认构造，也就是派生类也不再有默认构造
+
+//派生类的有参构造使用了基类的默认构造
+CB::CB()   // 不显示指定何种基类构造默认使用 Person() ，: Person() 加不加都可以
+{
+	// 基类成员以列表构造初始化
+	// 派生类成员默认初始化
+	_favorite_fruit = "none";
+	_favorite_sport = "none";
+	_has_cars = 0;
+	_has_girlfriend = false;
+}
+
+//派生类的有参构造使用了基类的列表构造
+CB::CB(const std::string& ff, const std::string& fs, double height, int has_cars, bool has_girlfriend,
+	const std::string& name, const std::string& address, int age=18) : Person(name, address, age),_favorite_fruit(ff)
+{ // 基类列表构造传参,派生类也可以使用列表法传参
+	_favorite_sport = fs; // 不使用列表法传参
+	_height = height;
+	_has_cars = has_cars;
+	_has_girlfriend = has_girlfriend;
+}
+
+// 派生类的有参构造使用了基类的复制构造
+CB::CB(const std::string& ff, const std::string& fs, double height, int has_cars, bool has_girlfriend, 
+	const Person& p) : Person(p),_favorite_fruit(ff) // 基类复制构造传参,派生类也可以使用列表法传参
+{
+	_favorite_sport = fs; // 不使用列表法传参
+	_height = height;
+	_has_cars = has_cars;
+	_has_girlfriend = has_girlfriend;
+}
+void CB::show_cb() const // void CB::show_person() const是非法的,不可继承
+{
+	this->show_person(); // 但是可以使用
+	std::cout << "	favorite_fruit = " << _favorite_fruit << "   favorite_sport = " << _favorite_sport
+		<< "   has " << _has_cars  << " cars" << "   hasgirlfriend? " << _has_girlfriend << std::endl;
+    std::cout << temp << std::endl; // 可以访问基类protected成员
+	// std::cout << age << std::endl; invalid不可访问基类私有成员
+}
+void CB::show_person_v() const
+{
+	this->show_person(); // 虚函数也可以使用
+	std::cout << "派生类："<<  "favorite_fruit = " << _favorite_fruit << "   favorite_sport = " << _favorite_sport<< "   has " << _has_cars << " cars" << "   hasgirlfriend? " << _has_girlfriend << std::endl;
+}
+
+```
+
+#### 17.5.2派生类使用注意事项
+
+​	关于派生类的注意事项：
+
+​	关于基类和派生类之间的问题，默认是可以向上隐式转换的，一般情况是不允许引用或指针指向不同的类型。
+
+- 派生类可以使用基类的方法，但是不能直接使用变量；变量是通过子类外部传递的参数覆盖了父类的构造函数的变量而成为了子类私有变量；
+
+  ```c++
+  // 父类对象
+  Person p0(); // valid but meanless
+  // p0().show_person(); invalid
+  Person p1; // 默认构造,不能使用隐式的Person p1构造
+  p1.show_person();
+  Person p2("xixi","chaoyang",27); // 列表构造
+  p2.show_person();
+  
+  // 子类对象
+  CB cb1;// 默认构造,不能使用隐式的CB cb1构造
+  CB cb2("banana", "basketball", 1.80, 0, true, "chenbei", "shunyi", 18);// 列表构造&有参构造
+  CB cb3("apple", "football", 1.85, 1, true, cb1); // 复制构造
+  
+  std :: cout << "cb1：默认构造" << std :: endl;
+  std :: cout << "	"  ;
+  cb1.show_cb(); // 内部使用了show_person()函数
+  
+  std::cout << "cb2：" << std::endl;
+  std::cout << "	"  ;
+  cb2.show_cb();// 内部使用了show_person()函数
+  
+  std::cout << "cb3：" << std::endl;
+  std::cout << "	"  ;
+  cb3.show_cb();// 内部使用了show_person()函数
+  ```
+
+- 指向基类的引用也可以指向派生类，但是是单向的，该引用不会具备派生类的方法；
+
+- 指向基类的指针也可以指向派生类，但是是单向的，该指针不会具备派生类的方法；
+
+  ```c++
+  Person& qp1 = p1; // 基类对象的引用
+  Person* pp2 = &p2;// 基类对象的指针
+  qp1 = cb2; // 基类对象的引用可以指向派生类对象
+  pp2 = &cb3;// 基类对象的指针可以指向派生类对象
+  qp1.show_person(); // valid
+  // qp1.show_person(); invalid 但是指向不意味着有派生类的方法
+  pp2->show_person(); // valid
+  // pp2->show_cb(); invalid 但是指向不意味着有派生类的方法
+  ```
+
+- 指向派生类的引用或指针不能赋给基类的对象或地址，这是因为派生类有私有成员，而基类没有，这个引用或指针使用该成员时，基类对象是不存在这个成员的，所以禁止；
+
+```c++
+CB &qcb3  = cb3;// 派生类对象的引用
+CB* pcb3 = &cb3;// 派生类对象的指针
+// qcb2 = p1; 不能把基类的对象赋给派生类的引用
+// qvb2 = qp1;也不能把基类的引用赋给派生类的引用
+// pcb3 = &p2; 不能把基类的对象地址赋给派生类的指针
+// pcb3 = pp2; 也不能把基类的指针赋给派生类的指针
+```
+
+- 引入virtual之前,依据引用或指针的类型来选择方法，例如当指针或引用类型为Person，无论指向Person还是CB都使用父类的方法；引入之后，是依据指向的类型来选择方法，这样即使Person指向CB，也会调用CB的方法
+
+```c++
+// 有无virtual的区别
+std::cout << "虚函数的区别：" << std::endl;
+Person& qp2 = p2; // 指向基类对象的基类引用
+Person& qcb2 = cb2; // 指向派生类对象的基类引用
+qp2.show_person(); // 调用的是父类的show_person
+qcb2.show_person();// 虽然是指向派生类的，但调用的还是父类的show_person
+qp2.show_person_v();// 调用的是父类的show_person_v
+qcb2.show_person_v();// 加了virtual以后，调用的是派生类的show_person_v
+
+pp2 = &p2;
+pcb3 = &cb3;
+pp2->show_person();
+pcb3->show_person();
+pp2->show_person_v();
+pcb3->show_person_v();
+// 结论是：没有使用virtual将依据引用或指针类型选择父类或子类的方法
+// 使用virtual后将依据指向的引用或指针类型选择父类或子类的方法
+
+// 使用函数来区分
+void func_q(Person& q) { q.show_person_v(); };
+void func_p(Person* p) { p->show_person_v(); };
+void func_v(Person v) { v.show_person_v(); };
+func_q(p2); // 基类引用传入基类实例->调用基类方法
+func_q(cb2);// 基类引用传入派生实例->调用派生类方法
+func_p(&p2);// 基类指针传入基类实例->调用基类方法
+func_p(&cb2);// 基类指针传入派生实例->调用派生类方法
+func_v(p2);// 基类实例传入基类实例->调用基类方法
+func_v(cb2);// 基类实例传入派生类实例->调用基类方法
+// 结论：加入virtual以后同名的虚函数，且是引用或指针才允许指向派生类调用的派生类方法，否则都是调用基类方法
+```
+
+#### 17.5.3静态联编和动态联编
+
+​	编译阶段确定调用的函数是何种类型叫静态联编，如果不引入virtual要调用类实例的方法取决于定义的引用或指针类型，而定义的类型编译阶段即已知，所以非虚方法属于静态联编；
+
+​	由于C++函数重载的复杂性，很可能无法确定使用那种函数。例如上文所述，引入virtual之后，在函数中定义，对于指针或引用调用类实例的方法是无法去确定的，取决于传入函数的参数是引用或指针或指向的类型（当然如果是func_v函数除外，实例传入一定调用基类方法也属于静态联编），这就需要动态联编。
+
+## 18.异常处理
+
+​	需要执行的代码块在try{}中执行；
+
+​	满足何种条件扔出何种类型的错误，使用throw，常用的扔出常量字符串，所以使用catch捕获const char * s类型错误；
+
+​	catch捕获的错误类型要与throw的对应，然后遇到错误执行什么的操作在这里运行，一般是错误提示。
+
+```c++
+void divide(double y, double x)
+{
+    try
+    {
+        if (x == 0.0)
+            throw "ZeroDivisionError"; // 这里可以自定义抛出的异常类型
+        else if (x < 0)
+            throw  -1; // 整型类错误用int接收
+        else
+        {
+            double z = y / x;
+            cout << "z=" << z << endl;
+        }
+    }
+    catch (const char * s) // 字符串定义的异常类型用const chat * s接收
+    {
+        cout <<   s << endl;
+    }
+    catch (int n)
+    {
+        cout << n << endl;
+    }
+}
+void Study_Exception_Handle()
+{
+    double y = 5.4, x1 = 2.0, x2 = 0.0,x3 = -1.3;
+    divide(y, x1);
+    divide(y, x2);
+    divide(y, x3);
+}
+```
+
+## 19.STL标准模板
+
+​	STL = 容器(containter) + 算法 (algorithm)+ 迭代器(iterator)，六大组件： 容器、算法、迭代器、仿函数、适配器(配接器)、空间配置
+
+迭代器：容器和算法之间通过迭代器进行无缝衔接，提供一种方法使之能够依序寻访某个容器的各个元素，又无需暴漏容器的内部表示方式，每个容器有自己专属容器，迭代器非常类似指针。迭代器种类：输入迭代器、输出迭代器、前向迭代器、双向迭代器、随机访问迭代器
+
+容器：各种数据结构，如vetor、list、deque、set、map等(数组、链表、树、栈、队列、集合、映射表)
+
+算法：sorrt、fnd、copy、for_each(质变算法和非质变算法)。质变算法：拷贝、替换、删除等会更改区间的元素；非质变算法：查找、计数、遍历、寻找极值等 <algorithm>
+
+仿函数：行为类似函数，可作为算法的某种策略
+
+适配器：一种用来修饰容器或者仿函数或迭代器接口的东西
+
+空间配置器：负责空间的配置和管理
+
+### 19.1容器
+
+#### 19.1.1string容器
+
+<1>string 的概念
+     string 是一个类 char *是一个指针
+     string内部封装了char * 管理这个字符串 是一个 char * 的容器
+     string内部有find、copy、delete、replace和insert等方法
+<2>string的构造函数
+     2.1 string(); ---->使用一个空的字符串 如 string str;
+     2.2 string(const char* s) ;---->使用字符串s初始化
+     2.3 string(const string & str) ;---->使用一个string对象初始化 另一个string对象
+     2.4 string(int n ,char c) ;----> 使用n个字符c初始化
+<3>string的赋值操作(运算符重载)
+    3.1 string& operator = (const char *s) ; // 指向固定字符的指针 赋给字符串
+    3.2 string& operator = (const string &s) ; // 指向固定字符串的引用 赋给字符串
+    3.3 string& operator = ( char c) ; // 字符值传递  赋给字符串
+    3.4 string& assign = (const char *s) ; // 把字符串s 赋给字符串
+    3.5 string& assign = (const char *s ,int n) ; // 指向固定字符的指针 前n个字符 赋给字符串
+    3.6 string& assign = (const  string &s) ; // 指向固定字符串的引用 赋给字符串
+    3.7 string& assign= (int n , char s) ; // 字符值传递  赋给字符串
+<4>string的字符串拼接
+    4.1 string& operator += (const char *str) ; // 直接拼接常量字符串
+    4.2 string& operator += (const char s) ; // 拼接常量字符(值传递)
+    4.3 string& operator += (const string& str) ; // 拼接变量字符串(引用传递)
+    4.4 string& append (const char *s) ; // 拼接常量字符(地址传递)
+    4.4 string& append (const char *s ,int n) ;// 拼接前n个常量字符(地址传递)
+    4.5 string& append (const string &s) ;// 拼接变量字符串(引用传递)
+    4.6 string& append (const string &s , int pos , int n) ;// 拼接变量字符串从pos开始的n个字符(引用传递)
+<5>string的查找和替换(函数声明后边跟着const表示该函数不能修改类成员属性或函数)
+    5.1 int find(const string & str , int pos=0) const ;// 查找str第一次出现位置 从pos查找
+    5.2 int find(const char * s , int pos=0) const ; // 同 5.1
+    5.3 int find(const  char * s , int pos=0, int n) const ; 从pos位置出现的前n个字符第一次出现位置
+    5.4 int find(const  char c , int pos=0) const ; // 常量字符
+    5.5 int rfind(const string &str , int pos=npos ) const ; // 从右边开始数的pos位置查找最后一次位置
+    5.6 int rfind(const char *s , int pos=npos ) const ;  //常量字符串指针
+    5.7 int rfind(const char c , int pos=npos ) const ; // 常量字符
+    5.8 string& replace(int pos, int n , const string& str) ; //  替换为变量字符串
+    5.9 string& replace(int pos , int n , const char *s) ;  //  替换为常量字符串
+<6>字符串比较 ： 按ASCII码逐个比较
+    6.1 int compare(const string &s) const ; // 与变量字符串进行比较
+    6.2 int compare(const  char *s) const ; // 与常量字符串进行比较
+<7>字符存取
+    7.1 char & operator[] (int n) ; // 通过[]方式获取字符
+    7.2 char & at(int n) ; // 通过at 方法获取
+<8>字符串插入和删除
+    8.1 string & insert(int pos , const char *s) // 插入常量字符串
+    8.2 string & insert(int pos , const string & str) // 插入变量字符串
+    8.3 string & insert(int pos , int n ,char c ) // 指定位置插入n个字符
+    8.4 string & erase(int pos , int n = npos)  // 删除从pos开始的n个字符
+<9>字串获取
+    9.1 string substr(int pos = 0 , int n = npos) // 从pos开始截取n个字符
+
+```c++
+void Study_STL_String()
+{
+	cout << "Study_STL_String()：" << endl;
+	const char* c = "cb";
+	string s1() ,s2 , s3(c) ,s4(s3); // 不同的构造方式
+	string s5 = s4 + "great";// 重载运算符
+	s5.append("!"), s5.assign("hello c++"); // 一些方法的使用,追加和覆盖
+	cout <<"	"<< s5 << endl;
+}
+```
+
+#### 19.1.2Vector容器
+
+<1>vector容器的概念
+	v.rend() ; // 第一个元素位置的前一个
+	v.begin();// 第一个元素位置
+	v.insert(); // 插入
+	v.rbegin();// 最后一个元素位置
+	v.end(); // 最后一个元素位置的后一个
+	v.push_back(); // 添加
+	v.pop_back(); // 删除
+	支持随机访问的迭代器
+<2>vector容器的构造函数
+	2.1 vector<T> v ; // 模板实现类实现 ，默认构造函数  vector<int>  v 
+	2.2 vector(v.begin() , v.end()) ; // 将[ v.begin() , v.end() )区间(前闭后开)的元素拷贝给本身
+	2.3 vector(n , elem) ; // 构造函数将n个elem拷贝给本身
+	2.4 vector(const vector &vec) ; // 拷贝构造函数
+<3>vector容器的赋值操作
+	3.1 vector & operator=(const vector &vec) ; // v2 =v1 ;
+	3.2 assign(beg,end) ; // [beg ,end) 拷贝数据
+	3.3 assign(n,elem) ; // n个elem拷贝赋值
+<4>vector容器的容量和大小
+	4.1 empty() ; // 判断容量是否为空
+	4.2 capacity();  // 容量
+	4.3 size(); // 长度
+	4.4 resize(int num) ; // 容器变长则以默认值0填充新位置 变短则删除
+	4.5 resize(int num ,elem) ;  // 容器变长elem填充新位置,变短删除
+<5>vector容器的插入和删除
+	5.1 push_back(ele) ; // 尾部插入元素ele
+	5.2 pop_back() ; // 删除最后一个元素
+	5.3 insert(const_iterator pos , ele) ; // 迭代器指向位置pos插入元素ele
+	5.4 insert(const_iterator pos , int count , ele) ; // 插入count个
+	5.5 erase(const_iterator pos) ;  // 删除指向的位置元素
+	5.6 erase(const_iterator start , const_iterator end) ;  // 删除从start到end之间元素
+	5.7 clear(); // 清空
+<6>vector容器的数据存取
+	6.1 at(int idx) ; //返回索引idx的数据
+	6.2 operator[] ; // 索引
+	6.3 front() ; // 第一个数据元素
+	6.4 back() ; // 最后一个数据元素
+<7>vector容器的互换容器
+	7.1 swap(vec) ; // 将vec与本身的元素互换
+	7.2 可以用于收缩内存
+<8>vector容器的预留空间
+	8.1 减少vector动态扩展容量时的扩展次数
+	8.2 reserve(int len) ; // 容器预留len个元素 ，预留位置不初始化 元素不可访问
+	8.3 只分配内存不初始化
+
+```c++
+#include <algorithm>
+void printVector1(vector<int>& v) // 容器类型
+{
+	for (vector<int> ::iterator it = v.begin(); it != v.end(); it++) // front和back对应,begin和end对应
+	{
+		if (it != v.end() - 1)
+			cout << (*it) << ", "; // it是指针
+		else
+			cout << (*it)<<endl;
+	}
+}
+void printVector2(vector<int>& v)
+{
+     vector<int> ::iterator itBegin = v.begin();
+     vector<int> ::iterator itEnd = v.end();
+     while (itBegin != itEnd)
+    {
+        cout << *itBegin << endl;
+        itBegin++;
+    }
+}
+void printVector3(int val)
+{
+	cout << val << endl;
+}
+class printVector4 // 使用类重载()作为函数对象
+{
+public:
+	void operator()(int  val)
+	{
+		cout << val << endl;
+	}
+};
+void Study_STL_Vector()
+{
+	vector<int> v1, v2(v1.begin(), v1.end()), v3(10, 100), v4(v3), v5 = v1;// 不同的构造方式
+
+	for (int i = 0; i < 10; i++)
+	{
+		v1.push_back(i * i); // 一些常用实例方法，添加元素，还有pop_back删除元素
+	}
+	cout <<"v1.empty()="<<v1.empty() <<" v1.capacity()="<< v1.capacity() 
+		<< " v1.size()="<<v1.size() <<" v1.front()="<< v1.front() << " v1.back()="<<v1.back()<<endl;// 其他常用实例方法
+	printVector1(v1);
+	v1.erase(v1.begin(),v1.end()-1); // 擦除指定迭代器范围
+	printVector1(v1);
+    // 第三种遍历方式：利用STL提供的遍历算法
+	for_each(v1.begin(), v1.end(), printVector3);
+    for_each(v1.begin(), v1.end(), printVector4());
+}
+```
+
+#### 19.1.3List容器
+
+<1>列表list概念
+		将数据链式存储，链表是物理存储单元上非连续的存储结构
+		数据元素的逻辑顺序由链表的指针链接实现
+		链表的组成：一系列结点组成
+		结点的组成：一个是存储数据元素的数据域，一个是存储下一个结点地址的指针域
+		可以对任意位置进行快速插入或删除元素
+		对数组而言插入数据得把所有数据依次后移
+		链表只需要插入结点，上一个节点指针域指向该节点，该节点指针域再指向下一个节点即可
+		缺点是遍历速度慢，因为链表地址不连续，同时占用空间很大
+						 0x01      0x02       0x03      0x04 ...     0x0n
+		数据域：[10] ---> [20] ---> [30] ---> [40] ---> [...]
+		地址域：[0x02] ---> [0x03] ---> [0x04] ---> [...] 
+		STL的链表是一个双向循环链表：
+				即在上述基础上，地址域不仅记录了后一个结点地址也记录了前一个结点地址
+				非循环表示头部记录的上一个地址为空，尾部记录的下一个地址也为空
+				对于循环，则是让尾部的下一个地址记录的是首部的地址，首部的上一个地址则记录了尾部的地址
+		链表属于双向迭代器，只支持前移和后移，不是连续的内存空间
+<3>list构造函数
+		3.1 list<T> lst;
+		3.2 list(beg ,end) ;
+		3.3 list(n,elem) ;
+		3.4 list(const list &lst) ;
+<4>list赋值交换
+		4.1 list & operator=(const list &lst) ; // v2 =v1 ;
+	    4.2 assign(beg,end) ; // [beg ,end) 拷贝数据
+		4.3 assign(n,elem) ; // n个elem拷贝赋值
+		4.4 swap(lst) ; // 交换
+<5>list大小操作
+		5.1 empty() ; // 判断容量是否为空
+		5.2 size(); // 长度
+		5.3 resize(int num) ; // 容器变长则以默认值0填充新位置 变短则删除
+		5.4 resize(int num ,elem) ;  // 容器变长elem填充新位置,变短删除
+<6>list插入和删除
+		6.1 push_back(elem) ; // 尾部插入元素elem
+		6.2 pop_back() ; // 删除最后一个元素
+		6.3 push_front(elem); // 头部插入元素elem
+		6.4 pop_front() ;// 删除第一个元素
+		6.5 insert(pos ,elem) ; // 返回新数据位置,迭代器指向位置pos插入元素ele
+		6.6 insert( pos , int count , ele) ; // 插入count个
+		6.7 insert(pos ,beg ,end) ; // 无返回值
+		6.8 erase(beg ,end) ;  // 删除从[beg,end)之间元素
+		6.9 erase(pos) ;  // 删除指向的位置元素
+		6.10 clear(); // 清空
+		6.11 remove(elem) ; // 移除所有和elem匹配的元素
+<7>list数据存储 (不支持随机访问，不支持[]和at访问,若需要访问中间元素只支持++和--,不支持+1)
+		7.1 front() ; // 第一个数据元素
+		7.2 back() ; // 最后一个数据元素
+<8>list反转和排序
+		8.1 reverse() ;//反转链表
+		8.2 sort() ; //链表排序
+		注： 所有不支持随机访问迭代器的不支持标准算法 但可以使用成员函数L.sort()
+<9>list排序案例：对自定义的数据类型进行排序
+		首先按照年龄排序，然后年龄相同时按照身高排序
+
+#### 19.1.4Set容器
+
+<1>集合容器set特点
+		所有元素在插入时自动被排序
+		本质set/multiset属于关联式容器，底层结构是二叉树实现
+<2>set构造函数和赋值
+		2.1 set<T> st ; // 模板实现类实现 ，默认构造函数  vector<int>  v
+		2.2 set(const set &st) ; // 拷贝构造函数
+		2.3 set &operator = (const set &st) ;
+<3>set大小和交换
+		3.1 empty() ; // 判断容量是否为空
+		3.2 swap(st);  // 交换
+		3.3 size(); // 长度
+<4>set插入和删除
+		4.1 insertelem) ;   //插入数据只有insert
+		4.2 clear() ;
+		4.3 erase(pos) ;
+		4.4 erase(beg ,end) ;
+		4.5 erase(elem);
+<5>set查找和统计
+		5.1 find(key); // key存在返回该键的元素迭代器 不存在返回set.end()
+		5.2 count(key) ; // 统计key个数 = 0 or 1
+<6>set和multiset区别
+		set不允许容器有重复元素，multiset可以有
+		set插入数据时会返回结果 表示插入是否成功
+		multiset不会检测数据 因此可以插入重复数据
+<7>pairr对组的创建
+		成对出现的数据可以利用对组返回两个数据
+		7.1 pair<type,type> p (value1 , value2) ;
+		7.2 pair<type,type> p = make_pair (value1 , value2) ;
+<8>set内置类型指定排序规则
+		set默认升序，利用仿函数可以改变排序规则 : 重载()
+<9>set自定义数据类型指定排序规则
+
+#### 19.1.5Map容器
+
+<1>map容器概念
+		1.1 map的所有元素都是pair，第一个为key 第二个为value
+		1.2 所有元素会根据键值自动排序
+		1.3 map/muitimap属于关联式容器，底层为二叉树，multimap允许有重复key值的元素
+<2>map构造和赋值
+		2.1 map<T1,T2> mp ; // 默认构造
+		2.2 map(const map &mp) ; //拷贝构造
+		2.3 map& operator = (const map & mp) ; // 重载赋值
+<3>map大小和交换
+		3.1 size();
+		3.2 empty();
+		3.3 swap(mp);
+<4>map插入和删除
+		4.1 insert(elem) ;
+					4.1.1 m.insert(pair<int, int>(1, 10)); //匿名赋值
+					4.1.2 m.insert(make_pair(5, 50)); // 成对赋值
+					4.1.3 m.insert(map<int, int> ::value_type(6, 60)); //作用域赋值
+					4.1.4 m[7] = 70; // 函数重载赋值(不建议使用)不安全如果使用cout<<m[8]<<endl;又会新建新的值
+		4.2 clear();
+		4.3 erase(pos) ; //删除pos指定元素 返回下一个元素的迭代器
+		4.4 erase(beg ,end) ; // 删除[beg,end)元素 返回下一个元素迭代器
+		4.5 erase(key) ;// 删除key的元素
+<5>map查找和统计
+		5.1 find(key) ; // 查找key是否存在，存在返回key的迭代器否则返回set.end();
+		5.2 count(key) ; // 统计key个数
+<6>map排序
+		6.1 默认按照key从小到大升序
 
 
 
+#### 19.1.6Deque容器
+
+<1>deque容器概念
+		双端数据可以对头端进行插入删除操作
+		vector对于头部插入效率低，数据量越大越低
+		vector访问元素的速度会比deque快
+		存在中控器记录每段缓冲器的地址,每段缓冲器存放了数据,分段连续所以访问比较慢
+		deque迭代器支持随机访问
+<2>deque构造函数
+		2.1 deque<T> deq T ; // 默认构造
+		2.2 deque(beg,end) ; // 将[beg , end)区间元素拷贝给本身
+		2.3 deque(n ,elem) ;  // 将n个elem拷贝给本身
+		2.4 deque(const deque &deq) ; // 拷贝构造函数
+<3>deque赋值操作
+		3.1 deque& operator=(const deque &deq) ;
+		3.2 assign(beg , end) ;
+		3.3 assign(n,elem) ;
+<4>deque大小操作
+		4.1 deque.empty() ;
+		4.2 deque.size();
+		4.3 deque.resize(num) ;
+		4.4 deque.resize(num,elem) ; // 以elem来填充新位置
+<5>deque插入和删除
+		5.1 pop_front(elem) ; // elem为插入的数据 
+		5.2 push_front(elem) ; 
+		5.3 pop_back() ; 
+		5.4 push_back();
+		5.5 insert(pos ,elem) ; // 返回新数据的位置
+		5.6 insert(pos , n, elem) ; // 插入n个elem 无返回值
+		5.7 insert(pos, beg, end) ; // 插入{beg,end)的数据 无返回值
+		5.8 clear();
+		5.9 erase(beg,end) ; // 返回下一个数据的位置
+		5.10 erase(pos) ; //删除pos位置数据 返回下一个数据的位置
+<6>deque数据存储
+		6.1 at(int idx) ; //返回索引idx所指的数据
+		6.2 operator[] ; // 返回索引idx所指的数据
+		6.3 front() ;// 第一个元素
+		6.4 back() ; // 最后一个
+
+<7>deque排序操作
+		7.1 sort(iterator beg , iterator end); // 默认升序
+
+```c++
+void printDeque(const deque<int>& d) // 传入的是deque数据类型的引用传递 且是纯常量引用
+{
+	for (deque<int> ::const_iterator it = d.begin(); it != d.end(); it++)
+	{
+		// const 可以防止输出时误写操作
+		// * it =100;
+		cout << (*it) << " ";
+	}
+	cout << endl;
+}
+void Study_STL_Deque()
+{
+	deque<int> d1;
+	for (int i = 0; i < 5; i++)
+	{
+		d1.push_back(-i);
+	}
+	printDeque(d1);
+	// 其他操作和vector类似
+}
+```
 
 
 
+#### 19.1.7Stack_Queue容器
 
+<1>stack容器概念
+		先进后出的数据结构 且只有一个出口
+		栈不允许有遍历行为
+		栈顶push先进 , 然后慢慢到达栈底后 栈底没有出口
+		删除函数pop也是删除栈顶元素
+		注：栈顶的位置是在下边 即自顶向上
+<2>stack接口
+		stack<T> stk ; // 默认构造
+		stack(const stack &stk) ; // 拷贝构造
+		stack & operator = (const stack & stk) ;
+		push(elem);
+		pop();
+		top();
+		empty();
+		sizie();
+<3>queue容器概念
+		先进先出的数据结构，有2个出口，即队列
+		队列方向由队尾指向队头，对头可以进行pop操作，队尾则是push
+		即一端只能出数据，另一端进数据 队列也没有遍历行为 且只能队头和队尾被访问
+<4>queue接口
+		queue<T> que;
+		queue(const queue &que) ;
+		queue& operator =(const queue &que) ; // 重载等号操作符
+		push(elem) ; 
+		pop() ;
+		back();
+		front();
+		size();
+		empty();
 
+### 19.2算法
 
+​	STL常用算法
+​		2.1 遍历算法(可以自己写即printvector()也可以使用内置的算法)
+​				2.1.1 for_each(iterator beg , iterator end , func) ; // 遍历容器
+​				2.1.2 transform(iterator beg1 , iterator end1 , iterator beg2, func) ; // 搬运容器到另一个容器
+​				2.1.4 func可以是普通函数也可以是仿函数实现
+​		2.2 查找算法
+​				2.2.1 find(beg,end,elem) // 查找 返回指定元素迭代器或者结束迭代器
+​				2.2.2 findif(beg,end,func) // 按条件查找 func为bool类型的仿函数或者谓词
+​				2.2.3 adjacent_find(beg,end) // 查找相邻重复元素
+​				2.2.4 binary_search(beg, end,value) // 二分查找法 查到返回true 不可以用于无序序列
+​				2.2.5 count(beg,end,value)  // 统计个数
+​				2,2,6 count_if(beg,end,func) // 按条件统计个数
+​		2.3 排序算法
+​				2.3.1 sort(beg,end,func)  // 排序
+​				2.3.2 random_shuffe(beg,end) // 随即洗牌
+​				2.3.3 merge(beg1,end1,beg2,end2,target.begin()) // 两个必须有序的容器1、2元素合并 存储到另一个容器target
+​				2.3.4 reverse(beg,end,func) // 反转元素 func可以是类构造仿函数也可以是普通函数
+​		2.4 拷贝和替换算法
+​				2.4.1 copy(beg,end, target.begin()) // 拷贝
+​				2.4.2 replace(beg,end,oldvalue,newvalue) // 替换
+​				2.4.3 replace_if(beg,end,func,newvalue) //指定范围内满足条件的元素替换为新元素
+​				2.4.4 swap(containter1 containter2) // 互换2个同类型容器元素
+​		2.5 算术生成算法
+​				2.5.1 accumulate(beg,end,起始累加值) // 计算容器内元素累加和
+​				2.5.2 fill(beg,end,value)  // 容器添加元素
+​		2.6 集合算法
+​				2.6.1 set_intersection(beg1,end1,beg2,end2,target,begin()) // 交集
+​				2.6.2 set_union(beg1,end1,beg2,end2,target,begin()) // 并集
+​				2.6.3 set_difference(beg1,end1,beg2,end2,target,begin()) // 差集
+
+### 19.3函数对象
+
+​	这部分内容主要是将类当成函数用，可以和算法进行配合，如在[19.1.2Vector容器](#19.1.2Vector容器)出现过的代码
+
+```c++
+class printVector4 // 使用类重载()作为函数对象
+{
+public:
+	void operator()(int  val)
+	{
+		cout << val << endl;
+	}
+};
+for_each(v1.begin(), v1.end(), printVector4());
+// 还可以使用比较
+bool myCompare(int v1 ,int v2) // 普通函数版本
+{
+	return v1 > v2; // bool类型降序返回真
+}
+class myCompare // 使用类重载()作为函数对象
+{
+public:
+	bool operator () (int v1, int v2) const
+	{
+		return v1 > v2; // 升序
+	}
+
+};
+```
