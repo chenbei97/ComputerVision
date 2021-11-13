@@ -13,21 +13,22 @@ int main()
    // image_arithmetic_operation();
     //image_mask_operation();
     //image_functions_using("bitwise");
-    image_functions_using("convertTo");
+    //image_functions_using("convertTo");
+    image_blend();
     return 0;
 }
 /*
 #pragma once
-#include <opencv2/xfeatures2d/nonfree.hpp>//Ê¹ÓÃSURF¡¢SIFTÊ±ĞèÒªµ¼Èë¸Ãnonfree.hppÎÄ¼ş
-#include <opencv2/core/core.hpp> // ½á¹¹ºÍÊıÑ§ÔËËã
-#include <opencv2/flann/miniflann.hpp> // ×îÁÚ½üËÑË÷Æ¥Åäº¯Êı
-#include <opencv2/imgproc/imgproc.hpp> // Í¼Ïñ´¦Àíº¯Êı
-#include <opencv2/video/video.hpp> // ÊÓ¾õ×·×ÙÒÔ¼°±³¾°·Ö¸î
-#include <opencv2/features2d/features2d.hpp> // ÓÃÓÚ×·×ÙµÄ¶şÎ¬ÌØÕ÷
-#include <opencv2/objdetect/objdetect.hpp> // ¼¶ÁªÈËÁ³·ÖÀàÆ÷¡¢latentSVM·ÖÀàÆ÷¡¢HoGanÌØÕ÷ºÍÆ½ÃæÆ¬¼ì²âÆ÷
-#include <opencv2/calib3d/calib3d.hpp> // Ğ£×¼ºÍË«Ä¿ÊÓ¾õÏà¹Ø
-#include <opencv2/ml/ml.hpp> // »úÆ÷Ñ§Ï°¡¢¾ÛÀàºÍÄ£Ê½Ê¶±ğ
-#include <opencv2/photo/photo.hpp> // ²Ù×÷ºÍ»Ö¸´ÕÕÆ¬Ïà¹ØËã·¨
+#include <opencv2/xfeatures2d/nonfree.hpp>//ä½¿ç”¨SURFã€SIFTæ—¶éœ€è¦å¯¼å…¥è¯¥nonfree.hppæ–‡ä»¶
+#include <opencv2/core/core.hpp> // ç»“æ„å’Œæ•°å­¦è¿ç®—
+#include <opencv2/flann/miniflann.hpp> // æœ€é‚»è¿‘æœç´¢åŒ¹é…å‡½æ•°
+#include <opencv2/imgproc/imgproc.hpp> // å›¾åƒå¤„ç†å‡½æ•°
+#include <opencv2/video/video.hpp> // è§†è§‰è¿½è¸ªä»¥åŠèƒŒæ™¯åˆ†å‰²
+#include <opencv2/features2d/features2d.hpp> // ç”¨äºè¿½è¸ªçš„äºŒç»´ç‰¹å¾
+#include <opencv2/objdetect/objdetect.hpp> // çº§è”äººè„¸åˆ†ç±»å™¨ã€latentSVMåˆ†ç±»å™¨ã€HoGanç‰¹å¾å’Œå¹³é¢ç‰‡æ£€æµ‹å™¨
+#include <opencv2/calib3d/calib3d.hpp> // æ ¡å‡†å’ŒåŒç›®è§†è§‰ç›¸å…³
+#include <opencv2/ml/ml.hpp> // æœºå™¨å­¦ä¹ ã€èšç±»å’Œæ¨¡å¼è¯†åˆ«
+#include <opencv2/photo/photo.hpp> // æ“ä½œå’Œæ¢å¤ç…§ç‰‡ç›¸å…³ç®—æ³•
 #include <iostream>
 #include <iostream>
 #include <string>
@@ -45,6 +46,6 @@ int main()
     waitKey(0);
     return 0;
 */
-// ²âÊÔ£¬ÕâÀïÒÔÀ©Õ¹Ä£¿éÖĞ³£ÓÃµÄxfeature2DÄ£¿éÎªÀı£¬µ÷ÓÃ°üº¬ÆäÖĞµÄSIFTÊµÏÖÌØÕ÷¼ì²â
+// æµ‹è¯•ï¼Œè¿™é‡Œä»¥æ‰©å±•æ¨¡å—ä¸­å¸¸ç”¨çš„xfeature2Dæ¨¡å—ä¸ºä¾‹ï¼Œè°ƒç”¨åŒ…å«å…¶ä¸­çš„SIFTå®ç°ç‰¹å¾æ£€æµ‹
 
 
