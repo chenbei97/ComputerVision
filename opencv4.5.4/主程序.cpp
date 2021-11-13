@@ -17,6 +17,7 @@ int main()
     //image_blend();
     //image_brightnessand_contrast_adjustment();
     //image_draw_shape_text();
+    image_functions_using("rng_uniform");
     return 0;
 }
 /*
