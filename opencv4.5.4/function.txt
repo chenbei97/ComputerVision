@@ -8,3 +8,11 @@ src.convertTo(dst, CV_32FC3); 格式转换
 
 
 line(img,p1,p2,color,2,LINE_8); // 图像、两个点、颜色、线粗，线形
+
+Rect rect1(100,100,100,100); // 使用 x,y,w,h构造
+Rect rect2(Point(400, 400), Point(100,100));// 使用p1,p2构造,后面的才是坐标
+Rect rect3(Point(800, 800), Size(100, 100));// 使用p,size构造
+rectangle(img, rect3, color3, 2, LINE_8);  // 矩形区域，颜色等
+  
+  
+  
