@@ -14,7 +14,8 @@ int main()
     //image_mask_operation();
     //image_functions_using("bitwise");
     //image_functions_using("convertTo");
-    image_blend();
+    //image_blend();
+    image_brightnessand_contrast_adjustment();
     return 0;
 }
 /*
