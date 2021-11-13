@@ -8,3 +8,4 @@ void image_pixel_read_write_operation();
 void image_arithmetic_operation();
 void image_mask_operation();
 void image_blend();
+void image_brightnessand_contrast_adjustment();
