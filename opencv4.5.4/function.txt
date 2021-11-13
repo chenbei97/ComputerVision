@@ -1,0 +1,7 @@
+reSize：调整图片大小--->被调整的图像，输出图像，调整的大小
+resize(im1, temp, im2.size());
+
+addWeighted：out = saturate(α * im1 + β * im2  + gamma)
+addWeighted(im1, 0.3, temp, 0.7, 0, dst);
+
+src.convertTo(dst, CV_32FC3); 格式转换
