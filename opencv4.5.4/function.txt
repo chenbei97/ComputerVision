@@ -5,3 +5,6 @@ addWeighted：out = saturate(α * im1 + β * im2  + gamma)
 addWeighted(im1, 0.3, temp, 0.7, 0, dst);
 
 src.convertTo(dst, CV_32FC3); 格式转换
+
+
+line(img,p1,p2,color,2,LINE_8); // 图像、两个点、颜色、线粗，线形
