@@ -18,7 +18,11 @@ int main()
     //image_brightnessand_contrast_adjustment();
     //image_draw_shape_text();
     //image_functions_using("rng_uniform");
-    image_blur();
+    //image_blur();
+    //image_corrosion_expansion();
+    //image_open_close();
+    //image_white_black_tophat();
+    //image_morphology_extract_line();
     return 0;
 }
 /*
