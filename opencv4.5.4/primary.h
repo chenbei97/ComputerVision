@@ -10,3 +10,4 @@ void image_mask_operation();
 void image_blend();
 void image_brightnessand_contrast_adjustment();
 void image_draw_shape_text();
+void image_blur();
