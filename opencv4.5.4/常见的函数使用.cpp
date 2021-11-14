@@ -17,14 +17,36 @@ void image_functions_using(const std :: string str)
 	{
 		image_rng_uniform();
 	}
-	//{
-	//
-	//}
-	//else
-	//{
-	//}
+	else if (str == "createTrackBar")
+	{
+		image_createTrackBar();
+	}
 	
 
+}
+// 回调函数需要全局变量
+Mat src_trackbar, dst_trackbar;
+int value_trackbar = 10;
+int* val_trackbar = &value_trackbar;
+const std::string trackbarname_trackbar = "bar";
+const std::string winname_trackbar = "win";
+void image_createTrackBar()
+{
+	src_trackbar = imread(imgAddr + "eagle.jpg");
+	int max_value_trackbar = 100;
+	namedWindow(winname_trackbar, WINDOW_FREERATIO);
+	createTrackbar(trackbarname_trackbar, winname_trackbar, 
+		val_trackbar, max_value_trackbar, image_createTrackBar_callback);
+	image_createTrackBar_callback(0, 0);
+	waitKey(0);
+}
+void image_createTrackBar_callback(int, void*)
+{
+	int ksize = 2 * value_trackbar + 1;
+	Mat kernel = getStructuringElement(MORPH_RECT, Size(ksize, ksize));
+	erode(src_trackbar, dst_trackbar, kernel);
+	imshow(winname_trackbar, dst_trackbar);
+	return;
 }
 void image_bitwise()
 {
