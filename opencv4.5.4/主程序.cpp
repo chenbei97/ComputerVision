@@ -24,6 +24,13 @@ int main()
     //image_open_close();
     //image_white_black_tophat();
     //image_morphology_extract_line();
+    image_up_down_sampling();
+    image_threshold_calculate();
+    image_linear_filtering();
+    image_edge_processing();
+    image_gradient_sobel();
+    image_gradient_laplance();
+    image_gradient_canny();
     return 0;
 }
 /*
