@@ -5,6 +5,7 @@ void image_bitwise();
 void image_convertTo();
 void image_createTrackBar();
 void image_rng_uniform();
+void image_createTrackBar_callback(int, void*);
 void image_functions_using(const std :: string str)
 {
 	if (str == "bitwise")
