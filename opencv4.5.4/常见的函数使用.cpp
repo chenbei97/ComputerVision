@@ -3,6 +3,8 @@ using namespace cv;
 const std::string imgAddr = "C:/Users/chenbei/Documents/Visual Studio 2019/ItemFiles/Opencv4/images/";
 void image_bitwise();
 void image_convertTo();
+void image_createTrackBar();
+void image_rng_uniform();
 void image_functions_using(const std :: string str)
 {
 	if (str == "bitwise")
