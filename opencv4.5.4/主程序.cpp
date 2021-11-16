@@ -31,6 +31,13 @@ int main()
     image_gradient_sobel();
     image_gradient_laplance();
     image_gradient_canny();
+    image_hough_transform_line();
+    image_hough_transform_circle();
+    image_pixel_remapping();
+    image_histogram_equalization();
+    image_histogram_calculation();
+    image_histogram_comparison();
+    image_histogram_reverse_projection();
     return 0;
 }
 /*
