@@ -19,6 +19,7 @@ int main()
     //image_draw_shape_text();
     //image_functions_using("rng_uniform");
     //image_functions_using("createTrackBar");
+    //image_functions_using("normalize");
     //image_blur();
     //image_corrosion_expansion();
     //image_open_close();
