@@ -26,6 +26,7 @@ void image_hough_transform_line();
 void image_hough_transform_circle();
 void image_pixel_remapping();
 void image_histogram_equalization();
-void image_histogram_calculation();
+void image_histogram_calculation_C1();
+void image_histogram_calculation_C3();
 void image_histogram_comparison();
 void image_histogram_reverse_projection();
