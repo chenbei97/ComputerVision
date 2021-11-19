@@ -36,7 +36,8 @@ int main()
     image_hough_transform_circle();
     image_pixel_remapping();
     image_histogram_equalization();
-    image_histogram_calculation();
+    image_histogram_calculation_C1();
+    image_histogram_calculation_C3();
     image_histogram_comparison();
     image_histogram_reverse_projection();
     return 0;
