@@ -38,6 +38,7 @@ int main()
     image_histogram_equalization();
     image_histogram_calculation_C1();
     image_histogram_calculation_C3();
+    image_histogram_calculation_STL3();
     image_histogram_comparison();
     image_histogram_reverse_projection();
     return 0;
