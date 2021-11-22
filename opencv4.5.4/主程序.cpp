@@ -40,7 +40,8 @@ int main()
     image_histogram_calculation_C3();
     image_histogram_calculation_STL3();
     image_histogram_comparison();
-    image_histogram_reverse_projection();
+    image_histogram_reverse_projection_single();
+    image_histogram_reverse_projection_double();
     return 0;
 }
 /*
