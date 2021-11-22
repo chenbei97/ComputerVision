@@ -42,6 +42,8 @@ int main()
     image_histogram_comparison();
     image_histogram_reverse_projection_single();
     image_histogram_reverse_projection_double();
+    image_contour_detection();
+    image_convex_hull();
     return 0;
 }
 /*
