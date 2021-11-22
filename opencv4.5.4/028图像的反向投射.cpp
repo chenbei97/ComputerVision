@@ -1,30 +1,30 @@
 #include "primary.h"
 using namespace cv;
-void image_histogram_reverse_projection()
+image_histogram_reverse_projection_single();
 {
-	// ·´ÏòÍ¶Ó°ÊÇ·´Ó¦Ö±·½Í¼Ä£ĞÍÔÚÄ¿±êÍ¼ÏñÖĞµÄ·Ö²¼Çé¿ö
-	// ¼´ÓÃÖ±·½Í¼Ä£ĞÍÔÚÄ¿±êÍ¼ÏñÖĞÑ°ÕÒÊÇ·ñÓĞÏàËÆµÄ¶ÔÏó
-	// Í¨³£ÓÃHSV¿Õ¼äÖĞµÄH¡¢SÁ½¸öÍ¨µÀÖ±·½Í¼Ä£ĞÍ
+	// åå‘æŠ•å½±æ˜¯ååº”ç›´æ–¹å›¾æ¨¡å‹åœ¨ç›®æ ‡å›¾åƒä¸­çš„åˆ†å¸ƒæƒ…å†µ
+	// å³ç”¨ç›´æ–¹å›¾æ¨¡å‹åœ¨ç›®æ ‡å›¾åƒä¸­å¯»æ‰¾æ˜¯å¦æœ‰ç›¸ä¼¼çš„å¯¹è±¡
+	// é€šå¸¸ç”¨HSVç©ºé—´ä¸­çš„Hã€Sä¸¤ä¸ªé€šé“ç›´æ–¹å›¾æ¨¡å‹
 	
-	// ¼ÓÔØÍ¼Æ¬->×ªÎªHSV->¼ÆËãÖ±·½Í¼ºÍ¹éÒ»»¯->¼ÆËã·´ÏòÍ¶Ó°Í¼Ïñ
+	// åŠ è½½å›¾ç‰‡->è½¬ä¸ºHSV->è®¡ç®—ç›´æ–¹å›¾å’Œå½’ä¸€åŒ–->è®¡ç®—åå‘æŠ•å½±å›¾åƒ
 	// 
 	
 	Mat src = imread(imgAddr + "apple.jpg"), hsv;
 	MatND dst;
 	cvtColor(src, hsv, COLOR_BGR2HSV);
 	dst.create(hsv.size(),hsv.depth());
-	const int fromTo[] = { 2,0 }; // Ê×ÔªËØÈ¡0,1,2¾ùÕıÈ·£¬µÚ¶ş¸öÔªËØÖ»ÄÜÈ¡0,Ö»ÄÜ´ÓµÚÒ»¸öÍ¨µÀ¿ªÊ¼
-	// ÊäÈëµÄ¾ØÕóµÄÄ³Ğ©Í¨µÀ²ğ·Ö¸´ÖÆ¸ø¶ÔÓ¦µÄÊä³ö¾ØÕóµÄÄ³Ğ©Í¨µÀÖĞ,ÆäÖĞµÄ¶ÔÓ¦¹ØÏµ¾ÍÓÉfromTo²ÎÊıÖ¸¶¨
+	const int fromTo[] = { 2,0 }; // é¦–å…ƒç´ å–0,1,2å‡æ­£ç¡®ï¼Œç¬¬äºŒä¸ªå…ƒç´ åªèƒ½å–0,åªèƒ½ä»ç¬¬ä¸€ä¸ªé€šé“å¼€å§‹
+	// è¾“å…¥çš„çŸ©é˜µçš„æŸäº›é€šé“æ‹†åˆ†å¤åˆ¶ç»™å¯¹åº”çš„è¾“å‡ºçŸ©é˜µçš„æŸäº›é€šé“ä¸­,å…¶ä¸­çš„å¯¹åº”å…³ç³»å°±ç”±fromToå‚æ•°æŒ‡å®š
 	//mixChannels(const Mat* src,int nsrc,Mat* dst ,int ndst,const int* fromTo,size_t npairs);
-	// src£ºÊäÈë£»nsrcs£ºÊäÈëÍ¼Ïñ¸öÊı£¬ÀàËÆµÄdstºÍndsts£»
-	//fromTo£ºµÚÒ»¸öÊäÈë¾ØÕóµÄÍ¨µÀ±ê¼Ç·¶Î§Îª£º0 ~ src[0].channels()-1
-	// µÚ¶ş¸öÊäÈë¾ØÕóµÄÍ¨µÀ±ê¼Ç·¶Î§Îª£ºsrc[0].channels() ~ src[0].channels()+src[1].channels()-1 ÒÔ´ËÀàÍÆ
-	// Êı×éfromToµÄµÚÒ»¸öÔªËØ¼´fromTo[0]Ó¦¸ÃÌîÈëÊäÈë¾ØÕóµÄÄ³¸öÍ¨µÀ±ê¼Ç
-	// fromToµÄµÚ¶ş¸öÔªËØ¼´fromTo[1]Ó¦¸ÃÌîÈëÊä³ö¾ØÕóµÄÄ³¸öÍ¨µÀ±ê¼Ç£¬ÕâÑùº¯Êı¾Í»á°ÑÊäÈë¾ØÕóµÄfromTo[0]Í¨µÀÀïÃæµÄÊı¾İ¸´ÖÆ¸øÊä³ö¾ØÕóµÄfromTo[1]Í¨µÀ
-	//×ÜÖ®¾ÍÊÇÒ»¸öÊäÈë¾ØÕóµÄÍ¨µÀ±ê¼ÇºóÃæ±ØĞë¸ú×Å¸öÊä³ö¾ØÕóµÄÍ¨µÀ±ê¼Ç
-	//npairs£º²ÎÊıfromToÖĞµÄÓĞ¼¸×éÊäÈëÊä³öÍ¨µÀ¹ØÏµ£¬ÆäÊµ¾ÍÊÇ²ÎÊıfromToµÄÊı×éÔªËØ¸öÊı³ıÒÔ2
+	// srcï¼šè¾“å…¥ï¼›nsrcsï¼šè¾“å…¥å›¾åƒä¸ªæ•°ï¼Œç±»ä¼¼çš„dstå’Œndstsï¼›
+	//fromToï¼šç¬¬ä¸€ä¸ªè¾“å…¥çŸ©é˜µçš„é€šé“æ ‡è®°èŒƒå›´ä¸ºï¼š0 ~ src[0].channels()-1
+	// ç¬¬äºŒä¸ªè¾“å…¥çŸ©é˜µçš„é€šé“æ ‡è®°èŒƒå›´ä¸ºï¼šsrc[0].channels() ~ src[0].channels()+src[1].channels()-1 ä»¥æ­¤ç±»æ¨
+	// æ•°ç»„fromToçš„ç¬¬ä¸€ä¸ªå…ƒç´ å³fromTo[0]åº”è¯¥å¡«å…¥è¾“å…¥çŸ©é˜µçš„æŸä¸ªé€šé“æ ‡è®°
+	// fromToçš„ç¬¬äºŒä¸ªå…ƒç´ å³fromTo[1]åº”è¯¥å¡«å…¥è¾“å‡ºçŸ©é˜µçš„æŸä¸ªé€šé“æ ‡è®°ï¼Œè¿™æ ·å‡½æ•°å°±ä¼šæŠŠè¾“å…¥çŸ©é˜µçš„fromTo[0]é€šé“é‡Œé¢çš„æ•°æ®å¤åˆ¶ç»™è¾“å‡ºçŸ©é˜µçš„fromTo[1]é€šé“
+	//æ€»ä¹‹å°±æ˜¯ä¸€ä¸ªè¾“å…¥çŸ©é˜µçš„é€šé“æ ‡è®°åé¢å¿…é¡»è·Ÿç€ä¸ªè¾“å‡ºçŸ©é˜µçš„é€šé“æ ‡è®°
+	//npairsï¼šå‚æ•°fromToä¸­çš„æœ‰å‡ ç»„è¾“å…¥è¾“å‡ºé€šé“å…³ç³»ï¼Œå…¶å®å°±æ˜¯å‚æ•°fromToçš„æ•°ç»„å…ƒç´ ä¸ªæ•°é™¤ä»¥2
 	size_t nsrcs=1 ,ndsts=1,npairs = 1;
-	mixChannels(&hsv, nsrcs,&dst, ndsts, fromTo, npairs); // °ÑÔ´Í¼ÏñµÄµÚ1¸öÍ¨µÀ¸´ÖÆµ½dstÉÏ
+	mixChannels(&hsv, nsrcs,&dst, ndsts, fromTo, npairs); // æŠŠæºå›¾åƒçš„ç¬¬1ä¸ªé€šé“å¤åˆ¶åˆ°dstä¸Š
 	std::cout << "dst.channels() = "<<dst.channels() <<"	dst.size() = "<< dst.size() << std::endl; // dst.channels() = 1 dst.size() = [750 x 562]
 	std::cout <<"dst.dims  = "<< dst.dims << std::endl; // dst.dims  = 2
 	float range[] = { 0,256 };
@@ -42,7 +42,7 @@ void image_histogram_reverse_projection()
 	*/
 	calcHist(&dst,nimages,&chan,Mat(),h_hist,dims, &histsize,ranges,true,false);
 	//std::cout << h_hist << std::endl;
-	normalize(h_hist,h_hist,0,255,NORM_MINMAX,-1,Mat()); // 0-255¹éÒ»»¯
+	normalize(h_hist,h_hist,0,255,NORM_MINMAX,-1,Mat()); // 0-255å½’ä¸€åŒ–
 	Mat backImage;
 	double scale = 1.0;
 	bool uniform = true;
