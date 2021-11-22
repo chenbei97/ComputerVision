@@ -30,4 +30,5 @@ void image_histogram_calculation_C1();
 void image_histogram_calculation_C3();
 void image_histogram_calculation_STL3();
 void image_histogram_comparison();
-void image_histogram_reverse_projection();
+void image_histogram_reverse_projection_single();
+void image_histogram_reverse_projection_double();
