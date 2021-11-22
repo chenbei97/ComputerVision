@@ -32,3 +32,6 @@ void image_histogram_calculation_STL3();
 void image_histogram_comparison();
 void image_histogram_reverse_projection_single();
 void image_histogram_reverse_projection_double();
+void image_contour_detection();
+void image_convex_hull();
+
