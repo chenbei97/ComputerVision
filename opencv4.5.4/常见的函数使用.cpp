@@ -211,7 +211,8 @@ void image_convertTo()
 {
 	Mat src = imread("D:/VisualStudioItems/apple.jpg", IMREAD_COLOR);
 	Mat dst;
-	src.convertTo(dst , CV_32FC3);
+	double alpha = 1.0, beta = 0.0; //尺度变换因子 和 附加到尺度变换后的值上的偏移量
+	src.convertTo(dst , CV_32FC3,alpha,beta); // rtype=-1说明和源图像数据类型一样
 	//std::cout << src << std::endl;
 	// std::cout << dst << std::endl;
 }
