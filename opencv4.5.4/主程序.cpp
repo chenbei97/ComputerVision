@@ -44,6 +44,7 @@ int main()
     image_histogram_reverse_projection_double();
     image_contour_detection();
     image_convex_hull();
+    image_rectangularand_circular_boxes();
     return 0;
 }
 /*
