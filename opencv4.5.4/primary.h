@@ -34,4 +34,4 @@ void image_histogram_reverse_projection_single();
 void image_histogram_reverse_projection_double();
 void image_contour_detection();
 void image_convex_hull();
-
+void image_rectangularand_circular_boxes();
