@@ -50,6 +50,9 @@ int main()
     image_segmentation_of_distance_transformand_watershed();
     image_feature_extraction__HarrisCorner();
     image_feature_extraction__TomasiCorner();
+    image_feature_detection_surf();
+    image_feature_detection_sift();
+    image_feature_detection_hog();
     return 0;
 }
 /*
