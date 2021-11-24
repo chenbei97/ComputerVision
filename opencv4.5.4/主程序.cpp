@@ -45,6 +45,7 @@ int main()
     image_contour_detection();
     image_convex_hull();
     image_rectangularand_circular_boxes();
+    image_geometric_central_moment();
     return 0;
 }
 /*
