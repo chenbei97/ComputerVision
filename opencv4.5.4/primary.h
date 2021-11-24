@@ -36,3 +36,6 @@ void image_contour_detection();
 void image_convex_hull();
 void image_rectangularand_circular_boxes();
 void image_geometric_central_moment();
+void image_pointer_in_polygon();
+void image_segmentation_of_distance_transformand_watershed_one();
+void image_segmentation_of_distance_transformand_watershed_two();
