@@ -48,6 +48,8 @@ int main()
     image_geometric_central_moment();
     image_pointer_in_polygon();
     image_segmentation_of_distance_transformand_watershed;
+    image_feature_extraction__HarrisCorner();
+    image_feature_extraction__TomasiCorner();
     return 0;
 }
 /*
