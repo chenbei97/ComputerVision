@@ -47,8 +47,7 @@ int main()
     image_rectangularand_circular_boxes();
     image_geometric_central_moment();
     image_pointer_in_polygon();
-    image_segmentation_of_distance_transformand_watershed_one();
-    image_segmentation_of_distance_transformand_watershed_two();
+    image_segmentation_of_distance_transformand_watershed;
     return 0;
 }
 /*
