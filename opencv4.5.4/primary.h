@@ -40,3 +40,6 @@ void image_pointer_in_polygon();
 void image_segmentation_of_distance_transformand_watershed();
 void image_feature_extraction__HarrisCorner();
 void image_feature_extraction__TomasiCorner();
+void image_feature_detection_surf();
+void image_feature_detection_sift();
+void image_feature_detection_hog();
