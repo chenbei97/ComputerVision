@@ -46,7 +46,8 @@ void image_feature_detection_hog();
 void image__feature_detection_lbp();
 void image__feature_detection_integral();
 void image__feature_detection_haar();
-void image_feature_match_surf();
+void image_feature_match_bfm_surf();
+void image_feature_match_flann_surf();
 
 
 
