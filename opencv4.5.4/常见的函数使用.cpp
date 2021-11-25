@@ -39,12 +39,14 @@ void image_functions_using(const std :: string str)
 }
 void image_inRange()
 {
-	Mat src = imread(imgAddr+"apple.jpg"),hsv,dst;
+	Mat src = imread(imgAddr+"apple.jpg"),hsv,mask,dst;
 	cvtColor(src, hsv, COLOR_BGR2HSV);
 	Vec3i lower = Vec3i(10, 10, 10);
 	Vec3i upper = Vec3i(200, 200, 200);
-	inRange(hsv,lower,upper,dst);
+	inRange(hsv,lower,upper,mask);
+	bitwise_and(src,src,dst,mask);
 	imshow("hsv",hsv);
+	imshow("mask", mask);
 	imshow("dst", dst);
 	waitKey(0);
 	destroyAllWindows();
