@@ -43,3 +43,4 @@ void image_feature_extraction__TomasiCorner();
 void image_feature_detection_surf();
 void image_feature_detection_sift();
 void image_feature_detection_hog();
+void image__feature_detection_lbp();
