@@ -61,6 +61,7 @@ int main()
     image_feature_match_akaze();
     image_feature_match_brisk();
     image_cascade_detector_face_detection();
+    image_functions_using("inRange");
     return 0;
 }
 /*
