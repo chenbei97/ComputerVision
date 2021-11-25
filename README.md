@@ -26,3 +26,4 @@
   一些学习资源、电子书等
 ## 10.opencv4.5.4
   关于opencv的初级学习文件，后续提升难度
+  学习资料参考https://www.bilibili.com/video/BV1Q54y1z7kz?p=1
