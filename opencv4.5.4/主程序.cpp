@@ -55,6 +55,8 @@ int main()
     image_feature_detection_hog();
     image__feature_detection_lbp();
     image__feature_detection_integral();
+    image__feature_detection_haar();
+    image_feature_match_surf();
     return 0;
 }
 /*
