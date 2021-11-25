@@ -60,6 +60,7 @@ int main()
     image_feature_match_flann_surf();
     image_feature_match_akaze();
     image_feature_match_brisk();
+    image_cascade_detector_face_detection();
     return 0;
 }
 /*
