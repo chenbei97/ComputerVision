@@ -2,13 +2,13 @@
 #include "vector"
 using namespace cv;
 const std::string imgAddr = "D:/VisualStudioItems/Opencv4/Opencv4/Opencv4/images/";
-// <1>bitwise系列函数
 void image_bitwise();
 void image_convertTo();
 void image_createTrackBar();
 void image_rng_uniform();
 void image_createTrackBar_callback(int, void*);
 void image_normalize();
+void image_inRange();
 void image_functions_using(const std :: string str)
 {
 	if (str == "bitwise")
@@ -31,7 +31,23 @@ void image_functions_using(const std :: string str)
 	{
 		image_normalize();
 	}
+	else if (str == "inRange")
+	{
+		image_inRange();
+	}
 
+}
+void image_inRange()
+{
+	Mat src = imread(imgAddr+"apple.jpg"),hsv,dst;
+	cvtColor(src, hsv, COLOR_BGR2HSV);
+	Vec3i lower = Vec3i(10, 10, 10);
+	Vec3i upper = Vec3i(200, 200, 200);
+	inRange(hsv,lower,upper,dst);
+	imshow("hsv",hsv);
+	imshow("dst", dst);
+	waitKey(0);
+	destroyAllWindows();
 }
 void image_normalize()
 {
