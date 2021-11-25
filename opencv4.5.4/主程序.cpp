@@ -59,6 +59,7 @@ int main()
     image_feature_match_bfm_surf();
     image_feature_match_flann_surf();
     image_feature_match_akaze();
+    image_feature_match_brisk();
     return 0;
 }
 /*
