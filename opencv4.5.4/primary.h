@@ -44,3 +44,9 @@ void image_feature_detection_surf();
 void image_feature_detection_sift();
 void image_feature_detection_hog();
 void image__feature_detection_lbp();
+void image__feature_detection_integral();
+
+
+
+
+
