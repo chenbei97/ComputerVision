@@ -48,7 +48,7 @@ void image__feature_detection_integral();
 void image__feature_detection_haar();
 void image_feature_match_bfm_surf();
 void image_feature_match_flann_surf();
-
+void image_feature_match_akaze();
 
 
 
