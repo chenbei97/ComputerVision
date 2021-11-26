@@ -14,7 +14,8 @@ int main()
 	//Study_Quote();
 	 //Study_Func_Template();
 	//Study_Class_inheritance();
-	Study_STL();
+	//Study_STL();
+	Compare_array_pointer();
 	return 0;
 }
 
