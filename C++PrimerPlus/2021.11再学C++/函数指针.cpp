@@ -5,24 +5,25 @@ void select(int n, void (*p)(int));
 void Study_Func_Pointer()
 {
 	int n;
+	cout << "please input n = " ;
 	cin >> n;
 	if (n == 1)
 	{
-		select(n, method_1);// Ê±¿Ì1Ê¹ÓÃËã·¨1
+		select(n, method_1);// æ—¶åˆ»1ä½¿ç”¨ç®—æ³•1
 	}
 	else
 	{
-		select(n, method_2);// Ê±¿Ì2Ê¹ÓÃËã·¨2
+		select(n, method_2);// æ—¶åˆ»2ä½¿ç”¨ç®—æ³•2
 	}
 
 }
 
 void select(int n, void (*p)(int))
 {
-	// double (*p)(int) ºÍ Ô­ĞÍdouble method_1(int n)ÊÇÏàËÆµÄ
-	// ËùÒÔ(*p)¶ÔÕÕ¾ÍÊÇº¯Êı,ÄÇÃ´p¾ÍÊÇº¯ÊıÖ¸Õë
-	(*p)(n); // Ö´ĞĞº¯Êı
-	p(n); // Ò²¿ÉÒÔ£¬C++ÖĞÈÏÎªº¯ÊıÖ¸ÕëpºÍ(*p)µÈ¼Û
+	// double (*p)(int) å’Œ åŸå‹double method_1(int n)æ˜¯ç›¸ä¼¼çš„
+	// æ‰€ä»¥(*p)å¯¹ç…§å°±æ˜¯å‡½æ•°,é‚£ä¹ˆpå°±æ˜¯å‡½æ•°æŒ‡é’ˆ
+	(*p)(n); // æ‰§è¡Œå‡½æ•°
+	p(n); // ä¹Ÿå¯ä»¥ï¼ŒC++ä¸­è®¤ä¸ºå‡½æ•°æŒ‡é’ˆpå’Œ(*p)ç­‰ä»·
 }
 void method_1(int n)
 {
