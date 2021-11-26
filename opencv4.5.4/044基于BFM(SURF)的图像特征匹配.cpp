@@ -1,7 +1,7 @@
 #include "primary.h"
 using namespace cv;
 #include <vector>
-void image_feature_match_surf()
+void image_feature_match_bfm_surf()
 {
 	Mat src1 = imread(imgAddr + "goal1.png");
 	Mat src2 = imread(imgAddr + "goal2.png");
