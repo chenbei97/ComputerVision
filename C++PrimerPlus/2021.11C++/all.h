@@ -3,10 +3,10 @@
 #include <cmath> // or #include <math.h>
 #include <stdlib.h>
 #include <cstring>
-#include <vector> // ¶¯Ì¬Êı×é²»¹Ì¶¨³¤¶È
+#include <vector> // åŠ¨æ€æ•°ç»„ä¸å›ºå®šé•¿åº¦
 #include <deque>
 #include <algorithm>
-#include <array> // ¶¯Ì¬Êı×é¹Ì¶¨³¤¶È
+#include <array> // åŠ¨æ€æ•°ç»„å›ºå®šé•¿åº¦
 #include <ctime>
 #include <fstream>
 #include <cctype>
@@ -26,5 +26,5 @@ void Study_Func_Pointer();
 void Study_Quote();
 void Study_Func_Template();
 void Study_Class_inheritance();
-//void Study_Exception_Handle();
 void Study_STL();
+void Compare_array_pointer();
