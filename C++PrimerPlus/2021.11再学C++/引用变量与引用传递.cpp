@@ -157,9 +157,9 @@ void Study_Quote()
 	// 实参类型不正确,但是可以转换为正确的类型,也会产生临时变量
 
 	// 引用与结构体，可以使用3种方法定义处理结构体的函数
-    Person p1;
-	//Person  Study_Quote_Struct0(Person p);
-	//Person& Study_Quote_Struct1(Person & p);
-	//Person& Study_Quote_Struct2(const Person & p);
+    
+	Person  Study_Quote_Struct0(Person p);
+	Person& Study_Quote_Struct1(Person & p);
+	Person& Study_Quote_Struct2(const Person & p);
 
 }
