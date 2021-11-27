@@ -51,4 +51,4 @@ void image_feature_match_flann_surf();
 void image_feature_match_akaze();
 void image_feature_match_brisk();
 void image_cascade_detector_face_detection();
-
+void images_show_in_single_window();
