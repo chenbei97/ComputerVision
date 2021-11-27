@@ -9,6 +9,7 @@ void image_rng_uniform();
 void image_createTrackBar_callback(int, void*);
 void image_normalize();
 void image_inRange();
+void image_rounding();
 void image_functions_using(const std :: string str)
 {
 	if (str == "bitwise")
@@ -35,7 +36,25 @@ void image_functions_using(const std :: string str)
 	{
 		image_inRange();
 	}
+	else if (str == "cvRound" || str == "cvCeil" || str == "cvFloor")
+	{
+		image_rounding();
+	}
 
+}
+void image_rounding()
+{
+	// 四舍五入、向上和向下取整
+	std::cout <<"cvRound(2.4) = "<< cvRound(2.4)
+		<< "  cvRound(2.5) = "<<cvRound(2.5)
+		<<"  cvRound(2.7)=" << cvRound(2.7)<<std::endl; // 四舍六入
+	std::cout << "cvCeil(2.4) = " << cvCeil(2.4)
+		<< "  cvCeil(2.5) = " << cvCeil(2.5)
+		<< "  cvCeil(2.7)=" << cvCeil(2.7)<<std::endl; // 向上取整
+	std::cout << "cvFloor(2.4) = " << cvFloor(2.4)
+		<< "  cvFloor(2.5) = " << cvFloor(2.5)
+		<< "  cvFloor(2.7)=" << cvFloor(2.7)<< std::endl; // 向下取整
+	
 }
 void image_inRange()
 {
