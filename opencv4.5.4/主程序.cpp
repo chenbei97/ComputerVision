@@ -14,6 +14,8 @@ int main()
     //image_mask_operation();
     //image_functions_using("bitwise");
     //image_functions_using("convertTo");
+    //image_functions_using("inRange");
+    //image_rounding();
     //image_blend();
     //image_brightnessand_contrast_adjustment();
     //image_draw_shape_text();
@@ -61,7 +63,7 @@ int main()
     image_feature_match_akaze();
     image_feature_match_brisk();
     image_cascade_detector_face_detection();
-    image_functions_using("inRange");
+    images_show_in_single_window();
     return 0;
 }
 /*
