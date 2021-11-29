@@ -28,3 +28,4 @@ void Study_Func_Template();
 void Study_Class_inheritance();
 void Study_STL();
 void Compare_array_pointer();
+void Study_allocate_release_arr2D();
