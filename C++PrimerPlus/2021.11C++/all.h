@@ -29,3 +29,5 @@ void Study_Class_inheritance();
 void Study_STL();
 void Compare_array_pointer();
 void Study_allocate_release_arr2D();
+void Study_Exception_Class();
+void recursion_accumulation_of_summationFunction();
