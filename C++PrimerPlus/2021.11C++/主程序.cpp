@@ -16,7 +16,9 @@ int main()
 	//Study_Class_inheritance();
 	//Study_STL();
 	//Compare_array_pointer();
-	Study_allocate_release_arr2D();
+	//Study_allocate_release_arr2D();
+	//Study_Exception_Class();
+	//recursion_accumulation_of_summationFunction();
 	return 0;
 }
 
