@@ -27,3 +27,4 @@
 ## 10.opencv4.5.4
   关于opencv的初级学习文件，后续提升难度
   学习资料参考https://www.bilibili.com/video/BV1Q54y1z7kz?p=1
+  参考书目《OpenCV计算机视觉开发实战》、《学习OpenCV3》
