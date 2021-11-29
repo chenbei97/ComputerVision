@@ -15,7 +15,8 @@ int main()
 	 //Study_Func_Template();
 	//Study_Class_inheritance();
 	//Study_STL();
-	Compare_array_pointer();
+	//Compare_array_pointer();
+	Study_allocate_release_arr2D();
 	return 0;
 }
 
