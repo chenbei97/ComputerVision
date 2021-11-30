@@ -12,6 +12,7 @@ void image_inRange();
 void image_rounding();
 void imagge_minMaxLoc();
 void image_rand();
+void image_rng();
 void image_functions_using(const std :: string str)
 {
 	if (str == "bitwise")
@@ -50,7 +51,48 @@ void image_functions_using(const std :: string str)
 	{
 		image_rand();
 	}
+	else if (str == "rng")
+	{
+		image_rng();
+	}
 
+}
+void image_rng()
+{
+	RNG rng(time(NULL)); // 默认使用种子-1,是伪随机数,每次都一样,time(NULL)可以生成与时间有关的随机数
+	int N1 = rng; // rng既是RNG对象也是一个随机整数
+	int N2 = rng.uniform(0, 255); // 均匀分布
+	double sigma = 3;
+	double N3 = rng.gaussian(sigma);
+
+	// 前面一次性只能获取1个随机数
+	// 可以使用next继续获得下一个数,则是因为随即生成实际上是数组
+	int N4 = rng.next();
+	int N5 = rng.operator() (); // 和next等价
+	int N6 = rng.operator()(100);// 生成[0,100)的随机数
+
+	// 返回下一个指定类型的随机数
+	double N7 = rng.operator double();
+	char N8 = rng.operator schar(); //下一个有符号字符数
+	unsigned char N9 = rng.operator uchar();// 下一个无符号字符数
+
+	std::cout << "N1 = " << N1 << "   N2 = " << N2 << "   N3 = " << N3 << std::endl;
+	std::cout << "N4 = " << N4 << "   N5 = " << N5 << "   N6 = " << N6 << std::endl;
+	std::cout << "N7 = " << N7 << "   N8 = " << N8 << "   N9 = " << N9 << std::endl;
+
+	// 随机数填充矩阵
+	// distType为UNIFORM，a、b分别为均值和方差
+	// distType为NORMAL，a、b分别为下界和上界
+	// saturateRange,NORMAL有效,为true时先将随机数的范围变换到数据类型范围然后产生随机数
+	// 否则先产生随机数再截断
+	bool saturateRange = false;
+	Mat_<int> M1(3, 3);
+	rng.fill(M1, RNG::UNIFORM, 1, 1000);// 上下界
+	std::cout << M1 << std::endl;
+
+	Mat_<double>M2(3, 3, CV_8SC3);
+	rng.fill(M2, RNG::NORMAL, 1, 3);// 均值和方差
+	std::cout << M2 << std::endl;
 }
 void image_rand()
 {
