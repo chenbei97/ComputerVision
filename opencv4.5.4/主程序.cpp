@@ -22,6 +22,8 @@ int main()
     //image_functions_using("rng_uniform");
     //image_functions_using("createTrackBar");
     //image_functions_using("normalize");
+    image_functions_using("minMaxLoc");
+    image_functions_using("rand");
     //image_blur();
     //image_corrosion_expansion();
     //image_open_close();
