@@ -69,6 +69,7 @@ int main()
     //images_show_in_single_window();
     image_matrix_head_create();
     image_matrix_ergodic();
+    image_draw_text();
     return 0;
 }
 /*
