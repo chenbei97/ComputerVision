@@ -4,32 +4,33 @@ void image_assignment_copy_clone()
 {
 	Mat src = imread("D:/VisualStudioItems/apple.jpg", IMREAD_COLOR);
 
-	Mat src_assign = src; // ¸³Öµ
-
+	Mat src_assign = src; // èµ‹å€¼
+	// cloneæ˜¯å®Œå…¨çš„æ·±æ‹·è´,å¤åˆ¶çŸ©é˜µå¤´å’Œæ•°æ®ç©ºé—´åˆ°ç”³è¯·çš„æ–°ç©ºé—´
+	// copyToæ ¹æ®dstä¸srcæ˜¯å¦ä¸€è‡´å†³å®šæ˜¯å¦ç”³è¯·å†…å­˜ç©ºé—´,å¦‚æœçŸ©é˜µå¤´å¤§å°ä¸€è‡´åˆ™åªè¿›è¡Œæ·±æ‹·è´ä¸ç”³è¯·ç©ºé—´
 	Mat src_copy;
-	src.copyTo(src_copy); // ¸´ÖÆ
+	src.copyTo(src_copy); // å¤åˆ¶
 
-	Mat src_clone = src.clone(); // ¿ËÂ¡
+	Mat src_clone = src.clone(); // å…‹éš†
 
-	// ³£ÓÃµÄ´´½¨¿Õ°×Í¼ÏñµÄ·½·¨
-	Mat img1 = Mat::zeros(src.size() , src.type()); // Ê¹ÓÃÒÑÓĞÍ¼ÏñµÄÀàĞÍ
-	Mat img2 = Mat::ones(Size(220, 220), CV_8UC3);// 8Î»ÎŞ·ûºÅÕûĞÍÈıÍ¨µÀ
+	// å¸¸ç”¨çš„åˆ›å»ºç©ºç™½å›¾åƒçš„æ–¹æ³•
+	Mat img1 = Mat::zeros(src.size() , src.type()); // ä½¿ç”¨å·²æœ‰å›¾åƒçš„ç±»å‹
+	Mat img2 = Mat::ones(Size(220, 220), CV_8UC3);// 8ä½æ— ç¬¦å·æ•´å‹ä¸‰é€šé“
 	
-	img2 = 127; // Ê¹ÓÃÕûÊı¸³Öµ
-	img2 = Scalar(10, 20, 30); // Ê¹ÓÃscalar¸³Öµ£¬ScalarÊÇÒ»¸öËÄ¸öÔªËØµÄÊı×éÀà
+	img2 = 127; // ä½¿ç”¨æ•´æ•°èµ‹å€¼
+	img2 = Scalar(10, 20, 30); // ä½¿ç”¨scalarèµ‹å€¼ï¼ŒScalaræ˜¯ä¸€ä¸ªå››ä¸ªå…ƒç´ çš„æ•°ç»„ç±»
 	
-	Scalar s1(0,255,255); // »ÆÉ«
+	Scalar s1(0,255,255); // é»„è‰²
 	std::cout << s1 << std::endl;//[0, 255, 255, 0]
-	img2 = s1; // °ÑScalarÏòÁ¿ÔÚËùÓĞÍ¨µÀÉÏµÄËùÓĞĞĞ·´¸´µÄ°´ÁĞ¸´ÖÆ
-	// std :: cout << img2 << std::endl; // ¿ÉÒÔÖ±½Ó´òÓ¡
+	img2 = s1; // æŠŠScalarå‘é‡åœ¨æ‰€æœ‰é€šé“ä¸Šçš„æ‰€æœ‰è¡Œåå¤çš„æŒ‰åˆ—å¤åˆ¶
+	// std :: cout << img2 << std::endl; // å¯ä»¥ç›´æ¥æ‰“å°
 
-	Mat img2_assign = img2; // ¸³Öµ
-	img2_assign = Scalar(255, 0, 0);//À¶É« BGR
-	imshow("img2_1",img2); // À¶É«,ËµÃ÷¸Ä±ä¸³Öµ¶ÔÏóÒ²»á¸Ä±äÈÎºÎÒıÓÃÖ¸ÏòµÄ¶ÔÏó
+	Mat img2_assign = img2; // èµ‹å€¼
+	img2_assign = Scalar(255, 0, 0);//è“è‰² BGR
+	imshow("img2_1",img2); // è“è‰²,è¯´æ˜æ”¹å˜èµ‹å€¼å¯¹è±¡ä¹Ÿä¼šæ”¹å˜ä»»ä½•å¼•ç”¨æŒ‡å‘çš„å¯¹è±¡
 
-	Mat img2_clone = img2.clone();// ¸Ä±ä¿ËÂ¡¶ÔÏó²»»á¸Ä±ä±»¿ËÂ¡¶ÔÏó
+	Mat img2_clone = img2.clone();// æ”¹å˜å…‹éš†å¯¹è±¡ä¸ä¼šæ”¹å˜è¢«å…‹éš†å¯¹è±¡
 	img2_clone = Scalar(0, 255, 0);
-	imshow("img2_clone", img2_clone);// ÂÌÉ«
-	imshow("img2_2", img2);// À¶É«,²»¸Ä±ä
+	imshow("img2_clone", img2_clone);// ç»¿è‰²
+	imshow("img2_2", img2);// è“è‰²,ä¸æ”¹å˜
 	waitKey();
 }
