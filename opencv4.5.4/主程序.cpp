@@ -71,6 +71,8 @@ int main()
     image_matrix_ergodic();
     image_draw_text();
     image_add_border();
+    image_gray_transformation();
+    image_hist_correct();
     return 0;
 }
 /*
