@@ -56,3 +56,5 @@ void image_matrix_head_create();
 void image_matrix_ergodic();
 void image_draw_text();
 void image_add_border();
+void image_gray_transformation();
+void image_hist_correct();
