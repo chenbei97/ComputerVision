@@ -55,3 +55,4 @@ void images_show_in_single_window();
 void image_matrix_head_create();
 void image_matrix_ergodic();
 void image_draw_text();
+void image_add_border();
