@@ -3,6 +3,8 @@
 using namespace cv;
 void imread_imshow()
 {
+    // 对于InputArray和OutputArray支持的类型为
+    // Mat , Mat_<T>,Mat_<T,m,n>,vector<T>,vector<vector<T>>,vector<Mat>
     Mat src = imread("D:/VisualStudioItems/apple.jpg",IMREAD_GRAYSCALE);
     if (!src.empty())
     {
