@@ -11,6 +11,7 @@ void image_normalize();
 void image_inRange();
 void image_rounding();
 void imagge_minMaxLoc();
+void image_rand();
 void image_functions_using(const std :: string str)
 {
 	if (str == "bitwise")
@@ -51,7 +52,41 @@ void image_functions_using(const std :: string str)
 	}
 
 }
+void image_rand()
+{
+	std::cout << "rand() = "<<rand() << std::endl;; // 这个不是opencv的函数
+	Mat src(Size(3,3),CV_32FC3); // 必须指定大小和类型
+	std::vector<double> means{0,1,2};
+	std::vector<double> stds{ 1,0.5,0.8 };
+	randn(src,means,stds);
+	std::vector<double> lows{ 0,1,2 };
+	std::vector<double> highs{ 1,2,3 };
+	Mat dst = src.clone();
+	randu(dst,lows,highs);
+	for (int row = 0; row < src.rows; row++)
+	{
+		const uchar* p1 = src.ptr<uchar>(row); // ptr可以使指针指向每行指针本身(行指针首元素地址),是数组指针
+		for (int col = 0; col < src.cols * src.channels(); col++)
+		{
+			std::cout << (double)p1[col] << "  ";
+		}
+		std::cout << std::endl;
+	}
+	for (int row = 0; row < dst.rows; row++)
+	{
+		const uchar* p2 = dst.ptr<uchar>(row); // ptr可以使指针指向每行指针本身(行指针首元素地址),是数组指针
+		for (int col = 0; col < dst.cols * dst.channels(); col++)
+		{
+			std::cout << (double)p2[col] << "  ";
+		}
+		std::cout << std::endl;
+	}
 
+	Mat hh = (Mat_<double>(1,9)<<1.5,2.7,3.8,5,1,3,9,15,0);
+	std::cout << "randShuffle  before = " << hh << std::endl;
+	randShuffle(hh);
+	std::cout << "randShuffle  after  = " << hh << std :: endl;
+}
 void image_minMaxLoc()
 {
 	/*
