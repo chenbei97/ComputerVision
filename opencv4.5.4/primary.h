@@ -53,3 +53,4 @@ void image_feature_match_brisk();
 void image_cascade_detector_face_detection();
 void images_show_in_single_window();
 void image_matrix_head_create();
+void image_matrix_ergodic();
