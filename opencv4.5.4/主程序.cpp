@@ -70,6 +70,7 @@ int main()
     image_matrix_head_create();
     image_matrix_ergodic();
     image_draw_text();
+    image_add_border();
     return 0;
 }
 /*
