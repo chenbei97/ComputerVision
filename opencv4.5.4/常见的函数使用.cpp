@@ -10,6 +10,7 @@ void image_createTrackBar_callback(int, void*);
 void image_normalize();
 void image_inRange();
 void image_rounding();
+void imagge_minMaxLoc();
 void image_functions_using(const std :: string str)
 {
 	if (str == "bitwise")
@@ -40,7 +41,41 @@ void image_functions_using(const std :: string str)
 	{
 		image_rounding();
 	}
+	else if (str == "minMaxLoc")
+	{
+		image_minMaxLoc();
+	}
+	else if (str == "randn" || str == "randu" || str == "randShuffle")
+	{
+		image_rand();
+	}
 
+}
+
+void image_minMaxLoc()
+{
+	/*
+	CV_EXPORTS_W void minMaxLoc(InputArray src, CV_OUT double* minVal,
+                            CV_OUT double* maxVal = 0, CV_OUT Point* minLoc = 0,
+                            CV_OUT Point* maxLoc = 0, InputArray mask = noArray());
+	*/
+	Mat src = imread(imgAddr+"lena.jpg");
+
+	// 三通道必须展平成单通道或者使用spilit,函数不能用于多通道
+	Mat dst  = src.reshape(1,1); 
+	std::cout << dst.channels() << std::endl;
+	dst.setTo(0);
+	dst.at<uchar>(400) = 255;
+	double maxVal = 0; // 最大值
+	Point maxLoc;
+	minMaxLoc(dst,NULL,&maxVal,NULL,&maxLoc,Mat());
+	dst.setTo(255);
+	dst.at<uchar>(100) = 1;
+	double minVal = 0;
+	Point minLoc;
+	minMaxLoc(dst, &minVal, NULL, &minLoc, NULL, Mat());
+	std::cout << "minVal = " << minVal << "   maxVal = " << maxVal << std::endl;
+	std::cout << "minLoc = " << minLoc << "   maxLoc = " << maxLoc << std::endl;
 }
 void image_rounding()
 {
