@@ -58,3 +58,7 @@ void image_draw_text();
 void image_add_border();
 void image_gray_transformation();
 void image_hist_correct();
+void image_differential_edge_detection();
+void image_prewitt_edge_detection();
+void image_feature_detection_log();
+void image_fixed_adaptive_threshold_segmentation();
