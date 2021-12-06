@@ -73,6 +73,10 @@ int main()
     image_add_border();
     image_gray_transformation();
     image_hist_correct();
+    image_differential_edge_detection();
+    image_prewitt_edge_detection();
+    image_feature_detection_log();
+    image_fixed_adaptive_threshold_segmentation();
     return 0;
 }
 /*
