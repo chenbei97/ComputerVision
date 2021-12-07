@@ -4,5 +4,6 @@ int main()
 {
 	//_charter2_test_and_debug();
 	_charter2_spatial_complexity();
+	_charter2_time_complexity();
 	return 0;
 }
