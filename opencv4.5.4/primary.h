@@ -63,3 +63,5 @@ void image_prewitt_edge_detection();
 void image_feature_detection_log();
 void image_fixed_adaptive_threshold_segmentation();
 void image_color_segmentation();
+void machine_learing_svm();
+void machine_learing_bayesian_classifier();
