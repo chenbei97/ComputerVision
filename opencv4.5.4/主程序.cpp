@@ -77,6 +77,7 @@ int main()
     image_prewitt_edge_detection();
     image_feature_detection_log();
     image_fixed_adaptive_threshold_segmentation();
+    image_color_segmentation();
     return 0;
 }
 /*
