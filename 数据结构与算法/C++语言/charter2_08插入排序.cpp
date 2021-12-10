@@ -26,6 +26,7 @@ void rearrange_byinsert(T a[], int n, bool show)
 template<class T>
 void insert_ordered_array1(T a[], int n, const T& x)
 {
+	// n实际会取1,2,..n-1，故内部i取的为0,1,2..n-2
 	int i=0; // 不能for循环内部定义int i = n-1会报错无法识别i
 	for (i = n - 1; i >= 0 && x < a[i]; i--) // x<a[i] i从n-1开始到0结束
 		a[i + 1] = a[i]; // 如果x<a[i]说明应当把x赋给a[i],而a[i]原有值移动到a[i+1]
@@ -34,4 +35,5 @@ void insert_ordered_array1(T a[], int n, const T& x)
 	// 取特殊情况 一开始就右插到a[i+1],那么至少比较1次不执行赋值交换
 	// 如果左插到a[1],需要从x<a[i]比较到x<a[1],也就是i次,x<a[1]比完以后还要比较一次a[0]才结束循环实际上是i+1次
 	// 故最坏情况每次大循环都依次左插到a[i+1],a[i],..a[1]要比较1,2,..,i+1次，也就是n(n+1)/2次
+	// 因为这里i只能取到n-2，所以复杂度还是n(n-1)/2
 }
