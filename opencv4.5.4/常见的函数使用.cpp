@@ -10,7 +10,7 @@ void image_createTrackBar_callback(int, void*);
 void image_normalize();
 void image_inRange();
 void image_rounding();
-void imagge_minMaxLoc();
+void image_minMaxLoc();
 void image_rand();
 void image_rng();
 void image_functions_using(const std :: string str)
