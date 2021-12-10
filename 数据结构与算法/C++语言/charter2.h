@@ -8,3 +8,4 @@ void _charter2_best_worst_average_operation_count();
 void _charter2_count_sort_situ_rearrangement();
 void _charter2_select_sort_timely_termination();
 void _charter2_bubble_sort_timely_termination();
+void _charter2_insert_sort();
