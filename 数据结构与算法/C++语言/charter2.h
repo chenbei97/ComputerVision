@@ -9,3 +9,4 @@ void _charter2_count_sort_situ_rearrangement();
 void _charter2_select_sort_timely_termination();
 void _charter2_bubble_sort_timely_termination();
 void _charter2_insert_sort();
+void _charter2_calculation_of_program_steps();
