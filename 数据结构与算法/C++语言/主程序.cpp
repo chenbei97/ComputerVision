@@ -20,5 +20,7 @@ int main()
 	array_sorting_method(a, n, selectSort, true);
 	std::cout << std::endl;
 	array_sorting_method(a, n, bubbleSort);
+        std::cout << std::endl;
+	array_sorting_method(a, n, insertSort,true);
 	return 0;
 }
