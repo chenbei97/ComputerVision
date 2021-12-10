@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
 #include <assert.h>
-enum sortMethods { countSort, selectSort, bubbleSort };
+enum sortMethods { countSort, selectSort, bubbleSort,insertSort};
 template<class T>
-void array_sorting_method(T a[], int n, int method , bool reverse = false , bool show =true); // Ä£°åº¯Êı±ØĞëÉùÃ÷ºÍÊµÏÖ¶¼ÔÚÒ»¸öÎÄ¼şÖĞ·ñÔò±¨Á´½Ó´íÎó
+void array_sorting_method(T a[], int n, int method , bool reverse = false , bool show =true); // æ¨¡æ¿å‡½æ•°å¿…é¡»å£°æ˜å’Œå®ç°éƒ½åœ¨ä¸€ä¸ªæ–‡ä»¶ä¸­å¦åˆ™æŠ¥é“¾æ¥é”™è¯¯
 
 template<class T>
 void count_sort(T a[], int n, bool reverse , bool show );
@@ -15,6 +15,9 @@ template<class T>
 void bubble_sort(T a[], int n, bool reverse, bool show);
 
 template<class T>
+void insert_sort(T a[], int n, bool reverse, bool show);
+
+template<class T>
 void array_sorting_method(T a[], int n, int method , bool reverse , bool show)
 {
 	if (method == countSort)
@@ -23,20 +26,49 @@ void array_sorting_method(T a[], int n, int method , bool reverse , bool show)
 		select_sort(a, n, reverse, show);
 	else if (method == bubbleSort)
 		bubble_sort(a, n, reverse, show);
+	else if (method == insertSort)
+		insert_sort(a, n, reverse, show);
 
+}
+template<class T>
+void insert_sort(T a[], int n, bool reverse, bool show)
+{
+	for (int i = 1; i < n; i++) // a[i]ä½œä¸ºx, ä»i=1ç›´åˆ°n-1
+	{
+		T x = a[i]; // å1ä¸ªå…ƒç´ 
+		int j = 0;
+		for (j = i - 1; j >= 0 && x < a[j]; j--) // i-1å¼€å§‹æ˜¯å‰ä¸€ä¸ªå…ƒç´ 
+			a[j+1] = a[j]; // i=1=>å¦‚æœa[1]<a[0],æŠŠa[0]æ¢åˆ°a[1]çš„ä½ç½®ä¸Šå³a[1]=a[0]
+		a[j + 1] = x;// i=1=>a[0]çš„ä½ç½®è¦æ”¾åŸæ¥çš„a[1]ä½ç½®,å› ä¸ºa[0]>a[1]è¦äº¤æ¢
+		//æ¨å¹¿=>a[i]<a[j]=a[i-1],a[i]çš„ä½ç½®åº”å½“æ”¾ç½®a[i-1]å³a[i]=a[i-1]<=>a[j+1]<a[j],ç„¶åå†æŠŠåŸæ¥a[i-1]æ”¾a[i]ï¼Œå³a[j+1]=x
+		// å¦‚æœa[i]>a[j]ä¹Ÿå°±æ— é¡»æ‰§è¡Œäº¤æ¢äº†
+		// ä¸å¯ä»¥ç”¨iå»æ§åˆ¶,iæ§åˆ¶a[i],a[i]=a[j]ä¼šå¯¼è‡´å¤–å¾ªç¯å‡ºç°é”™è¯¯
+	}
+	if (reverse)
+	{
+		for (int i = 0; i < n / 2; i++) 
+		{ //å¥‡æ•°ä¹Ÿæ²¡é—®é¢˜
+			T t = a[i];
+			a[i] = a[n - 1 - i];//n=10, a[4] = a[10-1-4]=a[5](å¶æ•°) ä¸ä¼šå–åˆ°a[5]=a[4]
+			a[n - 1 - i] = t; // n=5 a[0]=a[4],a[1]=a[2],ä¼šå–åˆ°a[2]=a[2]ä¸å½±å“ç»“æœ
+		}
+	}
+	if (show)
+		for (int i = 0; i < n; i++)
+			printf("a[%d] = %d   ", i, a[i]);
 }
 
 template<class T>
 void bubble_sort(T a[], int n, bool reverse, bool show)
 {
-	for (int i = n; i > 1; i--) // i = n,n-1,...2(¹²n-1´Î)
+	for (int i = n; i > 1; i--) // i = n,n-1,...2(å…±n-1æ¬¡)
 	{
 		if (!reverse)
 		{
-			for (int j = 0; j < i - 1; j++) // j = 0,1,..i-2=n-2 (¹²n-1´Î) a[j+1]×î´óÎªa[n-1]Ã»ÓĞÔ½½ç
+			for (int j = 0; j < i - 1; j++) // j = 0,1,..i-2=n-2 (å…±n-1æ¬¡) a[j+1]æœ€å¤§ä¸ºa[n-1]æ²¡æœ‰è¶Šç•Œ
 			{
 				//printf("i = %d   j = %d\n", i ,j);
-				if (a[j] > a[j + 1]) // Ç°Õß±ÈºóÕß´ó°ÑÇ°Õß(´óµÄ)»»µ½ºóÃæ=>ÉıĞò
+				if (a[j] > a[j + 1]) // å‰è€…æ¯”åè€…å¤§æŠŠå‰è€…(å¤§çš„)æ¢åˆ°åé¢=>å‡åº
 				{
 					T temp = a[j];
 					a[j] = a[j + 1];
@@ -45,15 +77,15 @@ void bubble_sort(T a[], int n, bool reverse, bool show)
 			}
 			if (show)
 			{
-				for (int i = 0; i < n; i++) // Õ¹Ê¾Ò»´ÎÃ°ÅİµÄ¹ı³Ì
+				for (int i = 0; i < n; i++) // å±•ç¤ºä¸€æ¬¡å†’æ³¡çš„è¿‡ç¨‹
 					std::cout << "a[" << i << "] = " << a[i] << "   ";
 				std::cout << std::endl;
 			}
 		}
 		else 
-		{ // ±È½ÏÏàÁÚÔªËØÊ±¿ÉÒÔ°ÑĞ¡µÄ»»µ½ºóÃæÊµÏÖ½µĞò²»±ØÏñÑ¡ÔñÅÅĞòÄÇÑùÂé·³
-			for (int j = 1; j < i;j++)  // jÈ¡1,2,3,..n-1,j-1È¡0,1,2..,n-2
-				if (a[j - 1] < a[j]) // Ç°Õß±ÈºóÕßĞ¡°ÑºóÕß(´óµÄ)»»µ½Ç°±ß=>½µĞò
+		{ // æ¯”è¾ƒç›¸é‚»å…ƒç´ æ—¶å¯ä»¥æŠŠå°çš„æ¢åˆ°åé¢å®ç°é™åºä¸å¿…åƒé€‰æ‹©æ’åºé‚£æ ·éº»çƒ¦
+			for (int j = 1; j < i;j++)  // jå–1,2,3,..n-1,j-1å–0,1,2..,n-2
+				if (a[j - 1] < a[j]) // å‰è€…æ¯”åè€…å°æŠŠåè€…(å¤§çš„)æ¢åˆ°å‰è¾¹=>é™åº
 				{
 					T temp = a[j-1];
 					a[j-1] = a[j];
@@ -61,7 +93,7 @@ void bubble_sort(T a[], int n, bool reverse, bool show)
 				}
 			if (show)
 			{
-				for (int i = 0; i < n; i++) // Õ¹Ê¾Ò»´ÎÃ°ÅİµÄ¹ı³Ì
+				for (int i = 0; i < n; i++) // å±•ç¤ºä¸€æ¬¡å†’æ³¡çš„è¿‡ç¨‹
 					std::cout << "a[" << i << "] = " << a[i] << "   ";
 				std::cout << std::endl;
 			}
@@ -72,23 +104,23 @@ void bubble_sort(T a[], int n, bool reverse, bool show)
 template<class T>
 void select_sort(T a[], int n, bool reverse , bool show )
 {
-	// ÉıĞò£ºÒÀ´ÎÔÚÇø¼ä[0,n-1],[0,n-2],...[0,1]Ñ°ÕÒ×î´óÖµË÷Òı,È»ºó°Ñ×î´óÖµ·ÅÔÚÄ©Î²
-	// ½µĞò£ºÒÀ´ÎÔÚÇø¼ä[0,n-1],[1,n-1],[2,n-1],...[n-2,n-1]Ñ°ÕÒ×î´óÖµË÷Òı, È»ºó°Ñ×î´óÖµ·ÅÔÚ¿ªÍ·jµÄÎ»ÖÃ
-	// ÉıĞòÊ±jµÄÇø¼äÊÇ[1,2],[1,3],[1,4],...,[1,i](i=n-1½áÊø) ÁîmaxLoc=0,´Ó1¿ªÊ¼ÊÇÎªÁËÉÙ±ÈÒ»´Î , j ¡Ün-1ËùÒÔj<=i or j < i+1
-	// ½µĞòÊ±jµÄÇø¼äÊÇ[i-1,n-2],...,[n-4,n-2],[n-3.n-2](i=1¿ªÊ¼) ÁîmaxLoc=n-1,µ½n-2½áÊøÊÇÎªÁËÉÙ±ÈÒ»´Î, j<=n-2 or j <n-1
-	// ½µĞòĞ´ÔÚÒ»¸öÑ­»·Àï,i´Ón-1,n-2,...,1±ä»¯j´Ó0,2..n-2±ä»¯,¹ØÏµÂú×ãi+j=n-1,ËùÒÔj=n-1-i¿ªÊ¼ ¿ªÊ¼µÄÎ»ÖÃ¾ÍÊÇ×î´óÖµ´æ·ÅµÄÎ»ÖÃ
+	// å‡åºï¼šä¾æ¬¡åœ¨åŒºé—´[0,n-1],[0,n-2],...[0,1]å¯»æ‰¾æœ€å¤§å€¼ç´¢å¼•,ç„¶åæŠŠæœ€å¤§å€¼æ”¾åœ¨æœ«å°¾
+	// é™åºï¼šä¾æ¬¡åœ¨åŒºé—´[0,n-1],[1,n-1],[2,n-1],...[n-2,n-1]å¯»æ‰¾æœ€å¤§å€¼ç´¢å¼•, ç„¶åæŠŠæœ€å¤§å€¼æ”¾åœ¨å¼€å¤´jçš„ä½ç½®
+	// å‡åºæ—¶jçš„åŒºé—´æ˜¯[1,2],[1,3],[1,4],...,[1,i](i=n-1ç»“æŸ) ä»¤maxLoc=0,ä»1å¼€å§‹æ˜¯ä¸ºäº†å°‘æ¯”ä¸€æ¬¡ , j â‰¤n-1æ‰€ä»¥j<=i or j < i+1
+	// é™åºæ—¶jçš„åŒºé—´æ˜¯[i-1,n-2],...,[n-4,n-2],[n-3.n-2](i=1å¼€å§‹) ä»¤maxLoc=n-1,åˆ°n-2ç»“æŸæ˜¯ä¸ºäº†å°‘æ¯”ä¸€æ¬¡, j<=n-2 or j <n-1
+	// é™åºå†™åœ¨ä¸€ä¸ªå¾ªç¯é‡Œ,iä»n-1,n-2,...,1å˜åŒ–jä»0,2..n-2å˜åŒ–,å…³ç³»æ»¡è¶³i+j=n-1,æ‰€ä»¥j=n-1-iå¼€å§‹ å¼€å§‹çš„ä½ç½®å°±æ˜¯æœ€å¤§å€¼å­˜æ”¾çš„ä½ç½®
 	
-	for (int i = n-1; i > 0; i--) //   i´ÓÎ»ÖÃn-1¿ªÊ¼ , ¿ÉÒÔÈ¡µ½1
+	for (int i = n-1; i > 0; i--) //   iä»ä½ç½®n-1å¼€å§‹ , å¯ä»¥å–åˆ°1
 	{
 		int maxLoc ; 
 		T temp;
 		if (!reverse)
 		{
-			maxLoc = 0;// ÏÈ½«µÚÒ»¸öÔªËØÈÏÎªÊÇ×î´óÖµµÄË÷Òı
-			// iÈ¡n-1Ê±jÒªÈ¡µÈºÅ·ÀÖ¹jÈ¡²»µ½£¬jÒª´Ó1¿ªÊ¼¿ÉÒÔÉÙÒ»´Îa[0]ºÍa[0]±È½Ï
-			for (int j = 1; j <i+1; j++) // ÒòÎª j <=n-1 , ¹Êj <=i or j<i+1
+			maxLoc = 0;// å…ˆå°†ç¬¬ä¸€ä¸ªå…ƒç´ è®¤ä¸ºæ˜¯æœ€å¤§å€¼çš„ç´¢å¼•
+			// iå–n-1æ—¶jè¦å–ç­‰å·é˜²æ­¢jå–ä¸åˆ°ï¼Œjè¦ä»1å¼€å§‹å¯ä»¥å°‘ä¸€æ¬¡a[0]å’Œa[0]æ¯”è¾ƒ
+			for (int j = 1; j <i+1; j++) // å› ä¸º j <=n-1 , æ•…j <=i or j<i+1
 			{
-				if (a[j] > a[maxLoc]) // j <= n- 1±£Ö¤²»Ô½½ç
+				if (a[j] > a[maxLoc]) // j <= n- 1ä¿è¯ä¸è¶Šç•Œ
 					maxLoc = j;
 			}
 			temp = a[i]; 
@@ -105,13 +137,13 @@ void select_sort(T a[], int n, bool reverse , bool show )
 		{
 			// [0, n - 1] , [1, n - 1], [2, n - 1], ...[n - 2, n - 1] j = 0,1,2,...n-2
 			maxLoc = n - 1;
-			// ÒªÇój´Ón-1-i¿ªÊ¼Ö±µ½n-2£¬Ã¿¸öĞ¡Êı×é¶¼ÈÏÎªn-1ÊÇ×î´óµÄÈ»ºó½øĞĞ±È½Ï
-			for (int j = n-1-i ; j < n-1; j++) // j<=n-2 or j <n-1 i=1Ê±j=n-2
+			// è¦æ±‚jä»n-1-iå¼€å§‹ç›´åˆ°n-2ï¼Œæ¯ä¸ªå°æ•°ç»„éƒ½è®¤ä¸ºn-1æ˜¯æœ€å¤§çš„ç„¶åè¿›è¡Œæ¯”è¾ƒ
+			for (int j = n-1-i ; j < n-1; j++) // j<=n-2 or j <n-1 i=1æ—¶j=n-2
 			{
 				if (a[j] > a[maxLoc])  // 
-					maxLoc = j; // j¿ÉÈ¡µ½1~n-1
+					maxLoc = j; // jå¯å–åˆ°1~n-1
 			}
-			temp = a[n-1-i]; // Ã¿´ÎiÑ­»·¿ªÍ·Î»ÖÃÓ¦µ±ÊÇjµÄÎ»ÖÃÒ²¾ÍÊÇn-1-i
+			temp = a[n-1-i]; // æ¯æ¬¡iå¾ªç¯å¼€å¤´ä½ç½®åº”å½“æ˜¯jçš„ä½ç½®ä¹Ÿå°±æ˜¯n-1-i
 			a[n - 1 - i] = a[maxLoc];
 			a[maxLoc] = temp;
 			if (show)
@@ -129,9 +161,9 @@ template<class T>
 void count_sort(T a[], int n, bool reverse, bool show)
 {
 	int count = 0;
-	T* rank = new T[n]; // rankÓÃÓÚµÃµ½Ãû´Î
+	T* rank = new T[n]; // rankç”¨äºå¾—åˆ°åæ¬¡
 	for (int i = 0; i < n; i++)
-		rank[i] = 0; // Ãû´ÎÏÈÈ«²¿³õÊ¼»¯Îª0
+		rank[i] = 0; // åæ¬¡å…ˆå…¨éƒ¨åˆå§‹åŒ–ä¸º0
 	for (int i = 1; i < n; i++)
 		for (int j = 0; j < i; j++)
 		{
@@ -140,13 +172,13 @@ void count_sort(T a[], int n, bool reverse, bool show)
 			else rank[j]++;
 		}
 	assert(count == n * (n - 1) / 2);
-	T* temp = new T[n]; // tempÓÃÓÚ´æ·ÅÅÅĞòºóµÄÊı×é
+	T* temp = new T[n]; // tempç”¨äºå­˜æ”¾æ’åºåçš„æ•°ç»„
 	for (int i = 0; i < n; i++)
 	{
-		temp[rank[i]] = a[i]; // rank[i]ÊÇa[i]±»ÒÆ¶¯µÄĞÂÎ»ÖÃ
+		temp[rank[i]] = a[i]; // rank[i]æ˜¯a[i]è¢«ç§»åŠ¨çš„æ–°ä½ç½®
 	}
 	
-	if (!reverse) // reverse=false±íÊ¾ÉıĞò ´ÓĞ¡µ½´ó
+	if (!reverse) // reverse=falseè¡¨ç¤ºå‡åº ä»å°åˆ°å¤§
 	{
 		if (show)
 		{
@@ -154,10 +186,10 @@ void count_sort(T a[], int n, bool reverse, bool show)
 				std::cout << "before =>  a[" << i << "] = " << a[i] << "   new index = " << rank[i] << "   after =>  temp[" << rank[i] << "] = a["<<i<<"] = " << temp[rank[i]] << std::endl;
 		}
 		for (int i = 0; i < n; i++)
-			a[i] = temp[i]; // °ÑÕâÑùµÄË³Ğò·Å»ØÔ­À´µÄa
+			a[i] = temp[i]; // æŠŠè¿™æ ·çš„é¡ºåºæ”¾å›åŸæ¥çš„a
 	}
 	else
-	{ // ½µĞò
+	{ // é™åº
 		if (show)
 		{
 			for (int i = 0; i < n; i++)
