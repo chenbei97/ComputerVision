@@ -22,9 +22,9 @@ int main()
     //image_functions_using("rng_uniform");
     //image_functions_using("createTrackBar");
     //image_functions_using("normalize");
-    image_functions_using("minMaxLoc");
-    image_functions_using("rand");
-    image_functions_using("rng");
+    //image_functions_using("minMaxLoc");
+    //image_functions_using("rand");
+    //image_functions_using("rng");
     //image_blur();
     //image_corrosion_expansion();
     //image_open_close();
@@ -67,17 +67,17 @@ int main()
     //image_feature_match_brisk();
     //image_cascade_detector_face_detection();
     //images_show_in_single_window();
-    image_matrix_head_create();
-    image_matrix_ergodic();
-    image_draw_text();
-    image_add_border();
-    image_gray_transformation();
-    image_hist_correct();
-    image_differential_edge_detection();
-    image_prewitt_edge_detection();
-    image_feature_detection_log();
-    image_fixed_adaptive_threshold_segmentation();
-    image_color_segmentation();
+    //image_matrix_head_create();
+    //image_matrix_ergodic();
+    //image_draw_text();
+    //image_add_border();
+    //image_gray_transformation();
+    //image_hist_correct();
+    //image_differential_edge_detection();
+    //image_prewitt_edge_detection();
+    //image_feature_detection_log();
+    //image_fixed_adaptive_threshold_segmentation();
+    //image_color_segmentation();
     return 0;
 }
 /*
