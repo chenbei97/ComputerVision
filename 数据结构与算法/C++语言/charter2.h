@@ -10,3 +10,5 @@ void _charter2_select_sort_timely_termination();
 void _charter2_bubble_sort_timely_termination();
 void _charter2_insert_sort();
 void _charter2_calculation_of_program_steps();
+void _charter2_analytic_method_steps();
+void _charter2_analytic_best_worst_mean_steps();
