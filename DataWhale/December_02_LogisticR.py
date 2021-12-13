@@ -213,7 +213,7 @@ X ,y = data[0],data[1]
 LR = myLogisticR(X,y,train_size=0.7,init_method="gauss",lr=0.1,max_iter=10000,mean=0,std=1)
 # X_train, X_test, y_train, y_test = LR.generate_data(X,y) # 测试类方法是否能够使用
 LR.fit() # train score =  0.7871428571428571
-LR.predict() # test score =  0.82
+LR.predict() # test score =  0.81
 LR.plot_loss_score()
 #%%
 # (2.2)调参：train_size
@@ -221,13 +221,14 @@ for train_size in [0.5,0.6,0.7,0.8,0.85,0.9,0.95]:
     LR = myLogisticR(X,y,train_size=train_size,mean=0,std=1)
     LR.fit()
     LR.predict()
-# train score =  0.784 test score =  0.814 => 测试训练集比例0.5时的得分
-# train score =  0.7883333333333333  test score =  0.8 => 准确率下降,猜测训练集占比不够,因为0.7时提升
-# train score =  0.7871428571428571 test score =  0.82 => 准确率提升
-# train score =  0.7875  test score =  0.84 => 准确率下降，过拟合原因
-# train score =  0.7894117647058824 test score =  0.8333333333333334 => 准确率继续下降，过拟合原因
-# train score =  0.7911111111111111 test score =  0.81 => 准确率继续下降，过拟合原因
-# train score =  0.791578947368421 test score =  0.84 => 准确率提升只是因为测试集的数量过少导致
+# 从结果综合来看train_size = 0.8时较好
+# train_size = 0.5 train score =  0.784 test score =  0.726 => 测试训练集比例0.5时的得分
+# train_size = 0.6 train score =  0.7883333333333333  test score =  0.7775 => 准确率提升
+# train_size = 0.7 train score =  0.7871428571428571 test score =  0.81 => 准确率提升
+# train_size = 0.8 train score =  0.7875  test score =  0.84 => 准确率提升
+# train_size = 0.85 train score =  0.7894117647058824 test score =  0.84 => 准确率不变，临界点过拟合
+# train_size = 0.9 train score =  0.7911111111111111 test score =  0.82 => 准确率下降，过拟合原因
+# train_size = 0.95 train score =  0.791578947368421 test score =  0.84 => 准确率提升只是因为测试集的数量过少导致
 
 #（2.3）调参：init_method = uniform
 for train_size in [0.5,0.6,0.7,0.8,0.85,0.9,0.95]:
@@ -237,33 +238,33 @@ for train_size in [0.5,0.6,0.7,0.8,0.85,0.9,0.95]:
 # 从结果来看权重选择均匀初始化还是高斯初始化没有区别,完全一样
 #（2.4）调参：max_iter
 for epoch in [3000,5000,10000,15000,18000,20000]:
-    LR = myLogisticR(X,y,train_size=0.7,a=0,b=1,init_method="uniform",max_iter=epoch)
+    LR = myLogisticR(X,y,train_size=0.8,a=0,b=1,init_method="uniform",max_iter=epoch)
     LR.fit()
     LR.predict()
-# 从结果来看大致超过迭代次数15000就不会再有提升了
-# train score =  0.7771428571428571 test score =  0.8133333333333334
-# train score =  0.7814285714285715 test score =  0.8166666666666667
-# train score =  0.7871428571428571 test score =  0.8166666666666667
-# train score =  0.7885714285714286 test score =  0.82
-# train score =  0.7885714285714286 test score =  0.82
-# train score =  0.7885714285714286 test score =  0.82
+# 从结果来看大致超过迭代次数10000就不会再有提升了
+# epoch = 3000 train score =  0.77625 test score =  0.835
+# epoch = 5000 train score =  0.78125 test score =  0.825
+# epoch = 10000 train score =  0.7875 test score =  0.84
+# epoch = 15000 train score =  0.78625 test score =  0.84
+# epoch = 18000 train score =  0.78625 test score =  0.84
+# epoch = 20000 train score =  0.78625 test score =  0.84
 #（2.5）调参：lr
 for lr in [1.0,0.8,0.5,0.1,0.05,0.01,0.005,0.001,0.0001]:
-    LR = myLogisticR(X,y,train_size=0.7,a=0,b=1,init_method="uniform",max_iter=15000,lr=lr)
+    LR = myLogisticR(X,y,train_size=0.8,a=0,b=1,init_method="uniform",max_iter=10000,lr=lr)
     LR.fit()
     # LR.predict()
 # 从结果来看高于0.1再大也不会提升,低于0.1反而变差
 # max_iter和lr应当是动态的，lr很小要求max_iter大才可
-# 所以正确的结论是在最大迭代次数为15000的时候lr=0.1时是最高的
-# train score =  0.7885714285714286
-# train score =  0.7885714285714286
-# train score =  0.7885714285714286
-# train score =  0.7885714285714286
-# train score =  0.7857142857142857
-# train score =  0.7542857142857143
-# train score =  0.7185714285714285
-# train score =  0.5071428571428571
-# train score =  0.5142857142857142
+# 所以正确的结论是在最大迭代次数为10000的时候lr=0.1时是最高的
+# lr = 1.0 train score =  0.785
+# lr = 0.8 train score =  0.785
+# lr = 0.5 train score =  0.785
+# lr = 0.1 train score =  0.7875
+# lr = 0.05 train score =  0.78125
+# lr = 0.01 train score =  0.735
+# lr = 0.005 train score =  0.68375
+# lr = 0.001 train score =  0.5
+# lr = 0.0001 train score =  0.5025
 
 
 
