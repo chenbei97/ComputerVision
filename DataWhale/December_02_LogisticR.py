@@ -66,7 +66,7 @@ for solver in solvers:
     print("test_score = %.3f" % (compare_param(train_size=0.9,solver=solver,idx=1)))
 #%% (2)numpy自定义实现
 class myLogisticR():
-    def __init__(self,X,y,train_size=0.7,lr=0.1,max_iter=10000,eps=1e-8,
+    def __init__(self,X,y,train_size=0.7,lr=0.1,max_iter=10000,eps=1e-8,norm=True,
                  random_state=0,init_method="gauss",mean=None,std=None,a=None,b=None):
         """
         :param X: [Array]要求是样本数×特征数的矩阵格式,如本例使用的数据X,y为[1000,2]和(1000,)
@@ -74,13 +74,14 @@ class myLogisticR():
         :param train_size: 训练集比例，默认0.7
         :param lr: 学习率，默认0.1
         :param max_iter: 最大迭代次数，默认10000，满足eps条件就会提前终止迭代
-        :param eps: 最小容许误差，，默认1e-8，表示更新梯度前后输入与输出的损失loss变化＜eps时停止迭代
+        :param eps: 最小容许误差，默认1e-8，表示更新梯度前后输入与输出的损失loss变化＜eps时停止迭代
+        :param norm: 是否对数据归一化，默认为True
         :param random_state: 随机种子，保证结果复现
         :param init_method: 初始化权重weight的方法，{"uniform","gauss"},均匀初始化或者高斯初始化
         :param mean: init_method = "gauss"时必须给定均值
         :param std: init_method = "gauss"时必须给定方差
         :param a: init_method = "uniform"时必须给定上界a
-        :param b: init_method = "uniform"时必须给定下界a
+        :param b: init_method = "uniform"时必须给定下界b
         :param history：用于记录训练过程时每个周期的损失和得分
         """
         self.X = X
@@ -123,7 +124,7 @@ class myLogisticR():
             for i in range(X_train.shape[1]):
                 X_train[:,i] = self.normalize(X_train[:,i])# 每列进行归一化,1列对应多个行样本
             for i in range(X_test.shape[1]):
-                X_train[:, i] = self.normalize(X_train[:, i])  # 每列进行归一化,1列对应多个行样本
+                X_test[:, i] = self.normalize(X_test[:, i])  # 每列进行归一化,1列对应多个行样本
         return X_train, X_test, y_train, y_test
 
     def init_weight_bias(self):
@@ -176,7 +177,7 @@ class myLogisticR():
 
     def fit(self):
         # 1)生成训练、测试数据
-        self.X_train, self.X_test, self.y_train, self.y_test = self.generate_data(X, y, self.train_size,self.random_state)
+        self.X_train, self.X_test, self.y_train, self.y_test = self.generate_data(X, y, self.train_size,self.random_state,self.norm)
         # 2)初始化weight、bias以及bias和X_train拼接后的Xb_train
         self.init_weight_bias()
         # print(self.weight.shape,self.bias.shape,self.Xb_train.shape) # (3,) (700, 1) (700, 3)
