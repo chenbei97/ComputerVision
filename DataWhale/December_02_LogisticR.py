@@ -121,8 +121,8 @@ class myLogisticR():
     def generate_data(self,X,y,train_size=0.7,random_state=0,norm=True):
         X_train, X_test, y_train, y_test = train_test_split(X, y,shuffle=True,random_state=random_state, train_size=train_size)
         if norm :
-            for i in range(X_train.shape[1]):
-                X_train[:,i] = self.normalize(X_train[:,i])# 每列进行归一化,1列对应多个行样本
+            for i in range(X_train.shape[1]):# 一般来说是对不同的特征即列与列之间(1行)归一化
+                X_train[:,i] = self.normalize(X_train[:,i])# 但这里只有2列特征所以对同一特征的不同样本归一化也就是对每列归一化
             for i in range(X_test.shape[1]):
                 X_test[:, i] = self.normalize(X_test[:, i])  # 每列进行归一化,1列对应多个行样本
         return X_train, X_test, y_train, y_test
