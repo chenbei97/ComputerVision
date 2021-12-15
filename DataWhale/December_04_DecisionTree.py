@@ -129,12 +129,12 @@ train_X,train_y = iris_X[0:int(train_size*len(iris_y))], iris_y[0:int(train_size
 test_X,test_y = iris_X[int(train_size*len(iris_y)):],iris_y[int(train_size*len(iris_y)):]
 model = DecisionTreeClassifier(random_state=random_state,criterion="entropy")
 model.fit(train_X,train_y)
-print(model.score(test_X,test_y)) # 0.43333333333333335
+print(model.score(test_X,test_y)) # 0.37777777777777777
 # 和svm比较一下
 from sklearn.svm import SVC
 svm = SVC()
 svm.fit(train_X,train_y)
-print(svm.score(test_X,test_y)) # 0.3
+print(svm.score(test_X,test_y)) # 0.3111111111111111
 
 
 
