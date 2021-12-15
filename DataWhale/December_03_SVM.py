@@ -126,7 +126,7 @@ n_multiple = len(y_train)/ count # 不平衡倍数
 model = svm.SVC(kernel="rbf",class_weight={0:1,1:n_multiple},random_state=random_state)
 model.fit(X_train,y_train)
 y_pred = model.fit(X_test, y_test)
-print(f"score={model.score(X_test, y_test)}")
+print(f"score={model.score(X_test, y_test)}") # score=0.9981481481481481
 # (2.2)将类别0和1的数据集单独抽取出来(平衡数据集)
 XT = np.c_[X_norm,y.reshape(-1,1)]
 X0,X1,y0,y1 = [],[],[],[]
@@ -149,9 +149,8 @@ print(f"score={model.score(X_test, y_test)}") # 1.0
 model = svm.SVC(kernel="linear",random_state=random_state) # rbf
 X_train,X_test,y_train,y_test = train_test_split(X_norm,y,shuffle=True,random_state=random_state,train_size=train_size)
 model.fit(X_train,y_train)
-print(f"score={model.score(X_test, y_test)}") # rbf：score=0.9685185185185186 linear：score=0.9703703703703703
+print(f"score={model.score(X_test, y_test)}")  # rbf：score=0.9685185185185186 linear：score=0.9814814814814815
 #%(2.4)综合搜索最佳参数
-#%%
 from sklearn.model_selection import GridSearchCV
 params = [
         {'kernel': ['linear'], 'C': [x for x in np.linspace(0.01,1,15)]},
@@ -173,11 +172,10 @@ model = GridSearchCV(svm.SVC(probability=True),
                         refit=True,
                         return_train_score=True,
                         cv=5)
-#%%
 import time
 t = time.time()
 model.fit(X_train, y_train) # 8分类问题
-print("cost time = ",time.time()-t)
+print("cost time = ",time.time()-t," s")
 # GridSearchCV的属性
 print('Attrabutes:vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
 print('cv_results_:',model.cv_results_.keys())
@@ -189,4 +187,14 @@ print('best_params_:', model.cv_results_['params'][model.best_index_])
 print('best_score_:',model.best_score_)
 print('scorer_:',model.scorer_)
 print('n_splits_:',model.n_splits_)
-#%%
+# cost time =  1122.267213344574 s
+# Attrabutes:vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+# cv_results_: dict_keys(['mean_fit_time', 'std_fit_time', 'mean_score_time', 'std_score_time', 'param_C', 'param_kernel', 'param_degree', 'param_gamma', 'params', 'split0_test_score', 'split1_test_score', 'split2_test_score', 'split3_test_score', 'split4_test_score', 'mean_test_score', 'std_test_score', 'rank_test_score', 'split0_train_score', 'split1_train_score', 'split2_train_score', 'split3_train_score', 'split4_train_score', 'mean_train_score', 'std_train_score'])
+# Desc: {'C': 0.15142857142857144, 'kernel': 'linear'} 0.9978121321820324 0.9777247414478918 7
+# best_estimator_: SVC(C=0.08071428571428571, kernel='linear', probability=True)
+# best_params_: {'C': 0.08071428571428571, 'kernel': 'linear'}
+# best_params_: {'C': 0.08071428571428571, 'kernel': 'linear'}
+# best_score_: 0.9840891010342084
+# scorer_: make_scorer(accuracy_score)
+# n_splits_: 5
+
