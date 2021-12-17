@@ -621,8 +621,9 @@ model.plot_vote_result(gap=0.5) # k=3时取gap=0.5比较合适
 from sklearn.neighbors import  KNeighborsClassifier
 from time import time
 clf = KNeighborsClassifier(n_neighbors=3)
-t1 = time()
 clf.fit(X_train,y_train)
+t1 = time()
+test_score = clf.score(X_test,y_test)
 t2 = time()
-print("test score = ",clf.score(X_test,y_test))
-print("cost time = ",t2-t1)
+print("test score = ",test_score)# 0.9745
+print("cost time = ",t2-t1," s")
