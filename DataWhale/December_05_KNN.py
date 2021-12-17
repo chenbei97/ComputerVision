@@ -616,3 +616,12 @@ print("test score = ", model.score(y_test, y_pred))
 model.plot_vote_result(gap=0.5) # k=3时取gap=0.5比较合适
 # cost time = 4038.709842443466 s
 # test score =  0.9751
+#%%<3>使用sklearn的KNN实现
+from sklearn.neighbors import  KNeighborsClassifier
+from time import time
+clf = KNeighborsClassifier(n_neighbors=3)
+t1 = time()
+clf.fit(X_train,y_train)
+t2 = time()
+print("test score = ",clf.score(X_test,y_test))
+print("cost time = ",t2-t1)
