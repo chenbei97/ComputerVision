@@ -286,6 +286,7 @@ class myKnn:
                             为了计算置信度,可以对所有预测为0类的样本里统计支持0类的实际投票数之和,再除总的投票数(每次是K=100票,总票数为K*预测为0类的样本数),就可以得到平均置信度
             ⑤ avarage_confidence : 平均置信度,是长度为类别数的向量
             ⑥ y_pred : 预测的结果,长度与y_test相同
+            ⑦ X_train,y_train,X_test,y_test : 传入的训练测试集数据和标签,要求数据必须是2或3维的(如果是3维会在__process中处理为2维),标签是向量1维
         method :
             ① fit : 拟合函数
             ② predict : 预测函数
@@ -312,17 +313,17 @@ class myKnn:
         self.vote_result = None
         self.avarage_confidence = None
         self.y_pred = None
+        self.X_train = None
+        self.y_train = None
+        self.X_test =None
+        self.y_test = None
 
     def fit(self,X_train,y_train):
         self.__isfit = True
-        self.X_train = X_train
-        self.y_train = y_train
-        self.__process(X_train,y_train)
+        self.X_train ,self.y_train = self.__process(X_train,y_train)
 
     def predict(self,X_test,y_test):
-        self.X_test = X_test
-        self.y_test = y_test
-        self.__process(self.X_test, self.y_test)
+        self.X_test,self.y_test = self.__process(X_test, y_test)
         print("start calculating dist matrix ...")
         self.__calculate_dist()
         print(f"compute finished, cost time = {self.cost_time} s")
@@ -580,7 +581,7 @@ train_num = 10000  # 因为一次性训练时间过长,所以选择有10000个�
 test_num = 1000 # 测试样本同理,原本的train_num=60000,test_num=10000
 TX_train,Ty_train = X_train[:train_num],y_train[:train_num] # 临时数据集
 TX_test,Ty_test = X_test[:test_num],y_test[:test_num]# 临时数据集
-#%%(1) 默认参数:不归一化比较L1和L2距离
+#%%(1) 默认参数:不归一化比较L1和L2距离(不归一化其实和范围归一化到0-255相同)
 for dist in ["L1","L2"]:
     model = myKnn(dist=dist)
     print(model)
@@ -594,27 +595,28 @@ for norm_range in [(-1,1),(0,1)]:
     model.fit(TX_train,Ty_train)
     y_pred = model.predict(TX_test,Ty_test) #
     print("test score = ",model.score(Ty_test,y_pred))
-# (-1,1)= 0.883,(0,1)=0.883 norm=False时本质上就是归一化到(0,255)也是0.883,所以似乎这里范围归一化没有效果
+#  (-1,1)= 0.862,(0,1)=0.862 norm=False时本质上就是归一化到(0,255)也是0.883,从结果来看图片数据进行范围归一化反而下降
 #%% (3)再来看看正态标准化：使用zScore,不使用minMax
 model = myKnn(norm=True, norm_mode="zScore")
 model.fit(TX_train, Ty_train)
 y_pred = model.predict(TX_test, Ty_test)
-print("test score = ", model.score(Ty_test, y_pred))  # test score =  0.883 不变
+print("test score = ", model.score(Ty_test, y_pred))  # test score =  0.883 
 model.plot_vote_result(gap=10) # 调整Y轴刻度,单位长度为10,由于Y轴最大为K=100,注意K与gap的比例协调关系
+# 从结果来看 数据集似乎更符合正态分布,与不归一化的效果相同都是0.883
 #%% (4)最后1个比较的是超参数k
-# 鉴于以上的讨论,norm_mode不影响结果,所以固定norm=True,norm_mode="minMax",norm_range=(0,1)
-for k in [5,10,20,50,200]:
+# 鉴于以上的讨论,norm_mode="zScore"更好,使用"L2"距离
+for k in [3,5,10,20,50,200]:
     model = myKnn(k=k,norm=True)
     model.fit(TX_train, Ty_train)
     y_pred = model.predict(TX_test, Ty_test)
     print("test score = ", model.score(Ty_test, y_pred))
-# 0.937,0.933,0.931,0.908,0.851
-#%% (5)最后使用完整的数据集而不是临时数据集计算花费的时间和准确率，根据上述结果进一步确定k=3
-model = myKnn(k=3,norm=True)
+# 0.934,0.937,0.933,0.931,0.908,0.851
+#%% (5)最后使用完整的数据集而不是临时数据集计算花费的时间和准确率，根据上述结果进一步确定k=5
+model = myKnn(k=5,norm=True,dist="L2",norm_mode="zScore")
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test, y_test)
 print("test score = ", model.score(y_test, y_pred))
-model.plot_vote_result(gap=0.5) # k=3时取gap=0.5比较合适
+model.plot_vote_result(gap=1) # k=5时取gap=1比较合适
 # cost time = 4038.709842443466 s
 # test score =  0.9751
 #%%<3>使用sklearn的KNN实现
