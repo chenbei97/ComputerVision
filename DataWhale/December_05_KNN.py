@@ -627,6 +627,6 @@ clf.fit(X_train,y_train)
 t1 = time()
 test_score = clf.score(X_test,y_test)
 t2 = time()
-print("test score = ",test_score)# 0.9745
-print("cost time = ",t2-t1," s") # cost time =  663.0321996212006  s
+print("test score = ",test_score)# 0.9744
+print("cost time = ",t2-t1," s") # cost time =  769.4284636974335 s
 # 可以看出准确率上区别不大,时间上花费较少,自定义的KNN有待优化
