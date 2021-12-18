@@ -322,7 +322,7 @@ class myKnn:
     def predict(self,X_test,y_test):
         self.X_test = X_test
         self.y_test = y_test
-        self.__process(X_train, y_train)
+        self.__process(self.X_test, self.y_test)
         print("start calculating dist matrix ...")
         self.__calculate_dist()
         print(f"compute finished, cost time = {self.cost_time} s")
