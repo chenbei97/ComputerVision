@@ -26,7 +26,7 @@ mpl.rcParams['figure.figsize'] = (7.8, 3.8)  # 设置figure_size尺寸
 mpl.rcParams['savefig.dpi'] = 600  # 图片像素
 mpl.rcParams['figure.dpi'] = 600  # 分辨率
 #%%
-# <1>顺序实现KNN：使用割裂的小函数依次实现功能，<2>中把这些小函数合并成类
+# <1>顺序实现KNN：使用割裂的小函数依次实现功能，<2>中把这些小函数合并成类,<3>使用sklearn定义的方法进行比较
 # (1)数据集准备：使用mnist数据集,对其维度调整且标准化(均匀标准化或者正态标准化)
 import numpy as np
 from tensorflow.keras.datasets import mnist
