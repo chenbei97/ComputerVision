@@ -186,7 +186,7 @@ class GaussianNaiveBayers():
         assert proba.shape == (X_test.shape[0],self.n_classes)
         # 轴1上也就是每个样本去找最大概率的位置,也就是列索引,这个索引恰好就是预测类别
         # a = np.random.rand(700,10).argmax(axis=1),0≤a[i]≤9,a[i]=3表示第4个类别
-        # 严格来说应该是返回self.class_[proba.argmax(axis=1)],只是因为标签是证书标签且从0开始标的
+        # 严格来说应该是返回self.class_[proba.argmax(axis=1)],只是因为标签是整数标签且从0开始标的
         # self.class_[]可以传入一个数索引也可以传入一个序列去索引,结果会得到一个这个索引序列对应的索引值
         # y_pred = self.class_[proba.argmax(axis=1)]
         y_pred = proba.argmax(axis=1) # 轴1上也就是每个样本确定最大概率的所处位置
