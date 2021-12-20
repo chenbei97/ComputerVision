@@ -210,7 +210,7 @@ class GaussianNaiveBayers():
 
         # 对于指定类别的数据,首先计算每个特征列的方差与2Π乘积的对数和,再乘系数-0.5得到中间值1,这是X_train的特征
         # 其次对传入的X_test进行标准化,去均值平方除方差再乘系数0.5得到中间值2,这是X_test的特征,(X_test.shape[0],)
-        # 其次用计算得到的中间值1[1个数]减去这个向量,使用广播机制利用X_train得到的特征减去每个X_test样本
+        # 最后用计算得到的中间值1[1个数]减去这个向量,使用广播机制利用X_train得到的特征减去每个X_test样本
         midval1 = -0.5 * np.sum(np.log(2 * np.pi * var)) # -0.5*Σlog(2Πσ) 1个数
         midval2 = 0.5 * np.sum(((X_test - mean) ** 2) / var, axis=1) # 按轴1计算就是每个样本进行计算,其实就是样本的所有特征标准化后求和
         #print(midval1,midval2.shape) # 1个数和1个向量(X_test.shape[0],)
