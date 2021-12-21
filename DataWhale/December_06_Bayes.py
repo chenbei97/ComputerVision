@@ -6,6 +6,7 @@
 @Author : chenbei
 @Date : 2021-12-20 7:54
 @Email ：chenbei_electric@163.com
+@Address : Beijing Jiaotong University
 '''
 from matplotlib.pylab import mpl
 mpl.rcParams['font.sans-serif'] = ['Times New Roman']  # 设置字体风格,必须在前然后设置显示中文
