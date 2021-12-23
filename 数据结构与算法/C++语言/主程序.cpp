@@ -16,6 +16,7 @@ int main()
 	_charter2_calculation_of_program_steps();
 	_charter2_analytic_method_steps();
 	_charter2_analytic_best_worst_mean_steps();
+	_charter3_binarySearch();
 
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2};
