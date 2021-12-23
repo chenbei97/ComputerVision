@@ -1,4 +1,5 @@
 #include "charter2.h"
+#include "charter3.h"
 #include "sort_method.h"
 #include <iostream>
 using namespace std;
