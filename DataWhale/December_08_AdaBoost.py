@@ -58,12 +58,13 @@ for lr in lrs:
     clf.fit(X_train,y_train)
     acu.append(clf.score(X_test,y_test))
 plot_acu(lrs,acu,"lr") # 从结果来看lr=0.5最高
+# AdaBoost_Lr.jpg
 #%% <2.2>改变估计器个数
-n_estimators = np.arange(50,140,30)
+n_estimators = np.arange(50,160,20)
 acu.clear()
 for n_estimator in n_estimators:
     clf = AdaBoostClassifier(n_estimators=n_estimator,learning_rate=0.5,random_state=10)
     clf.fit(X_train,y_train)
     acu.append(clf.score(X_test,y_test))
-plot_acu(n_estimators,acu,"n_estimator")
-
+plot_acu(n_estimators,acu,"n_estimator")# 从结果来看估计器数量为150最好
+# AdaBoost_estimator.jpg
