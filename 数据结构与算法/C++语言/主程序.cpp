@@ -8,7 +8,7 @@
 using namespace std;
 int main()
 {
-	//_charter1_throwError();
+	_charter1_throwError();
 	//_charter2_test_and_debug();
 	//_charter2_spatial_complexity();
 	//_charter2_time_complexity();
@@ -23,6 +23,7 @@ int main()
 	//_charter3_binarySearch();
 	//_charter4_program_performance_measurement();
 	_charter5_changeLength1D();
+	_charter5_concrete_class_instantiation();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2};
 	//array_sorting_method(a, n ,countSort);
