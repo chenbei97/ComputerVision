@@ -24,6 +24,8 @@ import torchvision
 import torchvision.transforms as ttf
 #%% <1> 使用skearn实现,数据集使用torch准备
 root = r"C:\Users\chenb\.torch" # 请修改为自己的存储路径
+# C:\Users\chenb\.torch 或者 C:\Users\chenb\.keras\datasets 都可以其中.torch是空文件夹去下载数据集,.kera\datasets是之前已有的数据集
+# # 存储路径必须有FashonMnist/raw2个文件夹,且内部数据有ubyte文件,否则无法解析不同于.kera的fashion_mnist文件
 # 用于对图片数据预处理(转为张量、调整通道、裁剪、翻转、旋转、调整尺寸、标准化等)
 # 转为张量需要说明的如果自行转换numpy数据,其类型为np.uint8时才能转换为torch.float32
 # 调整通道需要说明的是不同于opencv/tensorflow,pytorch图像的通道数在前,即不是HWC格式而是CHW格式
