@@ -1,21 +1,21 @@
 #pragma once
 #include <string>
 #include <iostream>
-// ¶¨ÒåÒ»¸öÒì³£ÀàÓÃÓÚ²ÎÊıÅ×³öÒì³£
-// Õâ¸öÒì³£Àà¿ÉÒÔ×¨ÃÅÓÃÓÚ´«µİ¸÷Àà×Ö·û´®ĞÅÏ¢
+// å®šä¹‰ä¸€ä¸ªå¼‚å¸¸ç±»ç”¨äºå‚æ•°æŠ›å‡ºå¼‚å¸¸
+// è¿™ä¸ªå¼‚å¸¸ç±»å¯ä»¥ä¸“é—¨ç”¨äºä¼ é€’å„ç±»å­—ç¬¦ä¸²ä¿¡æ¯
 class illegalParameterValue
 {
 public:
 	illegalParameterValue() :
-		message("illegal parameter value") {} // Ä¬ÈÏ¹¹ÔìÊ¹ÓÃÁĞ±í¹¹Ôì
-	// Ã°ºÅºó±ßÊ¹ÓÃ(),ÓÃĞ¡À¨ºÅÄÚµÄÖµ£¬À´³õÊ¼»¯³ÉÔ±±äÁ¿Öµ
+		message("illegal parameter value") {} // é»˜è®¤æ„é€ ä½¿ç”¨åˆ—è¡¨æ„é€ 
+	// å†’å·åè¾¹ä½¿ç”¨(),ç”¨å°æ‹¬å·å†…çš„å€¼ï¼Œæ¥åˆå§‹åŒ–æˆå‘˜å˜é‡å€¼
 	/*
-	¾ÙÀı£º
-	¶ÔÓÚclass TEST£¬´æÔÚ³ÉÔ±±äÁ¿int a,b,c
-	¹¹Ôìº¯Êı£ºTEST(int x, int y):a(x),b(y),c(0){}
-	±íÊ¾Ê¹ÓÃx,y,0À´³õÊ¼»¯a,b,c
-	×¢Òâ£º³õÊ¼»¯µÄË³Ğò²¢²»ÊÇÒÀÀµÓÚa,b,cÔÚ³õÊ¼»¯ÁĞ±íÖĞ³öÏÖµÄË³Ğò£¬¶øÊÇÓëÀàÖĞ¶¨Òåa,b,cµÄË³ĞòÏàÍ¬
-	Èç¹ûÀàÏñÏÂ·½ÕâÑù¶¨Òå£¬Êµ¼ÊÉÏÁĞ±í³õÊ¼»¯µÄÊÇb,c,a£¬¼´x³õÊ¼»¯b,y³õÊ¼»¯c,0³õÊ¼»¯a
+	ä¸¾ä¾‹ï¼š
+	å¯¹äºclass TESTï¼Œå­˜åœ¨æˆå‘˜å˜é‡int a,b,c
+	æ„é€ å‡½æ•°ï¼šTEST(int x, int y):a(x),b(y),c(0){}
+	è¡¨ç¤ºä½¿ç”¨x,y,0æ¥åˆå§‹åŒ–a,b,c
+	æ³¨æ„ï¼šåˆå§‹åŒ–çš„é¡ºåºå¹¶ä¸æ˜¯ä¾èµ–äºa,b,cåœ¨åˆå§‹åŒ–åˆ—è¡¨ä¸­å‡ºç°çš„é¡ºåºï¼Œè€Œæ˜¯ä¸ç±»ä¸­å®šä¹‰a,b,cçš„é¡ºåºç›¸åŒ
+	å¦‚æœç±»åƒä¸‹æ–¹è¿™æ ·å®šä¹‰ï¼Œå®é™…ä¸Šåˆ—è¡¨åˆå§‹åŒ–çš„æ˜¯b,c,aï¼Œå³xåˆå§‹åŒ–b,yåˆå§‹åŒ–c,0åˆå§‹åŒ–a
 	class TEST
 	{
 		public:
@@ -25,11 +25,13 @@ public:
 		TEST(int x, int y):a(x),b(y),c(0){}
 	};
 	*/
-	illegalParameterValue(const char* theMessage) // ±£Ö¤¿ÉÒÔÖ±½ÓÊ¹ÓÃ×Ö·û´®ÊµÀı»¯
+	illegalParameterValue(const char* theMessage) // ä¿è¯å¯ä»¥ç›´æ¥ä½¿ç”¨å­—ç¬¦ä¸²å®ä¾‹åŒ–
 	{
-		// ¸´ÖÆ¹¹Ôì
+		// å¤åˆ¶æ„é€ 
 		message = theMessage;
 	}
+	
+	illegalParameterValue(const std::string theMessage) { message = theMessage; }
 	void outputMessage() { std::cout << message << std::endl; }
 		
 private:
