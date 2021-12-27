@@ -1,57 +1,55 @@
 #pragma once
 #include "charter5_linearList.h"
-template<class T>
-_charter5_arrayList<T>* _charter5_paL; // ÉùÃ÷1¸öÈ«¾ÖÖ¸Õë¿ÉÓÃÓÚÍâ²¿cppÎÄ¼şµ÷ÓÃ
-// ÏßĞÔ±íµÄ¾ßÌåÀàÉùÃ÷²¿·ÖÖ±½ÓÊµÏÖ,¸´ÔÓµÄº¯Êı·ÖÎÄ¼şÊµÏÖ
+// çº¿æ€§è¡¨çš„å…·ä½“ç±»å£°æ˜éƒ¨åˆ†ç›´æ¥å®ç°,å¤æ‚çš„å‡½æ•°åˆ†æ–‡ä»¶å®ç°
 template<class T>
 class _charter5_arrayList : public _charter5_linearList<T>
 {
 public:
-    // Ê±¼ä¸´ÔÓ¶ÈÎªO(1),×Ô¶¨ÒåÊ±Ê±¼ä¸´ÔÓ¶ÈÎªO(initialCapacity)
-    _charter5_arrayList(int initialCapacity = 10); // Ä¬ÈÏ¹¹Ôì
+    // æ—¶é—´å¤æ‚åº¦ä¸ºO(1),è‡ªå®šä¹‰æ—¶æ—¶é—´å¤æ‚åº¦ä¸ºO(initialCapacity)
+    _charter5_arrayList(int initialCapacity = 10); // é»˜è®¤æ„é€ 
 
-    // Ê±¼ä¸´ÔÓ¶ÈÎªO(n)
-     _charter5_arrayList(const _charter5_arrayList<T>&); // ¸´ÖÆ¹¹Ôì,°Ñ _charter5_arrayList<T>ÕûÌå¿´³É1¸öÊı¾İÀàĞÍ
+    // æ—¶é—´å¤æ‚åº¦ä¸ºO(n)
+     _charter5_arrayList(const _charter5_arrayList<T>&); // å¤åˆ¶æ„é€ ,æŠŠ _charter5_arrayList<T>æ•´ä½“çœ‹æˆ1ä¸ªæ•°æ®ç±»å‹
    
-    ~_charter5_arrayList() {delete[] element;}//Îö¹¹º¯Êı
+    ~_charter5_arrayList() {delete[] element;}//ææ„å‡½æ•°
 
-    // ³éÏóÀàµÄĞéº¯ÊıÊµÏÖ
-    // Ê±¼ä¸´ÔÓ¶ÈÎªO(1)
-    bool empty() const { return listSize == 0; }// ±íÊ¾Õâ¸ö³ÉÔ±º¯Êı´«ÈëµÄthisÖ¸ÕëÎªconst,²»ÄÜ¸ü¸ÄÀàµÄÆäËû³ÉÔ±,Èç¹ûconstÔÚÇ°±íÊ¾·µ»ØÖµÊÇconst
+    // æŠ½è±¡ç±»çš„è™šå‡½æ•°å®ç°
+    // æ—¶é—´å¤æ‚åº¦ä¸ºO(1)
+    bool empty() const { return listSize == 0; }// è¡¨ç¤ºè¿™ä¸ªæˆå‘˜å‡½æ•°ä¼ å…¥çš„thisæŒ‡é’ˆä¸ºconst,ä¸èƒ½æ›´æ”¹ç±»çš„å…¶ä»–æˆå‘˜,å¦‚æœconståœ¨å‰è¡¨ç¤ºè¿”å›å€¼æ˜¯const
     
-     // Ê±¼ä¸´ÔÓ¶ÈÎªO(1)
-    int size() const { return listSize; }// ÔªËØ¸öÊı
+     // æ—¶é—´å¤æ‚åº¦ä¸ºO(1)
+    int size() const { return listSize; }// å…ƒç´ ä¸ªæ•°
 
-    // Ê±¼ä¸´ÔÓ¶ÈÎª¦¨(1)
+    // æ—¶é—´å¤æ‚åº¦ä¸ºÎ˜(1)
     T& get(int theIndex) const;
 
-    // Ê±¼ä¸´ÔÓ¶ÈÎªO(max{listSize,1})=>O(listSize)
-    int indexOf(const T& theElement) const; // ²»ÄÜ¸Ä±äÀà³ÉÔ±Ò²²»ÄÜ¸Ä±äÊµÀıµÄÔªËØ,Ç°ÕßÏŞÖÆÀàÍâÊµÀıºóÕßÏŞÖÆÀàÄÚ
+    // æ—¶é—´å¤æ‚åº¦ä¸ºO(max{listSize,1})=>O(listSize)
+    int indexOf(const T& theElement) const; // ä¸èƒ½æ”¹å˜ç±»æˆå‘˜ä¹Ÿä¸èƒ½æ”¹å˜å®ä¾‹çš„å…ƒç´ ,å‰è€…é™åˆ¶ç±»å¤–å®ä¾‹åè€…é™åˆ¶ç±»å†…
     
-    // Ã»ÓĞ´ËÔªËØË÷Òı¦¨(1),ÓĞµÄ»°Îª¦¨(listSize-theIndex),Ã¿Ò»¸öÔªËØµÄÒÆ¶¯ĞèÒªO(1),ºÏ¼ÆO(listSize-theIndex)
+    // æ²¡æœ‰æ­¤å…ƒç´ ç´¢å¼•Î˜(1),æœ‰çš„è¯ä¸ºÎ˜(listSize-theIndex),æ¯ä¸€ä¸ªå…ƒç´ çš„ç§»åŠ¨éœ€è¦O(1),åˆè®¡O(listSize-theIndex)
     void erase(int theIndex);
 
-    // ÊÇ·ñÅ×³öÒì³£¦¨(1),Èç¹û²åÈëÇ°Êı×é¿Õ¼äÂú¾Í»áÊı×é³¤¶È¼Ó±¶,Îª¦¨(arrayLength)=¦¨(listSize)
-    // ÒÆ¶¯Êı×éÔªËØ¦¨(listSize-theIndex),×ÜµÄÊ±¼ä¸´ÔÓ¶ÈO(listSize)
+    // æ˜¯å¦æŠ›å‡ºå¼‚å¸¸Î˜(1),å¦‚æœæ’å…¥å‰æ•°ç»„ç©ºé—´æ»¡å°±ä¼šæ•°ç»„é•¿åº¦åŠ å€,ä¸ºÎ˜(arrayLength)=Î˜(listSize)
+    // ç§»åŠ¨æ•°ç»„å…ƒç´ Î˜(listSize-theIndex),æ€»çš„æ—¶é—´å¤æ‚åº¦O(listSize)
     void insert(int theIndex, const T& theElement);
 
-    // Ê±¼ä¸´ÔÓ¶ÈÎªO(listSize)
+    // æ—¶é—´å¤æ‚åº¦ä¸ºO(listSize)
     void output(std::ostream& out) const;
     
-    // ÆäËû·½·¨
-    // Ê±¼ä¸´ÔÓ¶ÈÎªO(1)
+    // å…¶ä»–æ–¹æ³•
+    // æ—¶é—´å¤æ‚åº¦ä¸ºO(1)
     int capacity() const { return arrayLength; }
 
 protected:
-    // È·¶¨Ò»¸öÔªËØÔÚ0~listSize-1ÖĞµÄË÷Òı,×¢Òâ²»ÊÇarrayLength
-    // Ê±¼ä¸´ÔÓ¶ÈÎª¦¨(1)
-    void checkIndex(int theIndex) const; // ²»¿É¸ü¸ÄÀà³ÉÔ±µÄ³ÉÔ±º¯Êı
+    // ç¡®å®šä¸€ä¸ªå…ƒç´ åœ¨0~listSize-1ä¸­çš„ç´¢å¼•,æ³¨æ„ä¸æ˜¯arrayLength
+    // æ—¶é—´å¤æ‚åº¦ä¸ºÎ˜(1)
+    void checkIndex(int theIndex) const; // ä¸å¯æ›´æ”¹ç±»æˆå‘˜çš„æˆå‘˜å‡½æ•°
 
-    // Ê±¼ä¸´ÔÓ¶ÈÎª¦¨(n)
-    void changeLength1D(T*& pa, int oldLength, int newLength); // Êı×éÈİÁ¿ÒÑÂúÊ±¼Ó±¶
+    // æ—¶é—´å¤æ‚åº¦ä¸ºÎ˜(n)
+    void changeLength1D(T*& pa, int oldLength, int newLength); // æ•°ç»„å®¹é‡å·²æ»¡æ—¶åŠ å€
 
-    int arrayLength; // ÏßĞÔ±íµÄÈİÁ¿¡İlistSize
-    int listSize; // ÏßĞÔ±íµÄÔªËØ¸öÊı
+    int arrayLength; // çº¿æ€§è¡¨çš„å®¹é‡â‰¥listSize
+    int listSize; // çº¿æ€§è¡¨çš„å…ƒç´ ä¸ªæ•°
     T* element;
-    // ´æ´¢ÏßĞÔ±íÔªËØµÄÒ»Î¬Êı×é,ÒòÎªÊÇ¶¯Ì¬´´½¨µÄËùÒÔÎö¹¹±ØĞë´øÉÏdelete[]
+    // å­˜å‚¨çº¿æ€§è¡¨å…ƒç´ çš„ä¸€ç»´æ•°ç»„,å› ä¸ºæ˜¯åŠ¨æ€åˆ›å»ºçš„æ‰€ä»¥ææ„å¿…é¡»å¸¦ä¸Šdelete[]
 };
