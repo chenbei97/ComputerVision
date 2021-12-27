@@ -107,7 +107,7 @@ void _charter5_arrayList<T>::output(std::ostream& out) const
 }
 
 template<class T> // 重载运算符返回的也必须是流对象
-std::ostream operator << (std::ostream out, const _charter5_arrayList<T>& x)
+std::ostream& operator << (std::ostream& out, const _charter5_arrayList<T>& x)
 {
 	// 输入参数为流对象和线性表实例的引
 	x.output(out); // 利用output函数重载,就可以直接打印线性表了
