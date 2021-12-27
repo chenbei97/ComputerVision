@@ -2,40 +2,40 @@
 #include "charter1_illegalParameterValue.h"
 #include<sstream>
 //template<class T>
-//_charter5_arrayList<T>* _charter5_paL; // ÉùÃ÷1¸öÈ«¾ÖÖ¸Õë¿ÉÓÃÓÚÍâ²¿cppÎÄ¼şµ÷ÓÃ
+//_charter5_arrayList<T>* _charter5_paL; // å£°æ˜1ä¸ªå…¨å±€æŒ‡é’ˆå¯ç”¨äºå¤–éƒ¨cppæ–‡ä»¶è°ƒç”¨
 template<class T>
 _charter5_arrayList<T>::_charter5_arrayList(int initialCapacity)
 {
-	// Ä¬ÈÏ¹¹ÔìÊµÏÖ
+	// é»˜è®¤æ„é€ å®ç°
 	if (initialCapacity < 1)
 	{
-		std::ostringstream s; //´´½¨1¸öÓÃÓÚ´«µİ×Ö·û´®µÄÁ÷
+		std::ostringstream s; //åˆ›å»º1ä¸ªç”¨äºä¼ é€’å­—ç¬¦ä¸²çš„æµ
 		s << "Initial Capacity = " << initialCapacity << "  Must be > 0";
 		throw illegalParameterValue(s.str());
 	}
 	arrayLength = initialCapacity;
-	element = new T[arrayLength]; // ¶¯Ì¬¿ª±ÙÊı×é Îö¹¹º¯Êı±ØĞë¶ÔÓ¦delete [] element
-	listSize = 0; //ÔİÊ±0³ÉÔ±
-	//_charter5_paL = this; // È«¾ÖÖ¸ÕëÖ¸Ïòthis
+	element = new T[arrayLength]; // åŠ¨æ€å¼€è¾Ÿæ•°ç»„ ææ„å‡½æ•°å¿…é¡»å¯¹åº”delete [] element
+	listSize = 0; //æš‚æ—¶0æˆå‘˜
+	//_charter5_paL = this; // å…¨å±€æŒ‡é’ˆæŒ‡å‘this
 }
 
 template<class T>
 _charter5_arrayList<T> ::_charter5_arrayList(const _charter5_arrayList<T>& theList)
 {
-	// ¸´ÖÆ¹¹ÔìÊµÏÖ£º¿ÉÒÔ²Î¿¼charter5_01_ÏßĞÔ±íµÄ³éÏóÀàºÍ¾ßÌåÀà.cpp¶ÔµÄ±ä³¤Ò»Î¬Êı×éÊµÏÖ
+	// å¤åˆ¶æ„é€ å®ç°ï¼šå¯ä»¥å‚è€ƒcharter5_01_çº¿æ€§è¡¨çš„æŠ½è±¡ç±»å’Œå…·ä½“ç±».cppå¯¹çš„å˜é•¿ä¸€ç»´æ•°ç»„å®ç°
 	arrayLength = theList.arrayLength;
 	listSize = theList.listSize;
 	element = new T[arrayLength];
-	// elementÊÇ¸öÖ¸Õë,Ö¸Õë+²Ù×÷ÊÇ¿ÉÒÔµÄ,°ÑÔ´µÄËùÓĞÔªËØ(²»ÊÇÈİÁ¿)¿½±´µ½µ±Ç°Ö¸ÕëÖ¸ÏòµÄµØÖ·,Õâ¸öµØÖ·µÄÁ¬ĞøÈİÁ¿ÊÇarrayLength
-	// ÆäÊµ¾ÍÏàµ±ÓÚÍêÈ«¸´ÖÆÁË
-	std::copy(theList.element, theList.element + listSize, element); // copyº¯ÊıÒªÇó´«Èë¿ªÍ·½áÎ²ºÍÄ¿±ê
-	//_charter5_paL = this; // È«¾ÖÖ¸ÕëÖ¸Ïòthis
+	// elementæ˜¯ä¸ªæŒ‡é’ˆ,æŒ‡é’ˆ+æ“ä½œæ˜¯å¯ä»¥çš„,æŠŠæºçš„æ‰€æœ‰å…ƒç´ (ä¸æ˜¯å®¹é‡)æ‹·è´åˆ°å½“å‰æŒ‡é’ˆæŒ‡å‘çš„åœ°å€,è¿™ä¸ªåœ°å€çš„è¿ç»­å®¹é‡æ˜¯arrayLength
+	// å…¶å®å°±ç›¸å½“äºå®Œå…¨å¤åˆ¶äº†
+	std::copy(theList.element, theList.element + listSize, element); // copyå‡½æ•°è¦æ±‚ä¼ å…¥å¼€å¤´ç»“å°¾å’Œç›®æ ‡
+	//_charter5_paL = this; // å…¨å±€æŒ‡é’ˆæŒ‡å‘this
 }
 
 template<class T>
 T& _charter5_arrayList<T>::get(int theIndex) const
 {
-	checkIndex(theIndex); //ÏÈ¼ì²éÓĞÃ»ÓĞÕâ¸öË÷Òı
+	checkIndex(theIndex); //å…ˆæ£€æŸ¥æœ‰æ²¡æœ‰è¿™ä¸ªç´¢å¼•
 	return element[theIndex];
 }
 
@@ -43,7 +43,7 @@ template<class T>
 int _charter5_arrayList<T>:: indexOf(const T& theElement) const
 {
 	int theIndex = (int)(std::find(element, element + listSize, theElement) - element);
-	if (theIndex == listSize) // listSizeÊÇÈ¡²»µ½µÄ±ß½ç[0,listSize-1] or[0,listSize)
+	if (theIndex == listSize) // listSizeæ˜¯å–ä¸åˆ°çš„è¾¹ç•Œ[0,listSize-1] or[0,listSize)
 		return -1;
 	else return theIndex;
 }
@@ -52,12 +52,12 @@ template<class T>
 void _charter5_arrayList<T>:: erase(int theIndex)
 {
 	checkIndex(theIndex);
-	// theIndexÊÇÒªÉ¾³ıµÄÎ»ÖÃ,theIndex + 1ÊÇºó1¸öÔªËØÎ»ÖÃ
-	// elementÊÇÒ»¸öÖ¸Õë,Ö¸ÏòÁËºó1¸öÔªËØ,²¢Ö¸Ïò½áÎ²ÔªËØµÄºó1¸ö
-	// °Ñ[index+1,listSize)Ö®¼äµÄÔªËØ¿½±´theIndexµÄÎ»ÖÃÆğÊ¼,Ò²¾ÍÊÇºóÃæµÄÔªËØÕûÌåÏòÇ°ÒÆ¶¯1¸öµ¥Î»
+	// theIndexæ˜¯è¦åˆ é™¤çš„ä½ç½®,theIndex + 1æ˜¯å1ä¸ªå…ƒç´ ä½ç½®
+	// elementæ˜¯ä¸€ä¸ªæŒ‡é’ˆ,æŒ‡å‘äº†å1ä¸ªå…ƒç´ ,å¹¶æŒ‡å‘ç»“å°¾å…ƒç´ çš„å1ä¸ª
+	// æŠŠ[index+1,listSize)ä¹‹é—´çš„å…ƒç´ æ‹·è´theIndexçš„ä½ç½®èµ·å§‹,ä¹Ÿå°±æ˜¯åé¢çš„å…ƒç´ æ•´ä½“å‘å‰ç§»åŠ¨1ä¸ªå•ä½
 	std::copy(element + theIndex + 1, element + listSize, element + theIndex);
-	// --listSizeÊÇ¸öÊı¼õÉÙÁË,--ÔÚÇ°±í´ïÊ½ÏÈ¸Ä±ä
-	element[--listSize].~T(); // µ÷ÓÃÎö¹¹º¯Êı,Ô­À´Ö»ÊÇ¿½±´,µ«ÊÇlistSize-1µÄÕâ¸öÔªËØ»¹ÔÚĞèÒªÇå³ı
+	// --listSizeæ˜¯ä¸ªæ•°å‡å°‘äº†,--åœ¨å‰è¡¨è¾¾å¼å…ˆæ”¹å˜
+	element[--listSize].~T(); // è°ƒç”¨ææ„å‡½æ•°,åŸæ¥åªæ˜¯æ‹·è´,ä½†æ˜¯listSize-1çš„è¿™ä¸ªå…ƒç´ è¿˜åœ¨éœ€è¦æ¸…é™¤
 }
 
 template<class T>
@@ -66,11 +66,11 @@ void _charter5_arrayList<T>::changeLength1D(T*& pa, int oldLength, int newLength
 	if (newLength < 0)
 		throw illegalParameterValue("new length must be >=0");
 	T* temp = new T[newLength];
-	// Èç¹ûĞÂµÄ³¤¶È±ä³¤×î¶à¸´ÖÆÔ­À´µÄÄÇÃ´¶àÔªËØ,Èç¹û±ä¶Ì¾Í¸´ÖÆµ±Ç°ÕâÃ´¶àÔªËØ
-	int number = std::min(oldLength, newLength);//Òª¸´ÖÆµÄÔªËØ¸öÊı
-	std::copy(pa, pa + number, temp); // aÊÇ¸öTÀàĞÍµÄÖ¸ÕëµÄÒıÓÃÀàĞÍ ¿ÉÒÔ+²Ù×÷
-	delete[] pa; // É¾³ıÔ­À´µÄÈİÆ÷ÔªËØ
-	pa = temp; // Ö¸ÏòĞÂµÄÈİÆ÷
+	// å¦‚æœæ–°çš„é•¿åº¦å˜é•¿æœ€å¤šå¤åˆ¶åŸæ¥çš„é‚£ä¹ˆå¤šå…ƒç´ ,å¦‚æœå˜çŸ­å°±å¤åˆ¶å½“å‰è¿™ä¹ˆå¤šå…ƒç´ 
+	int number = std::min(oldLength, newLength);//è¦å¤åˆ¶çš„å…ƒç´ ä¸ªæ•°
+	std::copy(pa, pa + number, temp); // aæ˜¯ä¸ªTç±»å‹çš„æŒ‡é’ˆçš„å¼•ç”¨ç±»å‹ å¯ä»¥+æ“ä½œ
+	delete[] pa; // åˆ é™¤åŸæ¥çš„å®¹å™¨å…ƒç´ 
+	pa = temp; // æŒ‡å‘æ–°çš„å®¹å™¨
 }
 
 template<class T>
@@ -84,33 +84,33 @@ void _charter5_arrayList<T>::  insert(int theIndex, const T& theElement)
 	}
 	if (listSize == arrayLength)
 	{
-		// Êı×éÒÑÂú,ÔòÍØÕ¹Êı×éÎª2±¶³¤¶È
-		// Ö®ËùÒÔÊ¹ÓÃ2¡¶Êı¾İ½á¹¹¡¢Ëã·¨ÓëÓ¦ÓÃC++ÓïÑÔÃèÊö¡·P101Ò³µÄ¶¨Àí5-1¾ö¶¨
-		// Èç¹û°´ÕÕ1¸ö³Ë·¨Òò×ÓÀ´Ôö¼ÓÊı×é³¤¶È£¬ÄÇÃ´ÊµÊ©Ò»ÏµÁĞÏßĞÔ±íµÄ²Ù×÷ËùĞèÒªµÄÊ±¼äÓë²»ÓÃ¸Ä±äÊı×é³¤¶È¶Ô±È£¬ÖÁ¶àÔö¼Ó1¸ö³£ÊıÒò×Ó
-		// Èç¹û±íÃ¿´Î²åÈë¶¼ÊÇÔö¼Ó1¸ö³¤¶ÈÎ²²å1¸ö,n´Î²åÈëÔö¼ÓÊı×é³¤¶ÈµÄÊ±¼äÊÇ¦¨(n^2),¶øÖ±½ÓÔö¼Ó³¤¶Èn,Î²²ån´ÎÎª¦¨(n)
-		changeLength1D(element, arrayLength, 2 * arrayLength); // elementÊÇ1¸öÖ¸Õë
+		// æ•°ç»„å·²æ»¡,åˆ™æ‹“å±•æ•°ç»„ä¸º2å€é•¿åº¦
+		// ä¹‹æ‰€ä»¥ä½¿ç”¨2ã€Šæ•°æ®ç»“æ„ã€ç®—æ³•ä¸åº”ç”¨C++è¯­è¨€æè¿°ã€‹P101é¡µçš„å®šç†5-1å†³å®š
+		// å¦‚æœæŒ‰ç…§1ä¸ªä¹˜æ³•å› å­æ¥å¢åŠ æ•°ç»„é•¿åº¦ï¼Œé‚£ä¹ˆå®æ–½ä¸€ç³»åˆ—çº¿æ€§è¡¨çš„æ“ä½œæ‰€éœ€è¦çš„æ—¶é—´ä¸ä¸ç”¨æ”¹å˜æ•°ç»„é•¿åº¦å¯¹æ¯”ï¼Œè‡³å¤šå¢åŠ 1ä¸ªå¸¸æ•°å› å­
+		// å¦‚æœè¡¨æ¯æ¬¡æ’å…¥éƒ½æ˜¯å¢åŠ 1ä¸ªé•¿åº¦å°¾æ’1ä¸ª,næ¬¡æ’å…¥å¢åŠ æ•°ç»„é•¿åº¦çš„æ—¶é—´æ˜¯Î˜(n^2),è€Œç›´æ¥å¢åŠ é•¿åº¦n,å°¾æ’næ¬¡ä¸ºÎ˜(n)
+		changeLength1D(element, arrayLength, 2 * arrayLength); // elementæ˜¯1ä¸ªæŒ‡é’ˆ
 		arrayLength *= 2;
 	}
-	// [theIndex,listSize-1]Ö®¼äµÄÔªËØÏòÓÒÒÆ¶¯,³õÊ¼Î»ÖÃÊÇºó1¸öÔªËØÎ»ÖÃlistSize + 1
-	// copy_backwardºÍcopyµÄ²»Í¬ÔÚÓÚÇ°ÕßÊÇ´Ó×îÓÒ¶ËµÄÔªËØ¿ªÊ¼ÒÆ¶¯,ºóÕßÊÇ´Ó×ó¶ËµÄÔªËØÒÆ¶¯
-	// ½ÚÊ¡Ò»¶¨Ê±¼ä
+	// [theIndex,listSize-1]ä¹‹é—´çš„å…ƒç´ å‘å³ç§»åŠ¨,åˆå§‹ä½ç½®æ˜¯å1ä¸ªå…ƒç´ ä½ç½®listSize + 1
+	// copy_backwardå’Œcopyçš„ä¸åŒåœ¨äºå‰è€…æ˜¯ä»æœ€å³ç«¯çš„å…ƒç´ å¼€å§‹ç§»åŠ¨,åè€…æ˜¯ä»å·¦ç«¯çš„å…ƒç´ ç§»åŠ¨
+	// èŠ‚çœä¸€å®šæ—¶é—´
 	std::copy_backward(element + theIndex, element + listSize, element + listSize + 1);
-	element[theIndex] = theElement; //²åÈëÎ»ÖÃ¸³ÖµÒª²åÈëµÄÔªËØ
-	listSize++; //ÔªËØ¸öÊıÔö¼ÓÁË
+	element[theIndex] = theElement; //æ’å…¥ä½ç½®èµ‹å€¼è¦æ’å…¥çš„å…ƒç´ 
+	listSize++; //å…ƒç´ ä¸ªæ•°å¢åŠ äº†
 }
 
 template<class T>
 void _charter5_arrayList<T>:: output( std::ostream& out) const
 {
-	// °ÑËùÓĞÔªËØ¸´ÖÆµ½Êä³öÁ÷ÖĞ,ÀûÓÃÊä³öÁ÷µü´úÆ÷
+	// æŠŠæ‰€æœ‰å…ƒç´ å¤åˆ¶åˆ°è¾“å‡ºæµä¸­,åˆ©ç”¨è¾“å‡ºæµè¿­ä»£å™¨
 	std::copy(element, element + listSize, std::ostream_iterator<T>(std::cout, "   "));
 }
 
-template<class T> // ÖØÔØÔËËã·û·µ»ØµÄÒ²±ØĞëÊÇÁ÷¶ÔÏó
-std::ostream operator << (std::ostream out, const _charter5_arrayList<T>& x)
+template<class T> // é‡è½½è¿ç®—ç¬¦è¿”å›çš„ä¹Ÿå¿…é¡»æ˜¯æµå¯¹è±¡
+std::ostream& operator << (std::ostream& out, const _charter5_arrayList<T>& x)
 {
-	// ÊäÈë²ÎÊıÎªÁ÷¶ÔÏóºÍÏßĞÔ±íÊµÀıµÄÒı
-	x.output(out); // ÀûÓÃoutputº¯ÊıÖØÔØ,¾Í¿ÉÒÔÖ±½Ó´òÓ¡ÏßĞÔ±íÁË
+	// è¾“å…¥å‚æ•°ä¸ºæµå¯¹è±¡å’Œçº¿æ€§è¡¨å®ä¾‹çš„å¼•
+	x.output(out); // åˆ©ç”¨outputå‡½æ•°é‡è½½,å°±å¯ä»¥ç›´æ¥æ‰“å°çº¿æ€§è¡¨äº†
 	return out;
 }
 
