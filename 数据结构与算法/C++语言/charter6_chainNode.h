@@ -22,7 +22,7 @@ struct _charter6_chainNode
 	// 只改变节点的数据域(元素值)
 	_charter6_chainNode(const T& element) 
 	{
-		this->element = element
+		this->element = element;
 	} // 节点的元素值改变时改变成员element的值
 	// 只改变节点的链域(指向的下一个元素地址)也是可以的
 	_charter6_chainNode(_charter6_chainNode<T>* next)
