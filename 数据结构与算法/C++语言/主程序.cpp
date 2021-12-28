@@ -3,6 +3,7 @@
 #include "charter3.h"
 #include "charter4.h"
 #include "charter5.h"
+#include "charter6.h"
 #include "sort_method.h"
 #include <iostream>
 using namespace std;
@@ -28,6 +29,7 @@ int main()
 	_charter5_bidirectional_iterator();
 	_charter5_arrayList_with_bidirectionalIterator();
 	_charter5_linearList_by_vector();
+	_charter6_chainNode_testCode();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2};
 	//array_sorting_method(a, n ,countSort);
