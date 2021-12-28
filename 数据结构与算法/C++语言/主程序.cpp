@@ -30,6 +30,7 @@ int main()
 	_charter5_arrayList_with_bidirectionalIterator();
 	_charter5_linearList_by_vector();
 	_charter6_chainNode_testCode();
+	_charter6_chainList_testCode();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2};
 	//array_sorting_method(a, n ,countSort);
