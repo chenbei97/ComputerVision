@@ -4,28 +4,28 @@
 using namespace std;
 void _charter6_chainNode_testCode()
 {
-	// (Ä¬ÈÏ¹¹ÔìÊÇÃ»ÓĞ²ÎÊı)
+	// (é»˜è®¤æ„é€ æ˜¯æ²¡æœ‰å‚æ•°)
 	_charter6_chainNode<int> node1 ,node2 ,node3 , node4;
 	vector<_charter6_chainNode<int>> chain = {&node1,&node2,&node3,&node4};
-	cout << "Ã¿¸ö½ÚµãµÄnextµØÖ·ºÍelement´óĞ¡³õÊ¼»¯Îª£º" << endl;
+	cout << "æ¯ä¸ªèŠ‚ç‚¹çš„nextåœ°å€å’Œelementå¤§å°åˆå§‹åŒ–ä¸ºï¼š" << endl;
 	for (int i = 0; i < chain.size(); i++)
 	{
 		chain[i].element = i + 1;
-		chain[i].next = &chain[i]; // °ÑÃ¿¸ö½ÚµãnextÖ¸ÕëÏÈÖ¸Ïò×ÔÉí³õÊ¼»¯
+		chain[i].next = &chain[i]; // æŠŠæ¯ä¸ªèŠ‚ç‚¹nextæŒ‡é’ˆå…ˆæŒ‡å‘è‡ªèº«åˆå§‹åŒ–
 		cout << "node[" << i+1 << "].element  =  " << chain[i].element << endl;
 		cout << "node["<<i+1<<"].next  =>  " << chain[i].next << endl;
 	}
-	cout << "¸ü¸ÄºóÃ¿¸ö½ÚµãµÄnextµØÖ·ºÍelement´óĞ¡±äÎª£º" << endl;
+	cout << "æ›´æ”¹åæ¯ä¸ªèŠ‚ç‚¹çš„nextåœ°å€å’Œelementå¤§å°å˜ä¸ºï¼š" << endl;
 	for (size_t i = 0; i < chain.size(); i++)
 	{
 		if (i < chain.size() - 1)
-			chain[i].next = chain[(unsigned __int64)i + 1].next; // °ÑÖ¸Ïò¸ü¸Ä
+			chain[i].next = chain[(unsigned __int64)i + 1].next; // æŠŠæŒ‡å‘æ›´æ”¹
 		else
 			chain[i].next = NULL;
 		cout << "node[" << i+1 << "].element  =  " << chain[i].element << endl;
 		cout << "node[" << i+1 << "].next  =>  " << chain[i].next << endl;
 	}
-	// µ«ÊÇnode1-node4±¾ÉíÃ»ÓĞ¸Ä±ä
+	// ä½†æ˜¯node1-node4æœ¬èº«æ²¡æœ‰æ”¹å˜
 	cout << "node1.element = " << node1.element << "   node1.next => " << node1.next<< endl;
 	cout << "node2.element = " << node2.element << "   node2.next => " << node2.next << endl;
 	cout << "node3.element = " << node3.element << "   node3.next => " << node3.next << endl;
@@ -39,22 +39,35 @@ void _charter6_chainNode_testCode()
 	cout << "node1.next->next->next =>  " << node1.next->next->next << endl;//node3=>node4
 	cout << "node1.next->next->next->next =>  " << node1.next->next->next->next << endl;// node4=>NULL
 	
-	// ´ÓÒÔÉÏ½á¹ûÀ´¿´¸üÄÜÌå»ánextÖ¸ÕëµÄ×÷ÓÃ
-	// nextÖ¸ÏòÏÂÒ»¸ö½ÚµãÊ±ÔÙ´Îµ÷ÓÃnext¾Í»áµ½ÏÂÏÂ¸ö½ÚµãµÄµØÖ·
+	// ä»ä»¥ä¸Šç»“æœæ¥çœ‹æ›´èƒ½ä½“ä¼šnextæŒ‡é’ˆçš„ä½œç”¨
+	// nextæŒ‡å‘ä¸‹ä¸€ä¸ªèŠ‚ç‚¹æ—¶å†æ¬¡è°ƒç”¨nextå°±ä¼šåˆ°ä¸‹ä¸‹ä¸ªèŠ‚ç‚¹çš„åœ°å€
 	
-	// ²âÊÔÆäÓà3ÖÖ¹¹Ôì·½·¨(Ä¬ÈÏ¹¹ÔìÊÇÃ»ÓĞ²ÎÊı)
+	// æµ‹è¯•å…¶ä½™3ç§æ„é€ æ–¹æ³•(é»˜è®¤æ„é€ æ˜¯æ²¡æœ‰å‚æ•°)
 	_charter6_chainNode<int> node5(node1.element) ;
-	cout << "Ê¹ÓÃnode5(node1.element)½øĞĞ¹¹Ôì,´ËÊ±node5.element = "
+	cout << "ä½¿ç”¨node5(node1.element)è¿›è¡Œæ„é€ ,æ­¤æ—¶node5.element = "
 		<< node5.element << "  with node5.next  => " << node5.next << endl;
 	_charter6_chainNode<int> node6(6);
-	cout << "Ê¹ÓÃnode6(6)½øĞĞ¹¹Ôì,´ËÊ±node6.element = "
+	cout << "ä½¿ç”¨node6(6)è¿›è¡Œæ„é€ ,æ­¤æ—¶node6.element = "
 		<< node6.element << "  with node6.next  => " << node6.next << endl;
 	_charter6_chainNode<int> node7(7,&node6);
-	cout << "Ê¹ÓÃnode7(7,&node6)½øĞĞ¹¹Ôì,´ËÊ±node7.element = "
+	cout << "ä½¿ç”¨node7(7,&node6)è¿›è¡Œæ„é€ ,æ­¤æ—¶node7.element = "
 		<< node7.element << "  with node7.next  => " << node7.next 
 		<<"  &node6 => "<<&node6<< endl;
 	_charter6_chainNode<int> node8(&node7);
-	cout << "Ê¹ÓÃnode8(&node7)½øĞĞ¹¹Ôì,´ËÊ±node8.element = "
+	cout << "ä½¿ç”¨node8(&node7)è¿›è¡Œæ„é€ ,æ­¤æ—¶node8.element = "
 		<< node8.element << "  with node8.next  => " << node8.next
 		<< "  &node7 => " << &node7 << endl;
+	
+	// æµ‹è¯•newæ–¹æ³•
+	// å¯ä»¥çœ‹å‡ºnewå¿…é¡»ä½¿ç”¨èŠ‚ç‚¹ç±»å‹çš„æŒ‡é’ˆæ¥æ”¶
+	_charter6_chainNode<int> *pnode9 = new _charter6_chainNode<int>(9, &node8);
+	cout << "ä½¿ç”¨new _charter6_chainNode<int>(9, &node8)è¿›è¡Œæ„é€ ,\næ­¤æ—¶pnode9->element = "
+		<< pnode9->element << "  with pnode9->next  => " << pnode9->next
+		<< "  &node8 => " << &node8 << endl;
+	// å…¶å®è¿™ä¸ªç±»å‹å’Œä»»æ„èŠ‚ç‚¹å®ä¾‹çš„nextæŒ‡é’ˆæ˜¯ä¸€ä¸ªç±»å‹
+	node5.next = pnode9;
+	cout << "è®¿é—®node5.nextçš„nextå’Œelementå°±æ˜¯åœ¨è®¿é—®pnode9çš„nextå’Œelement" << endl;
+	cout << "node5.next->element = " << node5.next->element << "   node5.next->next = " << node5.next->next << endl;
+	cout << "node5.nextçš„åœ°å€å°±æ˜¯pnode9çš„åœ°å€,ä½†node5è‡ªèº«çš„elementä¸ä¼šæ”¹å˜,æ ¹æ®ä¸Šè¾¹ç¨‹åºå·²ç»åˆå§‹åŒ–ä¸º1" << endl;
+	cout << "node5.element = "<< node5.element<<"   node5.next = "<<node5.next << "   pnode9 = " << pnode9 << endl;
 }
