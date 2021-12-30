@@ -4,6 +4,8 @@ void _charter6_chainListWithIterator_testCode()
 {
 	_charter6_chainListWithIterator<int> y;
 	y.insert(0, 2);
+	//y.insert(0, 1); //->ç”¨äºæµ‹è¯•å¤´æ’ä½¿ç”¨
+	//y.insert(0, -1);
 	y.insert(1, 6);
 	y.insert(0, 1);
 	y.insert(2, 4);
@@ -11,13 +13,13 @@ void _charter6_chainListWithIterator_testCode()
 	y.insert(2, 3);
 	cout << "Inserted 6 integers, list y should be 1 2 3 4 5 6" << endl;
 	cout << "Size of y = " << y.size() << endl;
-	cout << " y list is " << y << endl; // ²âÊÔÖØÔØ<<
-	cout << "²âÊÔi++" << endl;
+	cout << " y list is " << y << endl; // Â²Ã¢ÃŠÃ”Ã–Ã˜Ã”Ã˜<<
+	cout << "Â²Ã¢ÃŠÃ”i++" << endl;
 	for (_charter6_chainListWithIterator<int>::_charter6_iterator i = y.begin();
 		i != y.end(); i++)
 		cout << *i << "  ";
 	cout << endl;
-	cout << "²âÊÔ++i" << endl;
+	cout << "Â²Ã¢ÃŠÃ”++i" << endl;
 	for (_charter6_chainListWithIterator<int>::_charter6_iterator i = y.begin();
 		i != y.end(); ++i)
 	{
