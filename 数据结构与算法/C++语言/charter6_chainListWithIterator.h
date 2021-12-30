@@ -20,9 +20,9 @@ public:
 	void insert(int theIndex, const T& theElement);
 	void output(std::ostream& out) const;
 
-	// Àà×÷Îª³ÉÔ±ÊÇÒòÎªÁ´±íÀàÊ¹ÓÃµü´úÆ÷Ê±ĞèÒªµü´úÆ÷µÄÊµÀı
+	// ç±»ä½œä¸ºæˆå‘˜æ˜¯å› ä¸ºé“¾è¡¨ç±»ä½¿ç”¨è¿­ä»£å™¨æ—¶éœ€è¦è¿­ä»£å™¨çš„å®ä¾‹
 	class _charter6_iterator;
-	// Á´±íÀàµÄ2¸ö·½·¨·µ»ØµÄÊÇµü´úÆ÷ÀàµÄÊµÀı,·Ö±ğÖ¸ÏòÁËÁ´±íÀàÊµÀıµÄ¿ªÍ·ºÍ½áÎ²
+	// é“¾è¡¨ç±»çš„2ä¸ªæ–¹æ³•è¿”å›çš„æ˜¯è¿­ä»£å™¨ç±»çš„å®ä¾‹,åˆ†åˆ«æŒ‡å‘äº†é“¾è¡¨ç±»å®ä¾‹çš„å¼€å¤´å’Œç»“å°¾
 	_charter6_iterator begin() { return _charter6_iterator(firstNode); }
 	_charter6_iterator end() { return _charter6_iterator(NULL); }
     class _charter6_iterator
@@ -35,38 +35,38 @@ public:
         typedef T& reference;
 		_charter6_iterator(_charter6_chainNode<T>* theNode = NULL)
         {
-			// µü´úÆ÷Ö»ÓĞ1ÖÖÊµÀı»¯·½·¨,begin/end¾ÍÊÇµ÷ÓÃ´Ë¹¹ÔìÖ¸ÏòÁ´±íÀàµÄÁ½¶Ë
+			// è¿­ä»£å™¨åªæœ‰1ç§å®ä¾‹åŒ–æ–¹æ³•,begin/endå°±æ˜¯è°ƒç”¨æ­¤æ„é€ æŒ‡å‘é“¾è¡¨ç±»çš„ä¸¤ç«¯
             node = theNode; 
         }
 
-        // ÒòÎªµü´úÆ÷ÓĞ2¸ö³ÉÔ±,½âÒıÓÃĞèÒªÖØÔØ
+        // å› ä¸ºè¿­ä»£å™¨æœ‰2ä¸ªæˆå‘˜,è§£å¼•ç”¨éœ€è¦é‡è½½
 		//  *it = *node = node->element
-        T& operator*() const { return node->element; }// node¾ÍÊÇit , ·µ»Ø*it
-		// node¾ÍÊÇit ,Èç¹ûÓĞpnode = &node,pnode->element<=>&node->element,->ĞèÒªÖØÔØ
-        T* operator->() const { return &node->element; } //µÈ¼ÛÓÚÎª &it->element
+        T& operator*() const { return node->element; }// nodeå°±æ˜¯it , è¿”å›*it
+		// nodeå°±æ˜¯it ,å¦‚æœæœ‰pnode = &node,pnode->element<=>&node->element,->éœ€è¦é‡è½½
+        T* operator->() const { return &node->element; } //ç­‰ä»·äºä¸º &it->element
 
 		_charter6_iterator& operator++()   
         {
-            node = node->next; return *this; //±í´ïÊ½ÒÑ¾­¸Ä±ä,node¾ÍÊÇitÏàµ±ÓÚ·µ»Ø++it
+            node = node->next; return *this; //è¡¨è¾¾å¼å·²ç»æ”¹å˜,nodeå°±æ˜¯itç›¸å½“äºè¿”å›++it
         }
-		_charter6_iterator operator++(int) // ±í´ïÊ½ÖµÃ»¸Ä±ä,·µ»ØµÄ»¹ÊÇ¾ÉÖµ
+		_charter6_iterator operator++(int) // è¡¨è¾¾å¼å€¼æ²¡æ”¹å˜,è¿”å›çš„è¿˜æ˜¯æ—§å€¼
         {
 			_charter6_iterator old = *this;
             node = node->next;
-            return old; // ,node¾ÍÊÇitÏàµ±ÓÚ·µ»Øit++
+            return old; // ,nodeå°±æ˜¯itç›¸å½“äºè¿”å›it++
         }
 
-		// ½ÚµãÖ®¼äÊÇ·ñÏàµÈ±È½ÏµÄÊÇËüÃÇµÄµØÖ·ÊÇ·ñÏàµÈĞèÒªÖØÔØ
+		// èŠ‚ç‚¹ä¹‹é—´æ˜¯å¦ç›¸ç­‰æ¯”è¾ƒçš„æ˜¯å®ƒä»¬çš„åœ°å€æ˜¯å¦ç›¸ç­‰éœ€è¦é‡è½½
         bool operator!=(const _charter6_iterator right) const
         {
-            return node != right.node; // ÓÃÓÚit != chain.begin() node¾ÍÊÇit
+            return node != right.node; // ç”¨äºit != chain.begin() nodeå°±æ˜¯it
         }
         bool operator==(const _charter6_iterator right) const
         {
-            return node == right.node; // node¾ÍÊÇit
+            return node == right.node; // nodeå°±æ˜¯it
         }
     protected:
-		_charter6_chainNode<T>* node; // µü´úÆ÷ÊµÀı»¯×Ô´øµÄ½ÚµãÖ¸Õë
+		_charter6_chainNode<T>* node; // è¿­ä»£å™¨å®ä¾‹åŒ–è‡ªå¸¦çš„èŠ‚ç‚¹æŒ‡é’ˆ
     };  
 
 protected:
@@ -84,56 +84,56 @@ _charter6_chainListWithIterator<T>::_charter6_chainListWithIterator(int initialC
 		s << "Initial capacity = " << initialCapacity << " Must be > 0";
 		throw illegalParameterValue(s.str());
 	}
-	firstNode = NULL; // ³õÊ¼»¯Ê±Ò²ÊÇNULL,ÏÂÒ»¸öÔªËØÊÇË­²¢²»ÖªµÀ
+	firstNode = NULL; // åˆå§‹åŒ–æ—¶ä¹Ÿæ˜¯NULL,ä¸‹ä¸€ä¸ªå…ƒç´ æ˜¯è°å¹¶ä¸çŸ¥é“
 	listSize = 0;
 }
 
 template<class T>
 _charter6_chainListWithIterator<T>::_charter6_chainListWithIterator(const _charter6_chainListWithIterator<T>& theList)
 {
-	listSize = theList.listSize; // Ë½ÓĞÊôĞÔlistSize¸´ÖÆ
+	listSize = theList.listSize; // ç§æœ‰å±æ€§listSizeå¤åˆ¶
 
-	if (listSize == 0) // Èç¹û¸´ÖÆ¹¹Ôì¶ÔÏóÊÇ¸ö¿ÕÁ´±í,²»Ö´ĞĞºóĞø¸´ÖÆµÄÏà¹Ø²Ù×÷
+	if (listSize == 0) // å¦‚æœå¤åˆ¶æ„é€ å¯¹è±¡æ˜¯ä¸ªç©ºé“¾è¡¨,ä¸æ‰§è¡Œåç»­å¤åˆ¶çš„ç›¸å…³æ“ä½œ
 	{
 		firstNode = NULL;
 		return;
 	}
 
-	// 1¸öÖ¸ÏòtheListÍ·½ÚµãµÄÖ¸Õë
+	// 1ä¸ªæŒ‡å‘theListå¤´èŠ‚ç‚¹çš„æŒ‡é’ˆ
 	_charter6_chainNode<T>* sourceNode = theList.firstNode;
-	// std::cout<<firstNode->element<<"   "<< endl; ´ËÊ±×ÔÉíµÄfirstNodeÊ²Ã´¶¼Ã»ÓĞÄØ,´òÓ¡element»ònext»á±¨´í
-	firstNode = new _charter6_chainNode<T>(sourceNode->element); // Ö»¸´ÖÆÁËtheListÍ·½ÚµãµÄÊı¾İ
+	// std::cout<<firstNode->element<<"   "<< endl; æ­¤æ—¶è‡ªèº«çš„firstNodeä»€ä¹ˆéƒ½æ²¡æœ‰å‘¢,æ‰“å°elementæˆ–nextä¼šæŠ¥é”™
+	firstNode = new _charter6_chainNode<T>(sourceNode->element); // åªå¤åˆ¶äº†theListå¤´èŠ‚ç‚¹çš„æ•°æ®
 	//printf("firstNode->element = %d", firstNode->element);
-	//std::cout << firstNode->next << std::endl; // Ã»ÓĞ¸´ÖÆtheListÍ·½ÚµãµÄÖ¸ÕëĞÅÏ¢
+	//std::cout << firstNode->next << std::endl; // æ²¡æœ‰å¤åˆ¶theListå¤´èŠ‚ç‚¹çš„æŒ‡é’ˆä¿¡æ¯
 
-	// ºóÃæÒ²²»»á¸´ÖÆtheListÆäËü½ÚµãµÄÖ¸ÕëĞÅÏ¢,ÒòÎªÄÇÊÇtheListµÄ,ÕâÀïµÄfirstNodeÖ»ĞèÒª¼ÇÂ¼×Ô¼ºµÄÏÂÒ»¸ö½ÚµãµØÖ·¼´¿É
-	// ¶øfirstNodeÖ¸ÏòµÄÆäÊµÊÇtargetNode,ÔÚwhileÑ­»·ÖĞ·´¸´±»´´½¨²¢Ö¸ÏòÏÂÒ»¸ö
-	// ÏÂ·½Ö»ÊÇÊä³öĞÅÏ¢,sourceNode±¾ÉíÃ»ÓĞ¸üĞÂ
+	// åé¢ä¹Ÿä¸ä¼šå¤åˆ¶theListå…¶å®ƒèŠ‚ç‚¹çš„æŒ‡é’ˆä¿¡æ¯,å› ä¸ºé‚£æ˜¯theListçš„,è¿™é‡Œçš„firstNodeåªéœ€è¦è®°å½•è‡ªå·±çš„ä¸‹ä¸€ä¸ªèŠ‚ç‚¹åœ°å€å³å¯
+	// è€ŒfirstNodeæŒ‡å‘çš„å…¶å®æ˜¯targetNode,åœ¨whileå¾ªç¯ä¸­åå¤è¢«åˆ›å»ºå¹¶æŒ‡å‘ä¸‹ä¸€ä¸ª
+	// ä¸‹æ–¹åªæ˜¯è¾“å‡ºä¿¡æ¯,sourceNodeæœ¬èº«æ²¡æœ‰æ›´æ–°
 	/*
 		std::cout << sourceNode->next << "  " << sourceNode->next->next << "  " << sourceNode->next->next->next
 		<<"   " << sourceNode->next->next->next->next->element << endl;
-		Êä³ö¶¼ÊÇÃ»³õÊ¼»¯µÄµØÖ·
+		è¾“å‡ºéƒ½æ˜¯æ²¡åˆå§‹åŒ–çš„åœ°å€
 	*/
-	sourceNode = sourceNode->next; // ¸ü¸ÄÖ¸ÏòtheListµÄµÚ2¸ö½Úµã
-	_charter6_chainNode<T>* targetNode = firstNode; // Ö¸ÏòtheListµÄµÚ1¸ö½Úµã
-	while (sourceNode != NULL) // µ±ÏÂÒ»¸ö½Úµã²»Îª¿Õ¾Í»áÖ´ĞĞ
+	sourceNode = sourceNode->next; // æ›´æ”¹æŒ‡å‘theListçš„ç¬¬2ä¸ªèŠ‚ç‚¹
+	_charter6_chainNode<T>* targetNode = firstNode; // æŒ‡å‘theListçš„ç¬¬1ä¸ªèŠ‚ç‚¹
+	while (sourceNode != NULL) // å½“ä¸‹ä¸€ä¸ªèŠ‚ç‚¹ä¸ä¸ºç©ºå°±ä¼šæ‰§è¡Œ
 	{
-		// newÊÇ¿ª±ÙµÄĞÂ½Úµã,µ±Ç°targetNodeµÄÖ¸ÕëÖ¸ÏòÕâ¸öĞÂ¿ª±ÙµÄ½ÚµãµØÖ·
-		// ĞÂ½ÚµãµÄµØÖ·¹¹ÔìºÃºóÖ»ÓĞ1¸öµØÖ·Ã»ÓĞ±äÁ¿ÊµÌå,ºóÃæÏëÒÆ¶¯targetNode Ö»ÄÜÍ¨¹ıtargetNode =targetNode ->nextÀ´¸ü¸Ä
-		// ¿ª±ÙµÄĞÂ½ÚµãÖ»ÒÔelement¹¹ÔìÀ´¸´ÖÆtheListµÄ½Úµã
+		// newæ˜¯å¼€è¾Ÿçš„æ–°èŠ‚ç‚¹,å½“å‰targetNodeçš„æŒ‡é’ˆæŒ‡å‘è¿™ä¸ªæ–°å¼€è¾Ÿçš„èŠ‚ç‚¹åœ°å€
+		// æ–°èŠ‚ç‚¹çš„åœ°å€æ„é€ å¥½ååªæœ‰1ä¸ªåœ°å€æ²¡æœ‰å˜é‡å®ä½“,åé¢æƒ³ç§»åŠ¨targetNode åªèƒ½é€šè¿‡targetNode =targetNode ->nextæ¥æ›´æ”¹
+		// å¼€è¾Ÿçš„æ–°èŠ‚ç‚¹åªä»¥elementæ„é€ æ¥å¤åˆ¶theListçš„èŠ‚ç‚¹
 		targetNode->next = new _charter6_chainNode<T>(sourceNode->element);
 		targetNode = targetNode->next; // 
-		sourceNode = sourceNode->next;//¸üĞÂÖ¸ÏòÏÂ1¸ö½Úµã
+		sourceNode = sourceNode->next;//æ›´æ–°æŒ‡å‘ä¸‹1ä¸ªèŠ‚ç‚¹
 	}
 	targetNode->next = NULL;
 	/*
-	* ´ËÊ±ÔÙ´òÓ¡²»»á±¨´í,¸´ÖÆ¹¹ÔìÒÑ¾­Íê³É
-	std::cout << "¸´ÖÆ¹¹ÔìÍê³ÉÒÔºó´òÓ¡£º" << std::endl;
+	* æ­¤æ—¶å†æ‰“å°ä¸ä¼šæŠ¥é”™,å¤åˆ¶æ„é€ å·²ç»å®Œæˆ
+	std::cout << "å¤åˆ¶æ„é€ å®Œæˆä»¥åæ‰“å°ï¼š" << std::endl;
 	std::cout << "firstNode = "<<firstNode << "\n"
 		<< "firstNode->element = "<<firstNode->element << "   firstNode->next = " << firstNode->next << "\n"
 		<< "firstNode->next->next = "<<firstNode->next->next << "   firstNode->next->next->next = " << firstNode->next->next->next << "\n"
 		<< "firstNode->next->next->next->next = "<<firstNode->next->next->next->next << "   firstNode->next->next->next->next->next = " << firstNode->next->next->next->next->next << "\n" << std::endl;
-	std::cout << "firstNodeºÍtheList.firstNodeÊÇ2¸ö²»Í¬µÄµØÖ·£¡" << std::endl;
+	std::cout << "firstNodeå’ŒtheList.firstNodeæ˜¯2ä¸ªä¸åŒçš„åœ°å€ï¼" << std::endl;
 	std::cout << "theList.firstNode = " << theList.firstNode << "\n"
 		<< "theList.firstNode->element = " << theList.firstNode->element << "   theList.firstNode->next = " << theList.firstNode->next << "\n"
 		<< "theList.firstNode->next->next = " << theList.firstNode->next->next << "   theList.firstNode->next->next->next = " << theList.firstNode->next->next->next << "\n"
@@ -144,14 +144,14 @@ _charter6_chainListWithIterator<T>::_charter6_chainListWithIterator(const _chart
 template<class T>
 _charter6_chainListWithIterator<T>:: ~_charter6_chainListWithIterator()
 {
-	// ¸´ÖÆ¹¹Ôì»òÕß²åÈëµÄ½Úµã¶¼ÊÇnew³öÀ´µÄ,ĞèÒªÎö¹¹µô
+	// å¤åˆ¶æ„é€ æˆ–è€…æ’å…¥çš„èŠ‚ç‚¹éƒ½æ˜¯newå‡ºæ¥çš„,éœ€è¦ææ„æ‰
 	while (firstNode != NULL)
 	{
-		//µ±Ç°½Úµã²»Îª¿Õ¾ÍÒ»¸öÖ¸ÕëÖ¸ÏòËü°üº¬µÄÏÂÒ»¸ö½Úµã
+		//å½“å‰èŠ‚ç‚¹ä¸ä¸ºç©ºå°±ä¸€ä¸ªæŒ‡é’ˆæŒ‡å‘å®ƒåŒ…å«çš„ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
 		_charter6_chainNode<T>* nextNode = firstNode->next;
-		delete firstNode; // É¾³ıµ±Ç°½Úµã
-		firstNode = nextNode; // ÔÙ°Ñµ±Ç°½ÚµãÖ¸ÏòÏÂÒ»¸ö½Úµã
-		listSize--; // ½ÚµãÔªËØÒ²±äÎª0
+		delete firstNode; // åˆ é™¤å½“å‰èŠ‚ç‚¹
+		firstNode = nextNode; // å†æŠŠå½“å‰èŠ‚ç‚¹æŒ‡å‘ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
+		listSize--; // èŠ‚ç‚¹å…ƒç´ ä¹Ÿå˜ä¸º0
 	}
 	//printf("listSize = %d\n", listSize);
 }
@@ -160,28 +160,28 @@ template<class T>
 T& _charter6_chainListWithIterator<T>::get(int theIndex) const
 {
 	checkIndex(theIndex);
-	// 1¸öÍ·Ö¸Õë½øĞĞ½Úµã±éÀú
+	// 1ä¸ªå¤´æŒ‡é’ˆè¿›è¡ŒèŠ‚ç‚¹éå†
 	_charter6_chainNode<T>* currentNode = firstNode;
 	for (int i = 0; i < theIndex; i++)
-		currentNode = currentNode->next; // Ö´ĞĞÁËtheIndex´Î
-	return currentNode->element; // ´ËÊ±pÒÑ¾­ÊÇtheIndex½Úµã ·µ»ØÊı¾İÓò¼´¿É
+		currentNode = currentNode->next; // æ‰§è¡Œäº†theIndexæ¬¡
+	return currentNode->element; // æ­¤æ—¶på·²ç»æ˜¯theIndexèŠ‚ç‚¹ è¿”å›æ•°æ®åŸŸå³å¯
 }
 
 template<class T>
 int _charter6_chainListWithIterator<T>::indexOf(const T& theElement) const
 {
-	// ²éÕÒÄ³¸öÔªËØµÄË÷Òı,ĞèÒª½èÖúÍ·Ö¸Õë±éÀúÃ¿¸ö½Úµã,±È½ÏºÍelementµÄĞÅÏ¢¼´¿É
+	// æŸ¥æ‰¾æŸä¸ªå…ƒç´ çš„ç´¢å¼•,éœ€è¦å€ŸåŠ©å¤´æŒ‡é’ˆéå†æ¯ä¸ªèŠ‚ç‚¹,æ¯”è¾ƒå’Œelementçš„ä¿¡æ¯å³å¯
 	_charter6_chainNode<T>* currentNode = firstNode;
-	int index = 0;  // ÒòÎªË÷Òı²»ÏñÊı×éÃ»ÓĞÊµÌå,ĞèÒª×Ô¼º¶¨ÒåË÷ÒıÖµ
+	int index = 0;  // å› ä¸ºç´¢å¼•ä¸åƒæ•°ç»„æ²¡æœ‰å®ä½“,éœ€è¦è‡ªå·±å®šä¹‰ç´¢å¼•å€¼
 	while (currentNode != NULL &&
-		currentNode->element != theElement) // ²»Îª¿ÕÇÒÃ»ÕÒµ½Ê±Ö´ĞĞwhile
+		currentNode->element != theElement) // ä¸ä¸ºç©ºä¸”æ²¡æ‰¾åˆ°æ—¶æ‰§è¡Œwhile
 	{
-		// ÒÆ¶¯Í·Ö¸Õëµ½ÏÂ1¸ö½Úµã
+		// ç§»åŠ¨å¤´æŒ‡é’ˆåˆ°ä¸‹1ä¸ªèŠ‚ç‚¹
 		currentNode = currentNode->next;
 		index++;
 	}
 
-	// while½áÊø,Èç¹ûÃ»ÕÒµ½¾Í·µ»Ø-1·ñÔò·µ»Øindex
+	// whileç»“æŸ,å¦‚æœæ²¡æ‰¾åˆ°å°±è¿”å›-1å¦åˆ™è¿”å›index
 	if (currentNode == NULL)
 		return -1;
 	else
@@ -193,24 +193,24 @@ template<class T>
 void _charter6_chainListWithIterator<T>::erase(int theIndex)
 {
 	checkIndex(theIndex);
-	_charter6_chainNode<T>* deleteNode; // ´´½¨1¸ö¾Ö²¿Ö¸Õë
+	_charter6_chainNode<T>* deleteNode; // åˆ›å»º1ä¸ªå±€éƒ¨æŒ‡é’ˆ
 	if (theIndex == 0)
 	{
-		// É¾³ıÍ·½ÚµãÖ»ĞèÒªÈÃfirstNodeÖ¸ÏòÏÂ1¸ö½Úµã,Õâ¸ö½ÚµãµÄµØÖ·ÊÇfirstNode->next
-		deleteNode = firstNode;// Ô­À´µÄÍ·½ÚµãµØÖ·ÔÚ×îºó»á±»delete
-		firstNode = firstNode->next;//Í·½ÚµãÖ¸ÕëĞÅÏ¢¸üĞÂÎªÔ­À´Í·½ÚµãÖ¸ÏòµÄÏÂ1¸ö¼´firstNode->next
+		// åˆ é™¤å¤´èŠ‚ç‚¹åªéœ€è¦è®©firstNodeæŒ‡å‘ä¸‹1ä¸ªèŠ‚ç‚¹,è¿™ä¸ªèŠ‚ç‚¹çš„åœ°å€æ˜¯firstNode->next
+		deleteNode = firstNode;// åŸæ¥çš„å¤´èŠ‚ç‚¹åœ°å€åœ¨æœ€åä¼šè¢«delete
+		firstNode = firstNode->next;//å¤´èŠ‚ç‚¹æŒ‡é’ˆä¿¡æ¯æ›´æ–°ä¸ºåŸæ¥å¤´èŠ‚ç‚¹æŒ‡å‘çš„ä¸‹1ä¸ªå³firstNode->next
 	}
 	else
 	{
 		_charter6_chainNode<T>* p = firstNode;
 		for (int i = 0; i < theIndex - 1; i++)
 			p = p->next;
-		// ´ËÊ±pµ½´ïindex-1µÄÎ»ÖÃ
-		deleteNode = p->next; // É¾³ıµÄindex½ÚµãµÄµØÖ·ĞÅÏ¢ÔÚindex-1,ËùÒÔÊ¹ÓÃp->next
-		p->next = p->next->next; // °Ñµ±Ç°index-1µÄÖ¸ÕëÖ¸Ïòµ½index+1,¼´p->next->next(¼ÇÂ¼ÔÚindexµÄÖ¸Õë)
+		// æ­¤æ—¶påˆ°è¾¾index-1çš„ä½ç½®
+		deleteNode = p->next; // åˆ é™¤çš„indexèŠ‚ç‚¹çš„åœ°å€ä¿¡æ¯åœ¨index-1,æ‰€ä»¥ä½¿ç”¨p->next
+		p->next = p->next->next; // æŠŠå½“å‰index-1çš„æŒ‡é’ˆæŒ‡å‘åˆ°index+1,å³p->next->next(è®°å½•åœ¨indexçš„æŒ‡é’ˆ)
 	}
 	listSize--;
-	delete deleteNode; // É¾³ıµØÖ·ÊÇÕæÕıµÄÉ¾³ı
+	delete deleteNode; // åˆ é™¤åœ°å€æ˜¯çœŸæ­£çš„åˆ é™¤
 }
 
 template<class T>
@@ -223,29 +223,84 @@ void _charter6_chainListWithIterator<T>::insert(int theIndex, const T& theElemen
 		throw illegalIndex(s.str());
 	}
 
-	if (theIndex == 0)// Èç¹ûÔÚÍ·½ÚµãÖ®Ç°²åÈë½Úµã,ÈÃĞÂ´´½¨µÄ½ÚµãÖ¸ÏòÔ­À´µÄÍ·½Úµã¼´¿É
+	if (theIndex == 0)// å¦‚æœåœ¨å¤´èŠ‚ç‚¹ä¹‹å‰æ’å…¥èŠ‚ç‚¹,è®©æ–°åˆ›å»ºçš„èŠ‚ç‚¹æŒ‡å‘åŸæ¥çš„å¤´èŠ‚ç‚¹å³å¯
 	{
-		// 1.Ê¹ÓÃ1¸öÖ¸ÕëÖ¸ÏòÓÃÔ­À´Í·½ÚµãĞÅÏ¢´´½¨µÄĞÂ½Úµã
-		// newfirstNode±ØĞëÓÃÖ¸Õë½ÓÊÕ,ºÍfirstNode¾ÍÊÇÒ»ÀàÖ¸Õë
+		// 1.ä½¿ç”¨1ä¸ªæŒ‡é’ˆæŒ‡å‘ç”¨åŸæ¥å¤´èŠ‚ç‚¹ä¿¡æ¯åˆ›å»ºçš„æ–°èŠ‚ç‚¹
+		// newfirstNodeå¿…é¡»ç”¨æŒ‡é’ˆæ¥æ”¶,å’ŒfirstNodeå°±æ˜¯ä¸€ç±»æŒ‡é’ˆ
 		_charter6_chainNode<T>* newfirstNode = new _charter6_chainNode<T>(theElement, firstNode);
-		// 2.°ÑÏÖÔÚµÄÍ·½ÚµãÖ¸ÏòÔ­À´µÄÍ·½Úµã,Êı¾İÓòºÍÁ´ÓòĞÅÏ¢¶¼±£Áô
-		this->firstNode = newfirstNode;//¸üĞÂÍ·½Úµã
-		// 3.ÒÔÇ°µÄÍ·½Úµã²»Ó°ÏìÖ¸ÏòµÄÏÂÒ»¸ö½Úµã,ÎŞĞè¸üĞÂ,²åÈëÖ´ĞĞÍê±Ï
-	}
-	else // indexÊÇÒª²åÈëµÄ½Úµã,ĞèÒªÕÒµ½index-1µÄ½Úµã,Ö»ÄÜ½èÖúÒ»¸öÖ¸ÏòÍ·½ÚµãµÄÖ¸Õë±éÀú²éÕÒ
-	{
-		_charter6_chainNode<T>* p = firstNode;//Ò»¸öÖ¸Ïò×ÔÉíÍ·½ÚµãµÄÖ¸Õë
-		for (int i = 0; i < theIndex - 1; i++)//ÒÆ¶¯index-1´Î¾Íµ½´ïÇ°1¸ö½ÚµãµÄµØÖ·
-			p = p->next; // µÈ¼ÛÓÚp->next->next->next->...->next(index-1¸önext) 
+		// 2.æŠŠç°åœ¨çš„å¤´èŠ‚ç‚¹æŒ‡å‘åŸæ¥çš„å¤´èŠ‚ç‚¹,æ•°æ®åŸŸå’Œé“¾åŸŸä¿¡æ¯éƒ½ä¿ç•™
+		// cout << firstNode << endl;
+		// //cout << firstNode->next << endl;  ä¸èƒ½è¿è¡Œæ˜¯ç©ºæŒ‡é’ˆ
+		this->firstNode = newfirstNode;//æ›´æ–°å¤´èŠ‚ç‚¹
+		// cout << firstNode << "    "<<newfirstNode<< endl;
+		// cout << firstNode->next << "   "<< newfirstNode->next <<endl;
+		/*
+		æµ‹è¯•ç¨‹åºï¼š
+		y.insert(0, 2);
+		y.insert(0, 1);
+		y.insert(0, -1);
+		è¿è¡Œç»“æœï¼š
+		0000000000000000 -> firstNode=NULL
+		00000264044B1DD0    00000264044B1DD0 -> firstNode = n0
+		0000000000000000   0000000000000000 -> firstNode->next = n0(ä»¥NULLæ„å»ºçš„n0)->next
+		00000264044B1DD0 -> firstNode = n0
+		00000264044B1F60    00000264044B1F60 -> firstNode = n1 
+		00000264044B1DD0   00000264044B1DD0 -> firstNode->next = n1->next(ä»¥n0æ„å»ºçš„n1) =n0
+		00000264044B1F60 -> firstNode = n1
+		00000264044B23C0    00000264044B23C0 -> firstNode = n2
+		00000264044B1F60   00000264044B1F60 -> firstNode->next = n2->next(ä»¥n1æ„å»ºçš„n2) = n1
+		*/
+		
+		/*
+			â‘  => æ„é€ å‡½æ•°ç©ºæŒ‡é’ˆå·²ç»åˆå§‹åŒ–ä¸ºNULL
+			â‘¡ = > ä¸èƒ½è¿è¡Œæ˜¯ç©ºæŒ‡é’ˆ,ä¼šæŠ¥é”™
+			â‘¢ => 2ä¸ªæ“ä½œåˆå¹¶
+					1.ä»¥å¤´èŠ‚ç‚¹æ„é€ 1ä¸ªæ–°èŠ‚ç‚¹æŒ‡å‘NULL
+					2.è®©å¤´èŠ‚ç‚¹ç­‰äºæ–°èŠ‚ç‚¹,æ³¨æ„æ˜¯æŒ‡é’ˆèµ‹å€¼ç›¸ç­‰,ä¸¤ä¸ªå…¶å®æŒ‡é’ˆæ˜¯1ä¸ªåœ°å€
+						æ‰€ä»¥firstNode->nextå…¶å®å°±æ˜¯æ–°èŠ‚ç‚¹(ä¸Šè¾¹çš„newfirstNode)->next
+						è¦ä¸è¯´ä¼šæœ‰ä¸ªthis->firstNode = newfirstNodeå‘¢?ä¸Šè¾¹ç¨‹åºæ›´å®¹æ˜“ç†è§£
+			â‘£ => 1ä¸ªç‰¹æ®Šçš„æƒ…å†µæ˜¯æ¯æ¬¡æ’å…¥éƒ½æ˜¯å¤´æ’,é‚£ä¹ˆæ°¸è¿œä¸ä¼šæ‰§è¡Œelse
+						æ³¨æ„newçš„èŠ‚ç‚¹æ€»æ˜¯ä»¥firstNodeå¸¦çš„ä¿¡æ¯(å°±æ˜¯ä¸Š1ä¸ªnewçš„èŠ‚ç‚¹å¸¦çš„ä¿¡æ¯)æ„é€ è€Œä¸æ˜¯firstNode->nextæ„é€ 
 
-		// ÕâÀïÖ»Ö´ĞĞÁËindex-1´Î,´ËÊ±pÖ¸ÏòµÄÊÇµÚindex-1¸ö½Úµã,ËüµÄÔÙÏÂÒ»¸ö²ÅÊÇindex½Úµã
-		// 1.´´½¨1¸öĞÂ½Úµã±£Áôindex½ÚµãµÄĞÅÏ¢(ÔÚp->nextÖĞ),ÒªÒÔ(theElement, p->next)·½Ê½´´½¨
-		_charter6_chainNode<T>* theIndexNode = new _charter6_chainNode<T>(theElement, p->next); // ´´½¨½Úµã¾ÍÒªÊ¹ÓÃnew
-		// 2.Òª°Ñindex-1µÄÖ¸ÕëĞÅÏ¢(p->next)Ö¸Ïòµ±Ç°ĞÂ´´½¨µÄ½Úµã
-		p->next = theIndexNode;
-		// 3.theIndexNode´´½¨Ê±¾ÍÓĞÁËÔ­À´index½ÚµãµÄĞÅÏ¢ÁË,ÎŞĞè¸ü¸ÄºóĞø
+			æµ‹è¯•ç¨‹åºï¼š
+			y.insert(0, 2);
+			y.insert(0, 1);
+			æŸä¸€æ¬¡è¿è¡Œçš„ç»“æœï¼š
+			0000000000000000 ->ç©ºæŒ‡é’ˆ
+			000001A756B52230    0000000000000000 (firstNode=newçš„èŠ‚ç‚¹n0,æ‰€ä»¥firstNode->next=NULL)
+			000001A756B52230 ->æ­¤æ—¶çš„firstNode=n0æš‚æ—¶æ²¡å˜
+			000001A756B521E0    000001A756B52230 (firstNode=newçš„èŠ‚ç‚¹n1,åœ°å€å˜åŒ–äº†)
+			é‡ç‚¹æ¥äº†,å› ä¸ºnewæ˜¯ä»¥firstNodeæ„å»ºçš„è€Œä¸æ˜¯firstNode->nextæ„å»ºçš„
+			æ‰€ä»¥newçš„èŠ‚ç‚¹->nextæ˜¯NULL,åŒæ—¶firstNodeæ›´æ–°ä¸ºç­‰äºç°åœ¨newçš„èŠ‚ç‚¹ä¿¡æ¯
+			ä»è€Œ fitstNode=n1, fitstNode->next = n1->next(ä»¥n0æ„å»ºä¸æ˜¯n0->next) = &n0(â‰ NULL) , n0->next=NULLä¸å½±å“
+
+			å¦‚æœç»§ç»­å¤´æ’
+			y.insert(0,-1);
+			æ­¤æ—¶ è¿è¡Œç»“æœåº”å½“ä¸º
+			000001A756B521E0 ->firstNode=n1
+			00000xxxxx(n2åœ°å€)  000001A756B521E0 n2ä»¥firstNode/n1æ„å»ºçš„åˆæ›´æ–°äº†firstNode=n2
+			
+			cout << firstNode << endl;  â‘ 
+			//  cout << firstNode->next << endl; â‘¡
+			this->firstNode = new _charter6_chainNode<T>(theElement, firstNode);  // â‘¢
+			cout << firstNode <<"    "<<firstNode->next << endl;  â‘£
+		*/
+
 	}
-	listSize++; // ³ÉÔ±+1
+	else // indexæ˜¯è¦æ’å…¥çš„èŠ‚ç‚¹,éœ€è¦æ‰¾åˆ°index-1çš„èŠ‚ç‚¹,åªèƒ½å€ŸåŠ©ä¸€ä¸ªæŒ‡å‘å¤´èŠ‚ç‚¹çš„æŒ‡é’ˆéå†æŸ¥æ‰¾
+	{
+		_charter6_chainNode<T>* p = firstNode;//ä¸€ä¸ªæŒ‡å‘è‡ªèº«å¤´èŠ‚ç‚¹çš„æŒ‡é’ˆ
+		for (int i = 0; i < theIndex - 1; i++)//ç§»åŠ¨index-1æ¬¡å°±åˆ°è¾¾å‰1ä¸ªèŠ‚ç‚¹çš„åœ°å€
+			p = p->next; // ç­‰ä»·äºp->next->next->next->...->next(index-1ä¸ªnext) 
+
+		// è¿™é‡Œåªæ‰§è¡Œäº†index-1æ¬¡,æ­¤æ—¶pæŒ‡å‘çš„æ˜¯ç¬¬index-1ä¸ªèŠ‚ç‚¹,å®ƒçš„å†ä¸‹ä¸€ä¸ªæ‰æ˜¯indexèŠ‚ç‚¹
+		// 1.åˆ›å»º1ä¸ªæ–°èŠ‚ç‚¹ä¿ç•™indexèŠ‚ç‚¹çš„ä¿¡æ¯(åœ¨p->nextä¸­),è¦ä»¥p->nextæ–¹å¼åˆ›å»ºä¸æ˜¯p
+		_charter6_chainNode<T>* theIndexNode = new _charter6_chainNode<T>(theElement, p->next); 
+		// 2.è¦æŠŠindex-1çš„æŒ‡é’ˆä¿¡æ¯(p->next)æŒ‡å‘å½“å‰æ–°åˆ›å»ºçš„èŠ‚ç‚¹
+		p->next = theIndexNode;
+		// 3.theIndexNodeåˆ›å»ºæ—¶å°±æœ‰äº†åŸæ¥indexèŠ‚ç‚¹çš„ä¿¡æ¯äº†,æ— éœ€æ›´æ”¹åç»­
+	}
+	listSize++; // æˆå‘˜+1
 }
 
 template<class T>
@@ -253,8 +308,8 @@ void _charter6_chainListWithIterator<T>::output(std::ostream& out) const
 {
 	for (_charter6_chainNode<T>* currentNode = firstNode;
 		currentNode != NULL;
-		currentNode = currentNode->next) // ²»Îª¿ÕÊ±¾Í¼ÌĞø¸üĞÂµØÖ·µ½ÏÂÒ»¸ö½Úµã
-		out << currentNode->element << "  ";//´òÓ¡ÔªËØ
+		currentNode = currentNode->next) // ä¸ä¸ºç©ºæ—¶å°±ç»§ç»­æ›´æ–°åœ°å€åˆ°ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
+		out << currentNode->element << "  ";//æ‰“å°å…ƒç´ 
 }
 
 template <class T>
