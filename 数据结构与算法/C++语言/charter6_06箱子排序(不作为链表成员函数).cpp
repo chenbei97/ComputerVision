@@ -1,62 +1,61 @@
 #include "charter6_chainListWithIterator.h"
-#include "charter6_myStudentRecords.h"
+#include "charter6_studentRecord1.h"
 #include <stdlib.h>
-// ÅÅĞò·½·¨ÊÇ¶ÀÁ¢ÊµÏÖµÄÃ»ÓĞ×÷ÎªÁ´±íÀàµÄ³ÉÔ±º¯Êı
-// ×¢ÒâÊ¹ÓÃµÄÊÇ´øµü´úÆ÷µÄµ¥ÏòÁ´±í£¬²»ÊÇÍØÕ¹µÄµ¥ÏòÁ´±í»òÕßµ¥ÏòÑ­»·Á´±í
-// Ê¹ÓÃµÄÑ§Éú·ÖÊı²âÊÔ³¡¾°ÊÇ_charter6_studentRecord1(Ö»ÓĞ!=ºÍ<<ÖØÔØ)
+// æ’åºæ–¹æ³•æ˜¯ç‹¬ç«‹å®ç°çš„æ²¡æœ‰ä½œä¸ºé“¾è¡¨ç±»çš„æˆå‘˜å‡½æ•°
+// æ³¨æ„ä½¿ç”¨çš„æ˜¯å¸¦è¿­ä»£å™¨çš„å•å‘é“¾è¡¨ï¼Œä¸æ˜¯æ‹“å±•çš„å•å‘é“¾è¡¨æˆ–è€…å•å‘å¾ªç¯é“¾è¡¨
+// ä½¿ç”¨çš„å­¦ç”Ÿåˆ†æ•°æµ‹è¯•åœºæ™¯æ˜¯_charter6_studentRecord1(åªæœ‰!=å’Œ<<é‡è½½)
 void _charter6_studentRecord_binsort(_charter6_chainListWithIterator<_charter6_studentRecord1>& theChain, int range);
 void _charter6_StudentRecord1_binSort_testCode()
 {
-	typedef _charter6_chainListWithIterator<_charter6_studentRecord1> chain; // Ãû×ÖÌ«³¤È¡¸ö±ğÃû
-	typedef  _charter6_studentRecord1 stu; // ±ğÃûÖ»ÔÚ¾Ö²¿ÓòÄÚÓĞĞ§
+	typedef _charter6_chainListWithIterator<_charter6_studentRecord1> chain; // åå­—å¤ªé•¿å–ä¸ªåˆ«å
+	typedef  _charter6_studentRecord1 stu; // åˆ«ååªåœ¨å±€éƒ¨åŸŸå†…æœ‰æ•ˆ
 	stu s;
 	chain c;
-	unsigned char name;
-	int aidx = 97; // ×Ö·ûaµÄASCIIÂëÎ»ÖÃ
-	for (int i = 1; i <= 20; i++)  // ¸ø20¸öÑ§Éú³õÊ¼»¯
+	int aidx = 97; // å­—ç¬¦açš„ASCIIç ä½ç½®
+	for (int i = 1; i <= 20; i++)  // ç»™20ä¸ªå­¦ç”Ÿåˆå§‹åŒ–
 	{
 		s.score = i / 2; 
-		s.name = new string (1,aidx++); // ÓÃÓÚÃüÃû
-		c.insert(0, s); // °Ñ×îµÍ·ÖÍ·²å,ÄÇÃ´×î¸ß·ÖÅÅÔÚÊ×Î²,ÊÇ×î»µµÄ²âÊÔÊı¾İ
+		s.name = new string (1,aidx++); // ç”¨äºå‘½å
+		c.insert(0, s); // æŠŠæœ€ä½åˆ†å¤´æ’,é‚£ä¹ˆæœ€é«˜åˆ†æ’åœ¨é¦–å°¾,æ˜¯æœ€åçš„æµ‹è¯•æ•°æ®
 	}
 	cout << "The unsorted chain is" << endl;
 	cout << "  "<<c << endl;
-	_charter6_studentRecord_binsort(c, 10); // 10·ÖÊÇ×î¸ßµµ·ÖÊı
+	_charter6_studentRecord_binsort(c, 10); // 10åˆ†æ˜¯æœ€é«˜æ¡£åˆ†æ•°
 	cout << "The sorted chain is" << endl;
 	cout << "  " << c << endl;
 }
 void _charter6_studentRecord_binsort(_charter6_chainListWithIterator<_charter6_studentRecord1>& theChain, int range)
 {
-	// ´«ÈëµÄÊÇ1¸öÑ§Éú·ÖÊıÀàĞÍµÄÁ´±í,rangeÊÇ·ÖÊıµÄµµÎ»Êı»òÕßËµÁ´±í´óĞ¡
-	typedef _charter6_chainListWithIterator<_charter6_studentRecord1> chain; // Ãû×ÖÌ«³¤È¡¸ö±ğÃû
-	typedef  _charter6_studentRecord1 stu; // ±ğÃûÖ»ÔÚ¾Ö²¿ÓòÄÚÓĞĞ§
-	chain* bin; // Ã¿¸öÏä×Ó¶¼ÊÇ1¸öÁ´±í,Ò»¸öÖ¸ÏòÏä×ÓÊı×éµØÖ·µÄÖ¸Õë
+	// ä¼ å…¥çš„æ˜¯1ä¸ªå­¦ç”Ÿåˆ†æ•°ç±»å‹çš„é“¾è¡¨,rangeæ˜¯åˆ†æ•°çš„æ¡£ä½æ•°æˆ–è€…è¯´é“¾è¡¨å¤§å°
+	typedef _charter6_chainListWithIterator<_charter6_studentRecord1> chain; // åå­—å¤ªé•¿å–ä¸ªåˆ«å
+	typedef  _charter6_studentRecord1 stu; // åˆ«ååªåœ¨å±€éƒ¨åŸŸå†…æœ‰æ•ˆ
+	chain* bin; // æ¯ä¸ªç®±å­éƒ½æ˜¯1ä¸ªé“¾è¡¨,ä¸€ä¸ªæŒ‡å‘ç®±å­æ•°ç»„åœ°å€çš„æŒ‡é’ˆ
 	
-	// Î¨Ò»¿ÉÄÜÔËĞĞÊ§°ÜµÄÓï¾ä,ÒòÎªÄÚ´æ¿ÉÄÜ·ÖÅä²»×ã
-	bin = new chain[range+1]; // new 1¸öÏä×ÓÊı×é,ÈİÁ¿ÊÇrange+1,ÓëscoreÏàÍ¬,ÉèÏë³¡¾°Îª0,1,2,3,4,5
+	// å”¯ä¸€å¯èƒ½è¿è¡Œå¤±è´¥çš„è¯­å¥,å› ä¸ºå†…å­˜å¯èƒ½åˆ†é…ä¸è¶³
+	bin = new chain[range+1]; // new 1ä¸ªç®±å­æ•°ç»„,å®¹é‡æ˜¯range+1,ä¸scoreç›¸åŒ,è®¾æƒ³åœºæ™¯ä¸º0,1,2,3,4,5
 	
-	int size = theChain.size(); // ²»Ğ´ÔÚforÑ­»·ÖĞ,ÒòÎªtheChain.size()¶¯Ì¬µÄ±ä¶Ì
-	// ÎªºÎÖ´ĞĞsize´Î,ÒòÎªÓĞsize¸öÔªËØ,Ã¿´Î¶¼È¡³ö1¸ö
-	for (int i = 1; i <=size ; i++) // ´ÓÁ´±íµÄµÚ1¸öÑ§Éú¿ªÊ¼,Ê±¼ä¸´ÔÓ¶È¦¨(n)
+	int size = theChain.size(); // ä¸å†™åœ¨forå¾ªç¯ä¸­,å› ä¸ºtheChain.size()åŠ¨æ€çš„å˜çŸ­
+	// ä¸ºä½•æ‰§è¡Œsizeæ¬¡,å› ä¸ºæœ‰sizeä¸ªå…ƒç´ ,æ¯æ¬¡éƒ½å–å‡º1ä¸ª
+	for (int i = 1; i <=size ; i++) // ä»é“¾è¡¨çš„ç¬¬1ä¸ªå­¦ç”Ÿå¼€å§‹,æ—¶é—´å¤æ‚åº¦Î˜(n)
 	{
-		stu x = theChain.get(0); // ÄÃµ½µÚ0¸öÑ§ÉúµÄĞÅÏ¢ ¦¨(1)
-		theChain.erase(0); // °Ñ´«ÈëµÄÁ´±íµÚ0¸öÑ§Éú²ÁÈ¥ ¦¨(1)
-		// =>·´¸´Ö´ĞĞ×ÜÊÇµÃµ½Á´±íµÄµÚ0¸öÑ§Éú,ÇÒÁ´±íÔ½À´Ô½¶Ì 
-		bin[x.score].insert(0, x);//°ÑÄÃµ½µÄÑ§ÉúĞÅÏ¢¸ù¾İ·ÖÊı²åÈëµ½Ïä×ÓÊı×éµÄ²»Í¬Á´±íÖĞ ¦¨(1)
+		stu x = theChain.get(0); // æ‹¿åˆ°ç¬¬0ä¸ªå­¦ç”Ÿçš„ä¿¡æ¯ Î˜(1)
+		theChain.erase(0); // æŠŠä¼ å…¥çš„é“¾è¡¨ç¬¬0ä¸ªå­¦ç”Ÿæ“¦å» Î˜(1)
+		// =>åå¤æ‰§è¡Œæ€»æ˜¯å¾—åˆ°é“¾è¡¨çš„ç¬¬0ä¸ªå­¦ç”Ÿ,ä¸”é“¾è¡¨è¶Šæ¥è¶ŠçŸ­ 
+		bin[x.score].insert(0, x);//æŠŠæ‹¿åˆ°çš„å­¦ç”Ÿä¿¡æ¯æ ¹æ®åˆ†æ•°æ’å…¥åˆ°ç®±å­æ•°ç»„çš„ä¸åŒé“¾è¡¨ä¸­ Î˜(1)
 
-		// ´ËÊ±Íê³ÉºÃÁË²»Í¬·ÖÊıÑ§ÉúµÄ·Ö¼¶
-		// ½ÓÏÂÀ´Ö»ĞèÒªÑ­»·È¡³öÀ´¸øµ½ĞÂÁ´±í¼´¿É
+		// æ­¤æ—¶å®Œæˆå¥½äº†ä¸åŒåˆ†æ•°å­¦ç”Ÿçš„åˆ†çº§
+		// æ¥ä¸‹æ¥åªéœ€è¦å¾ªç¯å–å‡ºæ¥ç»™åˆ°æ–°é“¾è¡¨å³å¯
 	}
 
-	// ´ÓÏä×ÓÊÕ¼¯Ñ§ÉúĞÅÏ¢
-	for (int j = range; j >= 0; j--) // j=5,4,3,2,1,0,ÒÀ´Î´Ó²»Í¬Ïä×ÓÈ¡³öÔªËØ,Ê±¼ä¸´ÔÓ¶È¦¨(n+range)
+	// ä»ç®±å­æ”¶é›†å­¦ç”Ÿä¿¡æ¯
+	for (int j = range; j >= 0; j--) // j=5,4,3,2,1,0,ä¾æ¬¡ä»ä¸åŒç®±å­å–å‡ºå…ƒç´ ,æ—¶é—´å¤æ‚åº¦Î˜(n+range)
 	{
-		while (!bin[j].empty()) // Ïä×ÓÈ¡1¸ö¾ÍÒª²Áµô1¸ö,ËùÒÔÅĞ¶ÏÌõ¼ş¾ÍÊÇ²»Îª¿Õ¾ÍÖ´ĞĞwhile
+		while (!bin[j].empty()) // ç®±å­å–1ä¸ªå°±è¦æ“¦æ‰1ä¸ª,æ‰€ä»¥åˆ¤æ–­æ¡ä»¶å°±æ˜¯ä¸ä¸ºç©ºå°±æ‰§è¡Œwhile
 		{
-			stu x = bin[j].get(0);// ÄÃµ½jÏä×ÓµÄÊ×¸öÑ§Éú ¦¨(1)
-			bin[j].erase(0);// jÏä×Ó²Áµô ¦¨(1)
-			theChain.insert(0, x); // theChainÊÇ¸öÁ´±íÒıÓÃ,»¹ÊÇ¿ÉÒÔ¼ÌĞøÍ·²åµÄ,Î²²å»¹ÒªÖ¸¶¨Ë÷ÒıËùÒÔÍ·²å ¦¨(1)
-		}// ÒòÎªj´Ó¸ß·Ö±éÀú,µ«ÊÇÊÇÍ·²å,ËùÒÔ¸ß·ÖÅÅÔÚºóÃæ,ÕâÑù¾ÍÊÇÉıĞòÁË
+			stu x = bin[j].get(0);// æ‹¿åˆ°jç®±å­çš„é¦–ä¸ªå­¦ç”Ÿ Î˜(1)
+			bin[j].erase(0);// jç®±å­æ“¦æ‰ Î˜(1)
+			theChain.insert(0, x); // theChainæ˜¯ä¸ªé“¾è¡¨å¼•ç”¨,è¿˜æ˜¯å¯ä»¥ç»§ç»­å¤´æ’çš„,å°¾æ’è¿˜è¦æŒ‡å®šç´¢å¼•æ‰€ä»¥å¤´æ’ Î˜(1)
+		}// å› ä¸ºjä»é«˜åˆ†éå†,ä½†æ˜¯æ˜¯å¤´æ’,æ‰€ä»¥é«˜åˆ†æ’åœ¨åé¢,è¿™æ ·å°±æ˜¯å‡åºäº†
 	}
-	delete[] bin; // Ïä×ÓÊÇÊı×é new ºÍdelete±ØĞëÅäÌ×
+	delete[] bin; // ç®±å­æ˜¯æ•°ç»„ new å’Œdeleteå¿…é¡»é…å¥—
 }
