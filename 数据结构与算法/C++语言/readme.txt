@@ -37,6 +37,8 @@
 之后就简单了,用p->next构建index节点，再让p指向这个新构建的节点
 特别的如果取到了listSize,p就是listSize-1的节点,p->next在一开始头插的时候已经指回了headNode,所以使用p->next构建的新节点作为尾节点依然指回headNode，还是循环链表
 
-
-
+-----------2021.12.31-------------
+昨天快下班出现的问题是一个头文件"charter6_myStudentRecords.h"定义了多个结构体，现在用两个代码文件分别测试其中的2给个结构体，都在文件中包含了这个头文件
+编译出现错误，重定义的错误。解决方法是每个结构体都分别定义在1个头文件中，即"charter6_studentRecord1.h"包含struct _charter6_studentRecord1
+"charter6_studentRecord2.h"包含struct _charter6_studentRecord2，"charter6_studentRecord.h"包含struct _charter6_studentRecord
 
