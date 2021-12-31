@@ -1,45 +1,47 @@
-#pragma once
+#ifndef _charter6_myStudentRecords_
+#define _charter6_myStudentRecords_
 #include <string>
 #include <iostream>
-// ·½Ê½1
-struct studentRecord1
+// æ–¹å¼1
+struct _charter6_studentRecord1
 {
     int score;
     std::string* name;
 
-    int operator !=(studentRecord1 x) const
+    int operator !=(_charter6_studentRecord1 x) const
     {
-        return (score != x.score); // ÖØÔØ!=ÔËËã
+        return (score != x.score); // é‡è½½!=è¿ç®—
     }
 };
-std::ostream& operator<<(std::ostream& out, const studentRecord1& x)
+std::ostream& operator<<(std::ostream& out, const _charter6_studentRecord1& x)
 {
     out << "score = "<<x.score << "  name = " << *x.name << std::endl; return out;
 }
-// ·½Ê½2
-struct studentRecord2
+// æ–¹å¼2
+struct _charter6_studentRecord2
 {
     int score;
     std::string* name;
-    operator int() const { return score; }// ÖØÔØÀàĞÍ×ª»»
+    operator int() const { return score; }// é‡è½½ç±»å‹è½¬æ¢
 };
-std::ostream& operator<<(std::ostream& out, const studentRecord2& x)
+std::ostream& operator<<(std::ostream& out, const _charter6_studentRecord2& x)
 {
     out << "score = " << x.score << "  name = " << *x.name << std::endl; return out;
 }
-// ºÏ²¢·½Ê½1ºÍ2
-struct studentRecord
+// åˆå¹¶æ–¹å¼1å’Œ2
+struct _charter6_studentRecord
 {
     int score;
     std::string* name;
 
-    int operator !=(studentRecord x) const
+    int operator !=(_charter6_studentRecord x) const
     {
-        return (score != x.score || name != x.name); // Ãû×Ö»òÕß·ÖÊı²»µÈ¶¼ÊÇ²»µÈ
+        return (score != x.score || name != x.name); // åå­—æˆ–è€…åˆ†æ•°ä¸ç­‰éƒ½æ˜¯ä¸ç­‰
     }
-    operator int() const { return score; } // int()Ö»ÄÜÔÚ²Ù×÷·û!=ºÍ<<ÒÔÍâ²Ù×÷ÖĞÊ¹ÓÃ
+    operator int() const { return score; } // int()åªèƒ½åœ¨æ“ä½œç¬¦!=å’Œ<<ä»¥å¤–æ“ä½œä¸­ä½¿ç”¨
 };
-std::ostream& operator<<(std::ostream& out, const studentRecord& x)
+std::ostream& operator<<(std::ostream& out, const _charter6_studentRecord& x)
 {
     out << "score = " << x.score << "  name = " << *x.name << std::endl; return out;
 }
+#endif
