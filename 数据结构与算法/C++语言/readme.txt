@@ -42,3 +42,5 @@
 编译出现错误，重定义的错误。解决方法是每个结构体都分别定义在1个头文件中，即"charter6_studentRecord1.h"包含struct _charter6_studentRecord1
 "charter6_studentRecord2.h"包含struct _charter6_studentRecord2，"charter6_studentRecord.h"包含struct _charter6_studentRecord
 
+-----------2022.1.1-------------
+今天系统性的解决了箱子排序的原理，以及作为链表成员实现和普通实现的区别，goodjob~~
