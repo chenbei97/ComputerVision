@@ -5,7 +5,7 @@ using namespace std;
 class illegalIndex
 {
 public:
-    // 使用string 可以直接兼容 const char *
+    // 闇�瑕佷娇鐢╯tring,浣跨敤const char*鍙兘浼氬鑷翠笉鍏煎
     illegalIndex(string theMessage = "Illegal index")
     {
         message = theMessage;
