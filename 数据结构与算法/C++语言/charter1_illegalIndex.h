@@ -9,7 +9,6 @@ public:
     illegalIndex(string theMessage = "Illegal index")
     {
         message = theMessage;
-        outputMessage();
     }
     void outputMessage() { cout << message << endl; }
 private:
