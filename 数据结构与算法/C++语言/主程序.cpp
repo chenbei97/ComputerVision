@@ -36,6 +36,7 @@ int main()
 	_charter6_chainListCircular_testCode();
 	_charter6_StudentRecord1_binSort_testCode();
 	_charter6_StudentRecord2_binSort_testCode();
+	_charter6_convex_hull();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2};
 	//array_sorting_method(a, n ,countSort);
