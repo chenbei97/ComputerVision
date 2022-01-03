@@ -8,6 +8,7 @@ public:
     illegalInputData(string theMessage = "Illegal data input")
     {
         message = theMessage;
+        outputMessage();
     }
     void outputMessage() { cout << message << endl; }
 private:
