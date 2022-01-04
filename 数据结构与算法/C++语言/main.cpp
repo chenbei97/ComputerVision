@@ -4,9 +4,7 @@
 #include "charter4.h"
 #include "charter5.h"
 #include "charter6.h"
-//#include "charter1_illegalParameterValue.h"
-//#include "charter5_linearList.h"
-//#include "charter5_arrayList.h"
+#include "charter7.h"
 #include "sort_method.h"
 #include <iostream>
 using namespace std;
@@ -41,6 +39,7 @@ int main()
 	//_charter6_convex_hull();
 	_charter7_array2D_pointer();
 	_charter7_irregular_array2d();
+	_charter7_matrix_testCode();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);
