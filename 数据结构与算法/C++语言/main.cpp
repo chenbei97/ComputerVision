@@ -38,7 +38,7 @@ int main()
 	//_charter6_chainListCircular_testCode();
 	//_charter6_StudentRecord1_binSort_testCode();
 	//_charter6_StudentRecord2_binSort_testCode();
-	_charter6_convex_hull();
+	//_charter6_convex_hull();
 	_charter7_array2D_pointer();
 	_charter7_irregular_array2d();
 	//const int n = 10;
