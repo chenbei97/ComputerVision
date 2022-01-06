@@ -1,5 +1,5 @@
 #pragma once
-// ¶¨ÒåÁËÒ»Ğ©Òì³£ÀàĞÍ,¼¯³ÉÁËµÚ1ÕÂµÄ3¸öÒì³£Àà,·Ç·¨²ÎÊı¡¢·Ç·¨ÊäÈëºÍ·Ç·¨Ë÷Òı
+// å®šä¹‰äº†ä¸€äº›å¼‚å¸¸ç±»å‹,é›†æˆäº†ç¬¬1ç« çš„3ä¸ªå¼‚å¸¸ç±»,éæ³•å‚æ•°ã€éæ³•è¾“å…¥å’Œéæ³•ç´¢å¼•
 #ifndef myExceptions_
 #define myExceptions_
 #include <string>
@@ -73,7 +73,19 @@ public:
 private:
     string message;
 };
-
+// matrixæ²¡æœ‰åˆå§‹åŒ– ç”¨äº A=5è¿™æ ·çš„èµ‹å€¼å¦‚æœAä¸çŸ¥é“sizeæ— æ³•èµ‹å€¼
+class matrixSizeNotInitialized
+{
+public:
+    matrixSizeNotInitialized(std::string theMessage =
+        "matrix's column and row should be initialed first !")
+    {
+        message = theMessage;
+    }
+    void outputMessage() { std::cout << message << std::endl; }
+private:
+    std::string message;
+};
 // stack is empty
 class stackEmpty
 {
