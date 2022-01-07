@@ -409,7 +409,8 @@ void matrix<T> :: t()
         每个行总是相差theColumns个元素
         关键在于行的开头是原来的第1列位置
     */
-    T* b = new T  [theColumns*theRows];
+
+    T* b = new T [theColumns*theRows] ;
     int k = 0;
     for (int i = 0; i <= theRows; i++)// i = 0,1,2,3
     {
@@ -421,13 +422,16 @@ void matrix<T> :: t()
         }
     }
     k = 0;
-    for (; k < theColumns * theRows; k++)
+    for (; k < theRows * theColumns; k++)
+    {
         element[k] = b[k];
+        //cout << "element["<<k<<"] = "<<element[k] << endl;
+    }
     int t = theColumns;
     theColumns = theRows;
     theRows = t; // 转置后行与列要交换
-    b = NULL; // delete b之前先置空
-    delete b ;
+   b = NULL; // 不要delete b会自动释放,只需要置空避免野指针即可
+   delete b; // 必须先NULL才能delete
 }
 
 // 这个类内实现存在一些问题，外部测试使用double类型的matrix时就不能使用cout<<x<<endl;
