@@ -15,20 +15,20 @@ public:
     ~matrix() { delete[] element; }
     int rows() const { return theRows; }
     int cols() const { return theColumns; }
-    matrix<T>  transpose() const; // È¡¾öÓÚÈçºÎ¿´Ò»Î¬Êı×é
-    void t(); // ¸Ä±äÁËÄÚ´æË³Ğò
+    matrix<T>  transpose() const; // å–å†³äºå¦‚ä½•çœ‹ä¸€ç»´æ•°ç»„
+    void t(); // æ”¹å˜äº†å†…å­˜é¡ºåº
     
     T& operator()(int , int ) const;
     
-    matrix<T>& operator=(const matrix<T>&); // A=B ; Ïàµ±ÓÚ¸´ÖÆ¹¹Ôì this»á±ä
-    matrix<T>& operator=(const T&) ; // A = 5 ; ËùÓĞÔªËØ¶¼ÊÇ5 this»á±ä
+    matrix<T>& operator=(const matrix<T>&); // A=B ; ç›¸å½“äºå¤åˆ¶æ„é€  thisä¼šå˜
+    matrix<T>& operator=(const T&) ; // A = 5 ; æ‰€æœ‰å…ƒç´ éƒ½æ˜¯5 thisä¼šå˜
    
     matrix<T> operator+(const T&) const; // B = A+5 
     matrix<T> operator+(const matrix<T>&) const; // C = A+B
     template<class T>
     friend matrix<T> operator+(const T&, const matrix<T>&); // 5+A 
     
-    matrix<T> operator-() const; // -A , Ã»ÓĞmatrix<T> operator+() constÒòÎªÃ»±ØÒª¾ÍÊÇ×Ô¼º
+    matrix<T> operator-() const; // -A , æ²¡æœ‰matrix<T> operator+() constå› ä¸ºæ²¡å¿…è¦å°±æ˜¯è‡ªå·±
     matrix<T> operator-(const matrix<T>&) const; // A-B
     matrix<T> operator-(const T&) const ; // A-5
     template<class T>
@@ -44,52 +44,52 @@ public:
     matrix<T>& operator /=(const T&);// A/= 5
     
 
-    //friend ostream& operator<<(ostream&, const matrix<T>&); // Ö±½ÓÕâÑù±ê×¢ÓÑÔªº¯Êı»á±¨´í
-    // Èç¹ûÏëÒªÊ¹ÓÃ2¸ö²ÎÊı,¾Í²»Ó¦µ±Ê¹ÓÃ³ÉÔ±º¯Êı,µ«ÊÇ·Ç³ÉÔ±º¯ÊıÓÖ²»ÄÜ·ÃÎÊÀàÊôĞÔ,ËùÒÔÊ¹ÓÃfriend
-    // ¿ÉÒÔ¼ÓÉÏtemplate<class T1/T>¼´¿É½â¾ö,TºÍT1¶¼¿ÉÒÔ,»òÕß<<ºóÃæÖ±½Ó¼ÓÉÏ<>Ò²¿ÉÒÔ,ÀàÄÚÊµÏÖÒ²¿ÉÒÔ
+    //friend ostream& operator<<(ostream&, const matrix<T>&); // ç›´æ¥è¿™æ ·æ ‡æ³¨å‹å…ƒå‡½æ•°ä¼šæŠ¥é”™
+    // å¦‚æœæƒ³è¦ä½¿ç”¨2ä¸ªå‚æ•°,å°±ä¸åº”å½“ä½¿ç”¨æˆå‘˜å‡½æ•°,ä½†æ˜¯éæˆå‘˜å‡½æ•°åˆä¸èƒ½è®¿é—®ç±»å±æ€§,æ‰€ä»¥ä½¿ç”¨friend
+    // å¯ä»¥åŠ ä¸Štemplate<class T1/T>å³å¯è§£å†³,Tå’ŒT1éƒ½å¯ä»¥,æˆ–è€…<<åé¢ç›´æ¥åŠ ä¸Š<>ä¹Ÿå¯ä»¥,ç±»å†…å®ç°ä¹Ÿå¯ä»¥
     
-    // friend ostream& operator<<<>(ostream&, const matrix<T>& ); // ·½°¸¢Ù¼Ó<>½â¾ö ÀàÍâÊµÏÖ
+    // friend ostream& operator<<<>(ostream&, const matrix<T>& ); // æ–¹æ¡ˆâ‘ åŠ <>è§£å†³ ç±»å¤–å®ç°
     //template<class T>
-    // friend ostream& operator<<(ostream&, const matrix<T>&); // ·½°¸¢Ú¼Ótemplate<class T>ÊµÏÖ,ÀàÍâÊµÏÖ
+    // friend ostream& operator<<(ostream&, const matrix<T>&); // æ–¹æ¡ˆâ‘¡åŠ template<class T>å®ç°,ç±»å¤–å®ç°
     //template<class T>
-    //friend ostream& operator<<<>(ostream&, const matrix<T>&); // ·½°¸¢Û×éºÏÊ¹ÓÃÒ²ÊÇ¿ÉÒÔµÄ
-    // ¶ÔÓÚ¢Ù¢Ú¢Û·Ç³ÉÔ±º¯Êı²»ÄÜÊ¹ÓÃconstÏŞ¶¨·û,ºóÃæÃ»ÓĞconst
-    friend ostream& operator<<(ostream&out, const matrix<T>&m) //   ·½°¸¢ÜÀàÄÚÊµÏÖ ²»¼Ó<>,Èç¹û¼ÓÁËÍâ²¿²âÊÔ¶¨ÒåÍêdoubleºóÔÙ¶¨ÒåintÀàĞÍ¾Í»á³ö´í
+    //friend ostream& operator<<<>(ostream&, const matrix<T>&); // æ–¹æ¡ˆâ‘¢ç»„åˆä½¿ç”¨ä¹Ÿæ˜¯å¯ä»¥çš„
+    // å¯¹äºâ‘ â‘¡â‘¢éæˆå‘˜å‡½æ•°ä¸èƒ½ä½¿ç”¨consté™å®šç¬¦,åé¢æ²¡æœ‰const
+    friend ostream& operator<<(ostream&out, const matrix<T>&m) //   æ–¹æ¡ˆâ‘£ç±»å†…å®ç° ä¸åŠ <>,å¦‚æœåŠ äº†å¤–éƒ¨æµ‹è¯•å®šä¹‰å®Œdoubleåå†å®šä¹‰intç±»å‹å°±ä¼šå‡ºé”™
     {     
-            int k = 0;  // ±éÀúthis->elementµÄË÷Òı
-            for (int i = 0; i < m.theRows; i++) // Ã¿ĞĞ ÕâÀïm.theRows¾ÍÌåÏÖÁË¿ÉÒÔ·ÃÎÊË½ÓĞ³ÉÔ±
-            {// ÕâÀïÒÀÈ»²»ÄÜ·ÃÎÊthis
+            int k = 0;  // éå†this->elementçš„ç´¢å¼•
+            for (int i = 0; i < m.theRows; i++) // æ¯è¡Œ è¿™é‡Œm.theRowså°±ä½“ç°äº†å¯ä»¥è®¿é—®ç§æœ‰æˆå‘˜
+            {// è¿™é‡Œä¾ç„¶ä¸èƒ½è®¿é—®this
                 for (int j = 0; j < m.theColumns; j++)
-                    out << m.element[k++] << "  "; // Ã¿ÁĞ ÕâÑùk++´Ó0¿ªÊ¼Ö±µ½theColumns*theRows-1
+                    out << m.element[k++] << "  "; // æ¯åˆ— è¿™æ ·k++ä»0å¼€å§‹ç›´åˆ°theColumns*theRows-1
                 out << endl;
             }
             return out;
     }
 
-    // ËµÃ÷·ÇÀàÄÚÊÇÓÑÔª¡¢·ÇÀàÄÚ·ÇÓÑÔªºÍÀàÄÚµÄ3¸öº¯ÊıĞÔÖÊ
-    // output1ºÍoutput3¶¼²»ÊÇÀà³ÉÔ±º¯Êı,µ«ÊÇÇ°Õß¿ÉÒÔ·ÃÎÊË½ÓĞÊôĞÔtheRows»òÕß²»¿É
-    // output2ÊÇÀà³ÉÔ±º¯Êı,×ÔÈ»¿ÉÒÔ·ÃÎÊ,ÒòÎª×Ô´øthis,ÇÒÊµÏÖ²¿·ÖĞèÒªËµÃ÷×÷ÓÃÓò
-    template<class T1> // Ê¹ÓÃTÒ²ÊÇ¿ÉÒÔµÄ,Êµ¼ÊÉÏ»á×Ô¶¯¸²¸Ç,Èç¹ûÃ»ÓĞ´Ë¾äÒ²»á±¨´í
+    // è¯´æ˜éç±»å†…æ˜¯å‹å…ƒã€éç±»å†…éå‹å…ƒå’Œç±»å†…çš„3ä¸ªå‡½æ•°æ€§è´¨
+    // output1å’Œoutput3éƒ½ä¸æ˜¯ç±»æˆå‘˜å‡½æ•°,ä½†æ˜¯å‰è€…å¯ä»¥è®¿é—®ç§æœ‰å±æ€§theRowsæˆ–è€…ä¸å¯
+    // output2æ˜¯ç±»æˆå‘˜å‡½æ•°,è‡ªç„¶å¯ä»¥è®¿é—®,å› ä¸ºè‡ªå¸¦this,ä¸”å®ç°éƒ¨åˆ†éœ€è¦è¯´æ˜ä½œç”¨åŸŸ
+    template<class T1> // ä½¿ç”¨Tä¹Ÿæ˜¯å¯ä»¥çš„,å®é™…ä¸Šä¼šè‡ªåŠ¨è¦†ç›–,å¦‚æœæ²¡æœ‰æ­¤å¥ä¹Ÿä¼šæŠ¥é”™
     friend void output1(const matrix<T1>&); 
     void output2();
 private:
-    int theRows,    // ĞĞÊı
-        theColumns; // ÁĞÊı
-    T* element;     // ĞĞÖ÷Ó³Éä,ÓÃÓÚ´æ´¢¾ØÕóÔªËØ
+    int theRows,    // è¡Œæ•°
+        theColumns; // åˆ—æ•°
+    T* element;     // è¡Œä¸»æ˜ å°„,ç”¨äºå­˜å‚¨çŸ©é˜µå…ƒç´ 
     bool empty() const { return theColumns * theRows == 0; };
 };
 
-// ²ÎÊı¹¹Ôì(i,j)
+// å‚æ•°æ„é€ (i,j)
 template<class T>
 matrix<T>::matrix(int theRows, int theColumns)
 {
-    // ²ÎÊı¹¹Ôì
+    // å‚æ•°æ„é€ 
     if (theRows < 0 || theColumns < 0)
         throw illegalParameterValue("Rows and columns must be >= 0");
     if ((theRows == 0 || theColumns == 0)
         && (theRows != 0 || theColumns != 0))
         throw illegalParameterValue
-        // ¶¼²»Îª0»òÕß¶¼Îª0 ÒòÎª(m,0)ºÍ(n,0)¶¼²»ÄÜ·ÖÅäÄÚ´æ
+        // éƒ½ä¸ä¸º0æˆ–è€…éƒ½ä¸º0 å› ä¸º(m,0)å’Œ(n,0)éƒ½ä¸èƒ½åˆ†é…å†…å­˜
         ("Both rows and columns are 0 or neither is zero");
 
     // create the matrix
@@ -98,7 +98,7 @@ matrix<T>::matrix(int theRows, int theColumns)
     this->element = new T[theRows * theColumns];
 }
 
-// ¸´ÖÆ¹¹Ôì
+// å¤åˆ¶æ„é€ 
 template<class T>
 matrix<T>::matrix(const matrix<T>& m)
 {
@@ -106,43 +106,43 @@ matrix<T>::matrix(const matrix<T>& m)
     theColumns = m.theColumns;
     this->element = new T[theRows * theColumns];
 
-    copy(m.element, // Ö¸ÏòmµÄ´æ´¢Ê×µØÖ·
-        m.element + theRows * theColumns, // Êµ¼ÊÉÏÊÇ×îºó1Î»µÄºó1¸ö
+    copy(m.element, // æŒ‡å‘mçš„å­˜å‚¨é¦–åœ°å€
+        m.element + theRows * theColumns, // å®é™…ä¸Šæ˜¯æœ€å1ä½çš„å1ä¸ª
         this->element);
 }
 
-// Ë÷ÒıÖØÔØA(i,j)
+// ç´¢å¼•é‡è½½A(i,j)
 template<class T>
-T&  matrix<T>::operator()(int i, int j) const  // ÓÃÓÚ()Ë÷ÒıµÄÖØÔØ
-{   // ·µ»ØµÄÊÇÔªËØµÄÒıÓÃ,¶øÕâ¸öÊıÀıÈçx(1,1)=2.5¸³ÖµÊ±ºòÊÇ¿ÉÒÔ¸Ä±äÔ­ÓĞÊı¾İµÄ
+T&  matrix<T>::operator()(int i, int j) const  // ç”¨äº()ç´¢å¼•çš„é‡è½½
+{   // è¿”å›çš„æ˜¯å…ƒç´ çš„å¼•ç”¨,è€Œè¿™ä¸ªæ•°ä¾‹å¦‚x(1,1)=2.5èµ‹å€¼æ—¶å€™æ˜¯å¯ä»¥æ”¹å˜åŸæœ‰æ•°æ®çš„
     if (this->empty())
     {
         printf("Warning : matrix is empty,it will return nothing. \n");
     }
     else
-    {  // ²»Îª¿Õ¼ÌĞøÅĞ¶ÏÊÇ·ñÔ½½ç
+    {  // ä¸ä¸ºç©ºç»§ç»­åˆ¤æ–­æ˜¯å¦è¶Šç•Œ
         if (i < 1 || i > theRows
-            || j < 1 || j > theColumns) // ĞĞ»òÕßÁĞ³öÏÖÔ½½ç´íÎóÌáÊ¾Ô½½ç
+            || j < 1 || j > theColumns) // è¡Œæˆ–è€…åˆ—å‡ºç°è¶Šç•Œé”™è¯¯æç¤ºè¶Šç•Œ
             throw matrixIndexOutOfBounds();
     }
-    return element[(i - 1) * theColumns + j - 1]; // ¶şÎ¬Ó³Éä¹«Ê½Îª ÁĞÊı*(i-1)+j-1,ÒòÎªi,j¶¼ÊÇ´Ó1¿ªÊ¼µÄËùÒÔÒª-1
+    return element[(i - 1) * theColumns + j - 1]; // äºŒç»´æ˜ å°„å…¬å¼ä¸º åˆ—æ•°*(i-1)+j-1,å› ä¸ºi,jéƒ½æ˜¯ä»1å¼€å§‹çš„æ‰€ä»¥è¦-1
 }
 
-//  ¸³ÖµÖØÔØ A=B
+//  èµ‹å€¼é‡è½½ A=B
 template<class T>
 matrix<T>& matrix<T>::operator=(const matrix<T>& m)
 {
-    // A = B AÃ»³õÊ¼»¯¹ı¿ÉÒÔÖ±½ÓÏàµÈ£¬A³õÊ¼»¯¹ıĞèÒª¼ÌĞøÅĞ¶ÏsizeÊÇ·ñÆ¥Åä
+    // A = B Aæ²¡åˆå§‹åŒ–è¿‡å¯ä»¥ç›´æ¥ç›¸ç­‰ï¼ŒAåˆå§‹åŒ–è¿‡éœ€è¦ç»§ç»­åˆ¤æ–­sizeæ˜¯å¦åŒ¹é…
     if (! this->empty())
     {
         if (this->theColumns != m.theColumns || this->theRows != m.theRows)
-            throw matrixSizeMismatch(); // ·ÀÖ¹A=B,Á½¸ösize²»Í¬ 
+            throw matrixSizeMismatch(); // é˜²æ­¢A=B,ä¸¤ä¸ªsizeä¸åŒ 
     }
-    if (this != &m) // Èç¹ûÊÇ×Ô¼ºµÈÓÚ×Ô¼ºÃ»±ØÒªÔÚÖ´ĞĞ,µÈÓÚ±ğÈËÔòÖ´ĞĞ²Ù×÷
+    if (this != &m) // å¦‚æœæ˜¯è‡ªå·±ç­‰äºè‡ªå·±æ²¡å¿…è¦åœ¨æ‰§è¡Œ,ç­‰äºåˆ«äººåˆ™æ‰§è¡Œæ“ä½œ
     {
-        // ¼´y=y²»»áÖ´ĞĞ,y=w»áÖ´ĞĞ
-        delete[] this->element; // ¢Ù ĞèÒªÏÈÎö¹¹µô×Ô¼ºÔ­ÓĞµÄ,delete×î¿ì½İ,¶ø²»ÊÇ²Á³ıÔªËØ
-        // ÏÂ·½µÄ´úÂëºÍ¸´ÖÆ¹¹ÔìÍêÈ«Ò»Ñù
+        // å³y=yä¸ä¼šæ‰§è¡Œ,y=wä¼šæ‰§è¡Œ
+        delete[] this->element; // â‘  éœ€è¦å…ˆææ„æ‰è‡ªå·±åŸæœ‰çš„,deleteæœ€å¿«æ·,è€Œä¸æ˜¯æ“¦é™¤å…ƒç´ 
+        // ä¸‹æ–¹çš„ä»£ç å’Œå¤åˆ¶æ„é€ å®Œå…¨ä¸€æ ·
         theRows = m.theRows;
         theColumns = m.theColumns;
         this->element = new T[theRows * theColumns];
@@ -150,10 +150,10 @@ matrix<T>& matrix<T>::operator=(const matrix<T>& m)
             m.element + theRows * theColumns,
             this->element);
     }
-    return *this; // ¢ÚĞèÒª·µ»Ø¸²¸ÇºóµÄÊı¾İ *thisÎª matrix<T>&ÀàĞÍ ÇÒ (*this) = m
+    return *this; // â‘¡éœ€è¦è¿”å›è¦†ç›–åçš„æ•°æ® *thisä¸º matrix<T>&ç±»å‹ ä¸” (*this) = m
 }
 
-//  ¸³ÖµÖØÔØ A=5
+//  èµ‹å€¼é‡è½½ A=5
 template<class T>
 matrix<T>& matrix<T>::operator=(const T& k) 
 {
@@ -165,7 +165,7 @@ matrix<T>& matrix<T>::operator=(const T& k)
     return *this;
 }
 
-//  ¼Ó·¨ÖØÔØ A+5
+//  åŠ æ³•é‡è½½ A+5
 template<class T>
 matrix<T> matrix<T>::operator+(const T& k) const
 {
@@ -177,7 +177,7 @@ matrix<T> matrix<T>::operator+(const T& k) const
     return w;
 }
 
-//  ¼Ó·¨ÖØÔØ A+B
+//  åŠ æ³•é‡è½½ A+B
 template<class T>
 matrix<T> matrix<T>::operator+(const matrix<T>& m) const
 {// Return w = (*this) + m.
@@ -191,7 +191,7 @@ matrix<T> matrix<T>::operator+(const matrix<T>& m) const
     return w;
 }
 
-//  ¼Ó·¨ÖØÔØ 5+A
+//  åŠ æ³•é‡è½½ 5+A
 template<class T>
 matrix<T> operator+(const T& k, const matrix<T>& m)
 {
@@ -203,7 +203,7 @@ matrix<T> operator+(const T& k, const matrix<T>& m)
     return w;
 }
 
-//  ¼õ·¨ÖØÔØ -A
+//  å‡æ³•é‡è½½ -A
 template<class T>
 matrix<T> matrix<T>::operator-() const
 {// Return w = -(*this).
@@ -216,7 +216,7 @@ matrix<T> matrix<T>::operator-() const
     return w;
 }
 
-//  ¼õ·¨ÖØÔØ A-B
+//  å‡æ³•é‡è½½ A-B
 template<class T>
 matrix<T> matrix<T>::operator-(const matrix<T>& m) const
 {// Return (*this) - m.
@@ -230,7 +230,7 @@ matrix<T> matrix<T>::operator-(const matrix<T>& m) const
     return w;
 }
 
-//  ¼õ·¨ÖØÔØ A-5
+//  å‡æ³•é‡è½½ A-5
 template<class T>
 matrix<T> matrix<T>::operator-(const T&k) const
 {
@@ -243,7 +243,7 @@ matrix<T> matrix<T>::operator-(const T&k) const
     return w;
 }
 
-//  ¼õ·¨ÖØÔØ 5-A
+//  å‡æ³•é‡è½½ 5-A
 template<class T>
 matrix<T> operator-(const T& k, const matrix<T>&m)
 {
@@ -321,73 +321,73 @@ matrix<T>& matrix<T>::operator--(int)
     return *this;
 }
 
-// ³Ë·¨ A*B
+// ä¹˜æ³• A*B
 template<class T>
 matrix<T> matrix<T>::operator*(const matrix<T>& m) const
-{// matrix multiply.  Return w = (*this) * m. // ¾ØÕó³Ë·¨ÉÔÎ¢Òª×¢ÒâÒÔÏÂÇ°ÁĞÊı=ºóĞĞÊı
+{// matrix multiply.  Return w = (*this) * m. // çŸ©é˜µä¹˜æ³•ç¨å¾®è¦æ³¨æ„ä»¥ä¸‹å‰åˆ—æ•°=åè¡Œæ•°
     if (theColumns != m.theRows)
         throw matrixSizeMismatch();
 
-    matrix<T> w(theRows, m.theColumns);  // result matrix ·µ»ØµÄ¾ØÕóÊÇÇ°ĞĞÊı*ºóÁĞÊı
+    matrix<T> w(theRows, m.theColumns);  // result matrix è¿”å›çš„çŸ©é˜µæ˜¯å‰è¡Œæ•°*ååˆ—æ•°
 
-    // ¼ÙÉèa=5¡Á4 ºÍb=4¡Á3µÄ½á¹ûÎªc=5¡Á3 
-    int arow = 0, bcol = 0, cw = 0; // 3¸öÓÎ±ê
+    // å‡è®¾a=5Ã—4 å’Œb=4Ã—3çš„ç»“æœä¸ºc=5Ã—3 
+    int arow = 0, bcol = 0, cw = 0; // 3ä¸ªæ¸¸æ ‡
     for (int i = 1; i <= theRows; i++) // i =1,2,3,4,5
     {
         for (int j = 1; j <= m.theColumns; j++) // j = 1,2,3
         { 
-            T sum = element[arow] * m.element[bcol];  // Ïàµ±ÓÚa[1,1]*b[1,1]
-            for (int k = 2; k <= theColumns; k++) // k=2,3,4 ²»×÷ÎªÈÎºÎË÷Òı,¾ÍÊÇ¼ÆËã¼¸´Î
-                // ÓÉÓÚÊ×ÔªËØÒÑ¾­¼ÆËã,Ö»ĞèÒªÔËĞĞtheColumns-1´Î,ÄÇÃ´kÓ¦¸Ã´Ó2¿ªÊ¼
+            T sum = element[arow] * m.element[bcol];  // ç›¸å½“äºa[1,1]*b[1,1]
+            for (int k = 2; k <= theColumns; k++) // k=2,3,4 ä¸ä½œä¸ºä»»ä½•ç´¢å¼•,å°±æ˜¯è®¡ç®—å‡ æ¬¡
+                // ç”±äºé¦–å…ƒç´ å·²ç»è®¡ç®—,åªéœ€è¦è¿è¡ŒtheColumns-1æ¬¡,é‚£ä¹ˆkåº”è¯¥ä»2å¼€å§‹
             {
-                arow++;  // a[1,1]=>a[1,2],Ã¿ĞĞµÄÏÂÒ»¸öÔªËØÒÆ¶¯1¸öÎ»ÖÃ¼´¿É
-                bcol += m.theColumns;  // b[1,j]=>b[2,j]=>b[3,j]=>b[4,j] Í¬ÁĞÒÆ¶¯ĞèÒªÒÆ¶¯4¸öµ¥Î»,ÇÒbcol±ØĞëÊÇ0¿ªÊ¼²ÅÄÜµ½4
+                arow++;  // a[1,1]=>a[1,2],æ¯è¡Œçš„ä¸‹ä¸€ä¸ªå…ƒç´ ç§»åŠ¨1ä¸ªä½ç½®å³å¯
+                bcol += m.theColumns;  // b[1,j]=>b[2,j]=>b[3,j]=>b[4,j] åŒåˆ—ç§»åŠ¨éœ€è¦ç§»åŠ¨4ä¸ªå•ä½,ä¸”bcolå¿…é¡»æ˜¯0å¼€å§‹æ‰èƒ½åˆ°4
                 sum += element[arow] * m.element[bcol]; 
-                // a[i,1]*b[1,j]+{a[i,2]*b[2,j]+a[i,3]*b[3,j]+a[i,4]*b[4,j]},{}ÄÚÊÇk=2,3,4ÔËĞĞ3´Î
+                // a[i,1]*b[1,j]+{a[i,2]*b[2,j]+a[i,3]*b[3,j]+a[i,4]*b[4,j]},{}å†…æ˜¯k=2,3,4è¿è¡Œ3æ¬¡
             }
-            w.element[cw++] = sum;  // c[i][j]´Ócw=0¿ªÊ¼µÄÖ±µ½ theRows*m.theColumns½áÊø,´æ´¢ºÃ´æ
-            // ¼ÆËãµ±Ç°ĞĞÓëÃ¿¸öÁĞµÄºÍ,ËùÒÔarow×ÜÊÇ·µ»Øµ±Ç°ĞĞÊ×ÔªËØÎ»ÖÃ
-            // ÁĞ×ÜÊÇµ½ÏÂ1ÁĞÊ×ÔªËØ,ÁĞÓ¦¸ÃÊÇ1,2,3ÁĞ,µ«ÊÇbcol¶ÔÓ¦µÄÊÇ0,1,2,ÓÃj±íÊ¾,j´Ó1¿ªÊ¼µÄ
-            arow -= theColumns - 1; // Ã¿¸ömµÄÁĞ±éÀú,arowÒªºóÍË»Øµ±Ç°ĞĞµÄÊ×ÔªËØ´¦
-            bcol = j; // Ã¿ÁĞµÄÊ×ÔªËØ,¼´×ÜÊÇb[1,1],b[1,2],b[1,3],bcolÔÚelementÇ¡ºÃ¶ÔÓ¦µÄ¾ÍÊÇ0,1,2Ë÷Òı
-            // ¶øb[1,1]->b[4,1]ÔÚÇ°±ßÒÑ¾­Ö´ĞĞ¹ı(Ïàµ±ÓÚbcol=0µÄÇé¿ö),ÏÂÒ»²½»Øµ½b[1,2]->b[4,2],ÔÙ»Øµ½b[1,3]->b[4,3]
-            // Ò²¾ÍÊÇbcolÖ»ĞèÒªÔÙÈ¡1,2¼´¿É,Ç¡ºÃÊÇj
+            w.element[cw++] = sum;  // c[i][j]ä»cw=0å¼€å§‹çš„ç›´åˆ° theRows*m.theColumnsç»“æŸ,å­˜å‚¨å¥½å­˜
+            // è®¡ç®—å½“å‰è¡Œä¸æ¯ä¸ªåˆ—çš„å’Œ,æ‰€ä»¥arowæ€»æ˜¯è¿”å›å½“å‰è¡Œé¦–å…ƒç´ ä½ç½®
+            // åˆ—æ€»æ˜¯åˆ°ä¸‹1åˆ—é¦–å…ƒç´ ,åˆ—åº”è¯¥æ˜¯1,2,3åˆ—,ä½†æ˜¯bcolå¯¹åº”çš„æ˜¯0,1,2,ç”¨jè¡¨ç¤º,jä»1å¼€å§‹çš„
+            arow -= theColumns - 1; // æ¯ä¸ªmçš„åˆ—éå†,arowè¦åé€€å›å½“å‰è¡Œçš„é¦–å…ƒç´ å¤„
+            bcol = j; // æ¯åˆ—çš„é¦–å…ƒç´ ,å³æ€»æ˜¯b[1,1],b[1,2],b[1,3],bcolåœ¨elementæ°å¥½å¯¹åº”çš„å°±æ˜¯0,1,2ç´¢å¼•
+            // è€Œb[1,1]->b[4,1]åœ¨å‰è¾¹å·²ç»æ‰§è¡Œè¿‡(ç›¸å½“äºbcol=0çš„æƒ…å†µ),ä¸‹ä¸€æ­¥å›åˆ°b[1,2]->b[4,2],å†å›åˆ°b[1,3]->b[4,3]
+            // ä¹Ÿå°±æ˜¯bcolåªéœ€è¦å†å–1,2å³å¯,æ°å¥½æ˜¯j
             // 0 b[1,1]->b[1,2]->b[1,3]->
             //    b[2,1]->b[2,2]->b[2,3]->
             //    b[3,1]->b[3,2]->b[3,3]->
             //    b[4,1]->b[4,2]->b[4,3]
         }
 
-        // Ã¿´ÎĞĞ¸üĞÂµÄÊ±ºò,arowÒªÒÆ¶¯µ½ÏÂÒ»ĞĞµÄÊ×ÔªËØ
-        arow += theColumns; // a[1,1]=>a[2,1],Òª+4¸öµØÖ·,ËùÒÔÔÚÁĞ±éÀúÖĞ×ÜÊÇºóÍËtheColumns - 1¸öÔªËØ
-        bcol = 0; // i¸üĞÂºó±ØĞëÎª0,bcol += m.theColumns²ÅÄÜ¼Óµ½Ö¸¶¨µÄÁĞÎ»ÖÃ
+        // æ¯æ¬¡è¡Œæ›´æ–°çš„æ—¶å€™,arowè¦ç§»åŠ¨åˆ°ä¸‹ä¸€è¡Œçš„é¦–å…ƒç´ 
+        arow += theColumns; // a[1,1]=>a[2,1],è¦+4ä¸ªåœ°å€,æ‰€ä»¥åœ¨åˆ—éå†ä¸­æ€»æ˜¯åé€€theColumns - 1ä¸ªå…ƒç´ 
+        bcol = 0; // iæ›´æ–°åå¿…é¡»ä¸º0,bcol += m.theColumnsæ‰èƒ½åŠ åˆ°æŒ‡å®šçš„åˆ—ä½ç½®
     }
     return w;
 }
 
-// ×ªÖÃ A^T ²»»á¸Ä±äÊµ¼ÊµÄÄÚ´æÅÅÁĞ
+// è½¬ç½® A^T ä¸ä¼šæ”¹å˜å®é™…çš„å†…å­˜æ’åˆ—
 template<class T>
 matrix<T> matrix<T>::transpose() const
-{// ´Ë·½·¨²¢²»¸Ä±äÄÚ´æµÄÅÅĞòÖ»ÊÇÒÔÁĞÖ÷Ó³ÉäµÄÎ»ÖÃ·µ»Ø
-    // ×ªÖÃÒª³õÊ¼»¯¹ı
+{// æ­¤æ–¹æ³•å¹¶ä¸æ”¹å˜å†…å­˜çš„æ’åºåªæ˜¯ä»¥åˆ—ä¸»æ˜ å°„çš„ä½ç½®è¿”å›
+    // è½¬ç½®è¦åˆå§‹åŒ–è¿‡
     if (this->theColumns <= 0 || this->theRows <= 0)
         throw matrixSizeNotInitialized();
     matrix<T> w(theColumns, theRows);
     /*
-        ¾ÙÀı·ÖÎö×ªÖÃÔÚÒ»Î¬Êı×éÊÇÔõÃ´ÊµÏÖµÄ
-        ÄÚ´æÎ»ÖÃµÄÔªËØ => 0,1,2,3,4,5,6,7,8,9,10,11
-        ĞĞÖ÷Ó³Éä£º
+        ä¸¾ä¾‹åˆ†æè½¬ç½®åœ¨ä¸€ç»´æ•°ç»„æ˜¯æ€ä¹ˆå®ç°çš„
+        å†…å­˜ä½ç½®çš„å…ƒç´  => 0,1,2,3,4,5,6,7,8,9,10,11
+        è¡Œä¸»æ˜ å°„ï¼š
         0, 1, 2, 3    A(i,j)=element[theColumns*(i-1)+j-1] = element[4i+j-5]
-        4, 5, [6], 7    ÀıÈçA(2,3)=element[4+2]=6
+        4, 5, [6], 7    ä¾‹å¦‚A(2,3)=element[4+2]=6
         8, 9, 10, 11 
-        ÁĞÖ÷Ó³Éä£º
+        åˆ—ä¸»æ˜ å°„ï¼š
         0, 3, 6, 9    A(i,j)=element[theRows*(j-1)+i-1] = element[i+3j-4]
-        1, 4, 7, 10  ÀıÈçA(3,3) = element[6+2]=8
+        1, 4, 7, 10  ä¾‹å¦‚A(3,3) = element[6+2]=8
         2, 5, [8], 11
-        ×ªÖÃºó
-        0, 4, 8       ÓĞµãÀàËÆÓÚÁĞÖ÷Ó³Éä,µ«ÊÇĞĞÊı±äÎªÁĞÊı
+        è½¬ç½®å
+        0, 4, 8       æœ‰ç‚¹ç±»ä¼¼äºåˆ—ä¸»æ˜ å°„,ä½†æ˜¯è¡Œæ•°å˜ä¸ºåˆ—æ•°
         1, 5, 9      A.T(i,j)=element[theColumns*(j-1)+i-1] = element[i+4j-5]
-        2, 6, 10   ÀıÈçA.T(4,3) = element 
+        2, 6, 10   ä¾‹å¦‚A.T(4,3) = element 
         3, 7, [11]
     */
     for (int i = 1; i <= theColumns; i++)
@@ -396,18 +396,18 @@ matrix<T> matrix<T>::transpose() const
     return w;
 }
 
-// ×ªÖÃ£º¸Ä±äÄÚ´æÅÅĞò
+// è½¬ç½®ï¼šæ”¹å˜å†…å­˜æ’åº
 template<class T>
 void matrix<T> :: t()
 {
     if (this->theColumns <= 0 || this->theRows <= 0)
         throw matrixSizeNotInitialized();
     /*
-        ½ÓÉÏtransposeµÄ·ÖÎö
-        ÄÚ´æ : 0,1,2,3,  4,5,6,7,   8,9,10,11  3¡Á4
-        ×ªÖÃºó:0,4,8,  1,5,9,  2,6,10,  3,7,11 4¡Á3
-        Ã¿¸öĞĞ×ÜÊÇÏà²îtheColumns¸öÔªËØ
-        ¹Ø¼üÔÚÓÚĞĞµÄ¿ªÍ·ÊÇÔ­À´µÄµÚ1ÁĞÎ»ÖÃ
+        æ¥ä¸Štransposeçš„åˆ†æ
+        å†…å­˜ : 0,1,2,3,  4,5,6,7,   8,9,10,11  3Ã—4
+        è½¬ç½®å:0,4,8,  1,5,9,  2,6,10,  3,7,11 4Ã—3
+        æ¯ä¸ªè¡Œæ€»æ˜¯ç›¸å·®theColumnsä¸ªå…ƒç´ 
+        å…³é”®åœ¨äºè¡Œçš„å¼€å¤´æ˜¯åŸæ¥çš„ç¬¬1åˆ—ä½ç½®
     */
     T* b = new T  [theColumns*theRows];
     int k = 0;
@@ -417,55 +417,56 @@ void matrix<T> :: t()
         {
             // j =0,4,8<12 or j =1,5,9<12 or j=2,6,10 <12 or j = 3,7,11<12
             //cout << "element[" << j << "] = " << element[j] << endl;
-            b[k++] = element[j];  // °´ÕâÑùµÄ·½Ê½È¡³öÀ´
+            b[k++] = element[j];  // æŒ‰è¿™æ ·çš„æ–¹å¼å–å‡ºæ¥
         }
     }
     k = 0;
-    for (; k < theColumns * theColumns; k++)
+    for (; k < theColumns * theRows; k++)
         element[k] = b[k];
     int t = theColumns;
     theColumns = theRows;
-    theRows = t; // ×ªÖÃºóĞĞÓëÁĞÒª½»»»
-    b = NULL; // ²»Òªdelete b»á×Ô¶¯ÊÍ·Å,Ö»ĞèÒªÖÃ¿Õ±ÜÃâÒ°Ö¸Õë¼´¿É
+    theRows = t; // è½¬ç½®åè¡Œä¸åˆ—è¦äº¤æ¢
+    b = NULL; // delete bä¹‹å‰å…ˆç½®ç©º
+    delete b ;
 }
 
-// Õâ¸öÀàÄÚÊµÏÖ´æÔÚÒ»Ğ©ÎÊÌâ£¬Íâ²¿²âÊÔÊ¹ÓÃdoubleÀàĞÍµÄmatrixÊ±¾Í²»ÄÜÊ¹ÓÃcout<<x<<endl;
+// è¿™ä¸ªç±»å†…å®ç°å­˜åœ¨ä¸€äº›é—®é¢˜ï¼Œå¤–éƒ¨æµ‹è¯•ä½¿ç”¨doubleç±»å‹çš„matrixæ—¶å°±ä¸èƒ½ä½¿ç”¨cout<<x<<endl;
 //ostream& operator<<(ostream& out, const matrix<int>& m)
 //{
-//    int k = 0;  // ±éÀúthis->elementµÄË÷Òı
-//    for (int i = 0; i < m.theRows; i++) // Ã¿ĞĞ =>ÕâÀïm.theRows¾ÍÌåÏÖÁË¿ÉÒÔ·ÃÎÊË½ÓĞ³ÉÔ±
-//    { // µ«ÊÇ²»ÄÜÏÔÊ¾·ÃÎÊthis
+//    int k = 0;  // éå†this->elementçš„ç´¢å¼•
+//    for (int i = 0; i < m.theRows; i++) // æ¯è¡Œ =>è¿™é‡Œm.theRowså°±ä½“ç°äº†å¯ä»¥è®¿é—®ç§æœ‰æˆå‘˜
+//    { // ä½†æ˜¯ä¸èƒ½æ˜¾ç¤ºè®¿é—®this
 //        for (int j = 0; j < m.theColumns; j++)
-//            out << m.element[k++] << "  "; // Ã¿ÁĞ ÕâÑùk++´Ó0¿ªÊ¼Ö±µ½theColumns*theRows-1
+//            out << m.element[k++] << "  "; // æ¯åˆ— è¿™æ ·k++ä»0å¼€å§‹ç›´åˆ°theColumns*theRows-1
 //        out << endl;
 //    }
 //    return out;
 //}
 
-// ·½°¸¢Ù»òÕß¢Ú»òÕß¢Û ÀàÍâÊµÏÖ
-//template<class T> // ÂÛ·½°¸¢Ù»¹ÊÇ¢Ú»¹ÊÇ¢ÛÕâÀïÊµÏÖ²¿·Ö±ØĞë¼Ó
-//ostream& operator<<<>(ostream& out, const matrix<T>& m) // <<ÔÚÓĞÉÏ±ßµÄÇ°ÌáÏÂ
-//// Ê¹ÓÃ·½°¸¢ÙºÍ¢ÛÊ±ÎªÁË±ÜÃâÃ»ÓĞº¯Êı¶¨ÒåµÄÌáÊ¾×îºÃÉÏ±ßÊ¹ÓÃ<<<>ÏÂ±ßÒ²Ê¹ÓÃ<<<>,µ«ÊÇ²»¼ÓÒ²È·Êµ²»»á³ö´í
-//// Ê¹ÓÃ·½°¸¢ÚÊ± Í¬Àí ÉÏ±ßÊ¹ÓÃ<<,ÏÂ±ßÒ²×îºÃÊ¹ÓÃ<< µ«ÊÇ²»ÕâÑù×öÒ²ÊÇ²»»á³ö´íµÄ
+// æ–¹æ¡ˆâ‘ æˆ–è€…â‘¡æˆ–è€…â‘¢ ç±»å¤–å®ç°
+//template<class T> // è®ºæ–¹æ¡ˆâ‘ è¿˜æ˜¯â‘¡è¿˜æ˜¯â‘¢è¿™é‡Œå®ç°éƒ¨åˆ†å¿…é¡»åŠ 
+//ostream& operator<<<>(ostream& out, const matrix<T>& m) // <<åœ¨æœ‰ä¸Šè¾¹çš„å‰æä¸‹
+//// ä½¿ç”¨æ–¹æ¡ˆâ‘ å’Œâ‘¢æ—¶ä¸ºäº†é¿å…æ²¡æœ‰å‡½æ•°å®šä¹‰çš„æç¤ºæœ€å¥½ä¸Šè¾¹ä½¿ç”¨<<<>ä¸‹è¾¹ä¹Ÿä½¿ç”¨<<<>,ä½†æ˜¯ä¸åŠ ä¹Ÿç¡®å®ä¸ä¼šå‡ºé”™
+//// ä½¿ç”¨æ–¹æ¡ˆâ‘¡æ—¶ åŒç† ä¸Šè¾¹ä½¿ç”¨<<,ä¸‹è¾¹ä¹Ÿæœ€å¥½ä½¿ç”¨<< ä½†æ˜¯ä¸è¿™æ ·åšä¹Ÿæ˜¯ä¸ä¼šå‡ºé”™çš„
 //{
-//    int k = 0;  // ±éÀúthis->elementµÄË÷Òı
-//    for (int i = 0; i < m.theRows; i++) // Ã¿ĞĞ =>ÕâÀïm.theRows¾ÍÌåÏÖÁË¿ÉÒÔ·ÃÎÊË½ÓĞ³ÉÔ±
-//    {// µ«ÊÇ²»ÄÜÏÔÊ¾·ÃÎÊthis
+//    int k = 0;  // éå†this->elementçš„ç´¢å¼•
+//    for (int i = 0; i < m.theRows; i++) // æ¯è¡Œ =>è¿™é‡Œm.theRowså°±ä½“ç°äº†å¯ä»¥è®¿é—®ç§æœ‰æˆå‘˜
+//    {// ä½†æ˜¯ä¸èƒ½æ˜¾ç¤ºè®¿é—®this
 //        for (int j = 0; j < m.theColumns; j++)
-//            out << m.element[k++] << "  "; // Ã¿ÁĞ ÕâÑùk++´Ó0¿ªÊ¼Ö±µ½theColumns*theRows-1
+//            out << m.element[k++] << "  "; // æ¯åˆ— è¿™æ ·k++ä»0å¼€å§‹ç›´åˆ°theColumns*theRows-1
 //        out << endl;
 //    }
 //    return out;
 //}
 template<class T>
 void output3(const matrix<T>& m);
- //output1ºÍoutput3¶¼²»ÊÇÀà³ÉÔ±º¯Êı,µ«ÊÇÇ°Õß¿ÉÒÔ·ÃÎÊË½ÓĞÊôĞÔtheRows»òÕß²»¿É
- //output2ÊÇÀà³ÉÔ±º¯Êı,×ÔÈ»¿ÉÒÔ·ÃÎÊ,ÒòÎª×Ô´øthis,ÇÒÊµÏÖ²¿·ÖĞèÒªËµÃ÷×÷ÓÃÓò
-template<class T1> // Ê¹ÓÃT1ºÍTÆäÊµ¶¼¿ÉÒÔ,µ«ÊÇÉùÃ÷ÖĞÒ²±ØĞëÓĞ´ËÌõÓï¾ä·ñÔò±¨Á´½Ó´íÎó
+ //output1å’Œoutput3éƒ½ä¸æ˜¯ç±»æˆå‘˜å‡½æ•°,ä½†æ˜¯å‰è€…å¯ä»¥è®¿é—®ç§æœ‰å±æ€§theRowsæˆ–è€…ä¸å¯
+ //output2æ˜¯ç±»æˆå‘˜å‡½æ•°,è‡ªç„¶å¯ä»¥è®¿é—®,å› ä¸ºè‡ªå¸¦this,ä¸”å®ç°éƒ¨åˆ†éœ€è¦è¯´æ˜ä½œç”¨åŸŸ
+template<class T1> // ä½¿ç”¨T1å’ŒTå…¶å®éƒ½å¯ä»¥,ä½†æ˜¯å£°æ˜ä¸­ä¹Ÿå¿…é¡»æœ‰æ­¤æ¡è¯­å¥å¦åˆ™æŠ¥é“¾æ¥é”™è¯¯
 void output1(const matrix<T1>& m)
 {
     int idx = 0;
-    for (int i = 0; i < m.theRows; i++) // ¿ÉÒÔ·ÃÎÊË½ÓĞÊôĞÔ ²»Í¨¹ıthis
+    for (int i = 0; i < m.theRows; i++) // å¯ä»¥è®¿é—®ç§æœ‰å±æ€§ ä¸é€šè¿‡this
     {
         for (int j = 0; j < m.theColumns; j++)
         {
@@ -476,10 +477,10 @@ void output1(const matrix<T1>& m)
     cout << endl;
 }
 template<class T>
-void matrix<T>::output2() // Àà³ÉÔ±º¯Êı: ĞèÒªËµÃ÷×÷ÓÃÓò
+void matrix<T>::output2() // ç±»æˆå‘˜å‡½æ•°: éœ€è¦è¯´æ˜ä½œç”¨åŸŸ
 {
     int idx = 0;
-    for (int i = 0; i < this->theRows; i++) // ¿ÉÒÔ·ÃÎÊË½ÓĞÊôĞÔ Í¨¹ıthis
+    for (int i = 0; i < this->theRows; i++) // å¯ä»¥è®¿é—®ç§æœ‰å±æ€§ é€šè¿‡this
     {
         for (int j = 0; j < this->theColumns; j++)
         {
@@ -490,14 +491,14 @@ void matrix<T>::output2() // Àà³ÉÔ±º¯Êı: ĞèÒªËµÃ÷×÷ÓÃÓò
     cout << endl;
 }
 template<class T>
-void output3(const matrix<T>&m) //²»ÊÇÀà³ÉÔ±º¯Êı
+void output3(const matrix<T>&m) //ä¸æ˜¯ç±»æˆå‘˜å‡½æ•°
 {
     int idx = 0;
-    for (int i = 1; i <= m.rows(); i++) // ²»¿ÉÒÔ·ÃÎÊË½ÓĞÊôĞÔ Ö»ÄÜ¼ä½Ó·ÃÎÊ
+    for (int i = 1; i <= m.rows(); i++) // ä¸å¯ä»¥è®¿é—®ç§æœ‰å±æ€§ åªèƒ½é—´æ¥è®¿é—®
     {
         for (int j = 1; j <= m.cols(); j++)
         {
-            cout << m(i,j) << "  "; // theRows,theColumns,element¶¼²»ÄÜ·ÃÎÊ
+            cout << m(i,j) << "  "; // theRows,theColumns,elementéƒ½ä¸èƒ½è®¿é—®
         }
         cout << endl;
     }
