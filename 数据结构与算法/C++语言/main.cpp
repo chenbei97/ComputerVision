@@ -42,6 +42,7 @@ int main()
 	_charter7_matrixAdd();
 	_charter7_matrixMultiply_sameSize();
 	_charter7_matrixMultiply_differentSize();
+	_charter7_matrixTranspose();
 	_charter7_matrix_testCode();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
