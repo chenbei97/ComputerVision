@@ -45,6 +45,9 @@ int main()
 	_charter7_matrixTranspose();
 	_charter7_matrix_testCode();
 	_charter7_diagonalMatrix();
+	_charter7_tridiagonalMatrixRowMapping();
+	_charter7_tridiagonalMatrixColMapping();
+	_charter7_tridiagonalMatrixDiagMapping();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);
