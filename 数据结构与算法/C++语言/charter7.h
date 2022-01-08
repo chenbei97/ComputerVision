@@ -10,3 +10,7 @@ void _charter7_diagonalMatrix();
 void _charter7_tridiagonalMatrixRowMapping();
 void _charter7_tridiagonalMatrixColMapping();
 void _charter7_tridiagonalMatrixDiagMapping();
+void _charter7_lowerTriangularMatrixRow();
+void _charter7_lowerTriangularMatrixCol();
+void _charter7_upperTriangularMatrixRow();
+void _charter7_upperTriangularMatrixCol();
