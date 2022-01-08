@@ -6,3 +6,4 @@ void _charter7_matrixMultiply_sameSize();
 void _charter7_matrixMultiply_differentSize();
 void _charter7_matrixTranspose();
 void _charter7_matrix_testCode();
+void _charter7_diagonalMatrix();
