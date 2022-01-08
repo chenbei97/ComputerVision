@@ -7,3 +7,6 @@ void _charter7_matrixMultiply_differentSize();
 void _charter7_matrixTranspose();
 void _charter7_matrix_testCode();
 void _charter7_diagonalMatrix();
+void _charter7_tridiagonalMatrixRowMapping();
+void _charter7_tridiagonalMatrixColMapping();
+void _charter7_tridiagonalMatrixDiagMapping();
