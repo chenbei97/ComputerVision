@@ -6,13 +6,13 @@ struct  _charter6_point2D
 {
 	T x;
 	T y;
-	_charter6_point2D() { this->x = 0; this->y = 0; }; // ƒ¨»œππ‘Ï
-	_charter6_point2D(const T x, const T y) //µ„ππ‘Ï
-	{// ≤ªø… π”√T&x∫ÕT &y,∑Ò‘Ú π”√Point(2,2)ª·±®¥Ì
+	_charter6_point2D() { this->x = 0; this->y = 0; }; // ÈªòËÆ§ÊûÑÈÄ†
+	_charter6_point2D(const T &x, const T &y) //ÁÇπÊûÑÈÄ†
+	{// ‰∏çÂèØ‰ΩøÁî®T&xÂíåT &y,Âê¶Âàô‰ΩøÁî®Point(2,2)‰ºöÊä•Èîô
 		this->x = x;
 		this->y = y;
 	}
-	_charter6_point2D(const _charter6_point2D<T>& point) // ∏¥÷∆ππ‘Ï
+	_charter6_point2D(const _charter6_point2D<T>& point) // Â§çÂà∂ÊûÑÈÄ†
 	{
 		this->x = point.x;
 		this->y = point.y;
