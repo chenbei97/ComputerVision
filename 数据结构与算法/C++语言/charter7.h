@@ -16,3 +16,4 @@ void _charter7_upperTriangularMatrixRow();
 void _charter7_upperTriangularMatrixCol();
 void _charter7_symmetric_matrix();
 void _charter7_sparse_matrix();
+void _charter7_linkedMatrix();
