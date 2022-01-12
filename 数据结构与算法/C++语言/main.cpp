@@ -54,6 +54,7 @@ int main()
 	//_charter7_upperTriangularMatrixCol();
 	_charter7_symmetric_matrix();
 	_charter7_sparse_matrix();
+	_charter7_linkedMatrix();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);
