@@ -10,47 +10,47 @@ template<class T>
 class sparseMatrix
 {
     friend ostream& operator<<<>
-        (ostream&, sparseMatrix<T>&); // ÓÃÓÚÊä³öµÄÓÑÔªº¯Êı,¿ÉÒÔ·ÃÎÊË½ÓĞÊôĞÔ
-    friend istream& operator>><> // ºÍ<<ÀàËÆ
-        (istream&, sparseMatrix<T>&);//ÊäÈëÁ÷Í¬Àí
+        (ostream&, sparseMatrix<T>&); // ç”¨äºè¾“å‡ºçš„å‹å…ƒå‡½æ•°,å¯ä»¥è®¿é—®ç§æœ‰å±æ€§
+    friend istream& operator>><> // å’Œ<<ç±»ä¼¼
+        (istream&, sparseMatrix<T>&);//è¾“å…¥æµåŒç†
 public:
     sparseMatrix() { rows = 0; cols = 0; };
     sparseMatrix(const int&, const int&, const int&, _charter6_point2D<int> * , T*);
     int nonZeroNum() { return terms.size(); };
     int capacity() { return terms.capacity(); };
     sparseMatrix<T>&  operator =(const sparseMatrix<T>& );
-    T operator () (const int & , const int &) ; // ()ÓÃÓÚ·ÃÎÊ²¢·µ»ØÖµ
-    void transpose(sparseMatrix<T>&); // Ï¡Êè¾ØÕóµÄ×ªÖÃ(²»¸Ä±äÄÚ´æ)
+    T operator () (const int & , const int &) ; // ()ç”¨äºè®¿é—®å¹¶è¿”å›å€¼
+    void transpose(sparseMatrix<T>&); // ç¨€ç–çŸ©é˜µçš„è½¬ç½®(ä¸æ”¹å˜å†…å­˜)
     void t(sparseMatrix<T>&);
-    void add(sparseMatrix<T> , sparseMatrix<T>& ); // ¶¨ÒåÁËÏ¡Êè¾ØÕóµÄ+·¨
-    void append(const matrixTerm<T>&); // ×·¼Ó1¸öÔªËØ
+    void add(sparseMatrix<T> , sparseMatrix<T>& ); // å®šä¹‰äº†ç¨€ç–çŸ©é˜µçš„+æ³•
+    void append(const matrixTerm<T>&); // è¿½åŠ 1ä¸ªå…ƒç´ 
 private:
     int rows,   
         cols;   
-    sparseMatrixArrayList<matrixTerm<T>> terms; // Ê¹ÓÃÏßĞÔ±í´æ´¢
-    // ×¢£ºÕâÀïÊ¹ÓÃĞĞÖ÷Ó³ÉäÀ´´æ´¢
+    sparseMatrixArrayList<matrixTerm<T>> terms; // ä½¿ç”¨çº¿æ€§è¡¨å­˜å‚¨
+    // æ³¨ï¼šè¿™é‡Œä½¿ç”¨è¡Œä¸»æ˜ å°„æ¥å­˜å‚¨
 };
 template<class T>
 sparseMatrix<T> ::sparseMatrix(const int& theRow, const int& theCol, const int& size, _charter6_point2D<int> * points , T * value)
 {
-    // ÏëÓÃµÄÊÇ×ø±ê,ËùÒÔÕâ¸öµãÀàÓ¦µ±¾ßÌå»¯Îª×ø±êÀà,Ò²¾ÍÊÇintÀàĞÍ
+    // æƒ³ç”¨çš„æ˜¯åæ ‡,æ‰€ä»¥è¿™ä¸ªç‚¹ç±»åº”å½“å…·ä½“åŒ–ä¸ºåæ ‡ç±»,ä¹Ÿå°±æ˜¯intç±»å‹
     rows = theRow;
     cols = theCol;
-    matrixTerm<T> term; // ÁÙÊ±½á¹¹Ìå
+    matrixTerm<T> term; // ä¸´æ—¶ç»“æ„ä½“
     for (int i = 0; i < size; i++)
     {
-        if (points[i].x >= theRow || points[i].y >= theCol || points[i].x<=0 || points[i].y <=0)
+        if (points[i].x > theRow || points[i].y > theCol || points[i].x<=0 || points[i].y <=0)
             throw matrixIndexOutOfBounds("some matrix element indexs is out of bounds,please check coordinates!");
-        term.row = points[i].x; // intÀàĞÍ²ÅÄÜ±»row,col½ÓÊÕ
+        term.row = points[i].x; // intç±»å‹æ‰èƒ½è¢«row,colæ¥æ”¶
         term.col = points[i].y;
-        term.value = value[i]; // TÀàĞÍ±äÎªTÀàĞÍ
-        terms.push_back(term); // Î²²å
+        term.value = value[i]; // Tç±»å‹å˜ä¸ºTç±»å‹
+        terms.push_back(term); // å°¾æ’
     }
 }
 template<class T>
 T sparseMatrix<T> :: operator () (const int& row, const int& col)
 {
-    if (row <= 0 || col <= 0 || row >= rows || col >= cols)
+    if (row <= 0 || col <= 0 || row > rows || col > cols)
         throw matrixIndexOutOfBounds();
     for (typename sparseMatrixArrayList<matrixTerm<T>>::iterator it = terms.begin();
         it != terms.end(); it++)
@@ -58,30 +58,30 @@ T sparseMatrix<T> :: operator () (const int& row, const int& col)
         if ((*it).col == col && (*it).row == row)
             return (*it).value;
     }
-    return 0; // ¸ù¾İÌõ¼ş·µ»ØµÄ»°ĞèÒª·µ»ØT¶ø²»ÊÇT&,·ñÔò»á±¨´í
+    return 0; // æ ¹æ®æ¡ä»¶è¿”å›çš„è¯éœ€è¦è¿”å›Tè€Œä¸æ˜¯T&,å¦åˆ™ä¼šæŠ¥é”™
 }
 template<class T>
 sparseMatrix<T>& sparseMatrix<T> ::operator =(const sparseMatrix<T>& m)
 {
     rows = m.rows;
     cols = m.cols;
-    terms = m.terms; // ²âÊÔÏ¡Êè¾ØÕóÏßĞÔ±íÀàµÄÖØÔØ=
-    return *this; // ·µ»Ø×Ô¼º
+    terms = m.terms; // æµ‹è¯•ç¨€ç–çŸ©é˜µçº¿æ€§è¡¨ç±»çš„é‡è½½=
+    return *this; // è¿”å›è‡ªå·±
 }
 template<class T>
 ostream& operator<<<>(ostream& out, sparseMatrix<T>& x)
 {
     out << "rows = " << x.rows << " columns = "
         << x.cols << endl;
-    out << "nonzero terms = " << x.terms.size() << endl; // termsÊÇ¸ö½á¹¹ÌåÏßĞÔ±í
+    out << "nonzero terms = " << x.terms.size() << endl; // termsæ˜¯ä¸ªç»“æ„ä½“çº¿æ€§è¡¨
     
-    //// Ê¹ÓÃµü´úÆ÷±éÀúÔªËØ ,±ØĞëÒªÊµÀı»¯µÄµü´úÆ÷ ÕâÀïÖ»ÊÇÎªÁËµü´úÆ÷
+    //// ä½¿ç”¨è¿­ä»£å™¨éå†å…ƒç´  ,å¿…é¡»è¦å®ä¾‹åŒ–çš„è¿­ä»£å™¨ è¿™é‡Œåªæ˜¯ä¸ºäº†è¿­ä»£å™¨
     for (typename sparseMatrixArrayList<matrixTerm<T>>::iterator it = x.terms.begin();
         it != x.terms.end(); it++)
     {
-        out << "matrix(" << (*it).row << ',' << (*it).col // *iÊÇ¸ö¾ßÌåµÄÏ¡Êè¾ØÕó½á¹¹ÌåÔªËØ
+        out << "matrix(" << (*it).row << ',' << (*it).col // *iæ˜¯ä¸ªå…·ä½“çš„ç¨€ç–çŸ©é˜µç»“æ„ä½“å…ƒç´ 
             << ") = " << (*it).value << "  ";
-        if ( ((int)it+1) % 5 == 0) // matrixTermÓĞÇ¿ÖÆ×ª»»ÀàĞÍ
+        if ( ((int)it+1) % 5 == 0) // matrixTermæœ‰å¼ºåˆ¶è½¬æ¢ç±»å‹
             out << endl;
     }
     out << endl;
@@ -90,15 +90,15 @@ ostream& operator<<<>(ostream& out, sparseMatrix<T>& x)
 template<class T>
 istream& operator>><>(istream& input, sparseMatrix<T>& x)
 {
-    int numberOfTerms; // ²åÈëµÄÊıÁ¿
+    int numberOfTerms; // æ’å…¥çš„æ•°é‡
     cout << "Please enter number of rows  = " << endl;
     input >> x.rows;
     cout << "Please enter number of cols  = " << endl;
     input >> x.cols;
     cout << "Please enter number of terms  = " << endl;
     input>> numberOfTerms;
-    x.terms.reSet(numberOfTerms); // ¶¯Ì¬µ÷ÕûÏßĞÔ±íµÄsize
-    matrixTerm<T> mTerm;//ÁÙÊ±½á¹¹Ìå
+    x.terms.reSet(numberOfTerms); // åŠ¨æ€è°ƒæ•´çº¿æ€§è¡¨çš„size
+    matrixTerm<T> mTerm;//ä¸´æ—¶ç»“æ„ä½“
     for (int i = 0; i < numberOfTerms; i++)
     {
         cout << "term("<<i+1<<").row = " << endl;
@@ -119,14 +119,14 @@ istream& operator>><>(istream& input, sparseMatrix<T>& x)
         }
         cout << "term(" << i + 1 << ").value = " << endl;
         input >> mTerm.value;
-        x.terms.set(i, mTerm); // ×¢Òâ´æ´¢µÄÊÇ½á¹¹Ìå½Úµã
+        x.terms.set(i, mTerm); // æ³¨æ„å­˜å‚¨çš„æ˜¯ç»“æ„ä½“èŠ‚ç‚¹
     }
     return input;
 }
 template<class T>
 void sparseMatrix<T>::transpose(sparseMatrix<T>& b)
 {
-    // ×ªÖÃºóµÄ¾ØÕóÔÚbÖĞ´æ·Å
+    // è½¬ç½®åçš„çŸ©é˜µåœ¨bä¸­å­˜æ”¾
     b.cols = rows;
     b.rows = cols;
     matrixTerm<T> term;
@@ -135,8 +135,8 @@ void sparseMatrix<T>::transpose(sparseMatrix<T>& b)
     {
         term.col = (*it).row;
         term.row = (*it).col;
-        term.value = (*it).value; // ´ËÖÖ×ªÖÃ·½·¨²»¸Ä±äÄÚ´æÎ»ÖÃ
-        b.terms.push_back(term);// µ«ÊÇ²åÈë±È½ÏºÄÊ±,²»ÒªÊ¹ÓÃreSet,·ñÔò¾Í±ä³É20¸öÔªËØÁË
+        term.value = (*it).value; // æ­¤ç§è½¬ç½®æ–¹æ³•ä¸æ”¹å˜å†…å­˜ä½ç½®
+        b.terms.push_back(term);// ä½†æ˜¯æ’å…¥æ¯”è¾ƒè€—æ—¶,ä¸è¦ä½¿ç”¨reSet,å¦åˆ™å°±å˜æˆ20ä¸ªå…ƒç´ äº†
     }
 }
 template<class T>
@@ -146,12 +146,12 @@ void sparseMatrix<T>::t(sparseMatrix<T>& b)
     b.rows = cols;
     b.terms.reSet(terms.size());
 
-    // Ô­¾ØÕóĞĞÖ÷Ó³Éä,ÖğĞĞµÄ´Ó×óµ½ÓÒÒÀ´ÎÓ³Éäµ½elementµÄ0,1,2,..listSize-1µÄÎ»ÖÃ
-    // ×ªÖÃ¾ØÕóĞĞÖ÷Ó³Éäµ½element,¾ÍÊÇ°´Ô­¾ØÕóµÄÁĞÓ³Éä
-    // ÀıÈç(2,6),(15,3),(26,2),(35,1),(42,2),(47,3),(50,6),(51,9),(50,14),(47,19)
-    // ĞĞ×ø±êÊÇ´ÓĞ¡µ½´óÖğ¸öÓ³ÉäµÄ,ÏÖÔÚ×ªÖÃºóµÄ¾ØÕóÒ²ÒªĞĞÖ÷Ó³ÉäÓ³Éä,¾ÍÊÇ¶ÔÏÖÔÚµÄÁĞ×ø±êÓ³Éä
-    // (6,3,2,1,2,3,6,9,14,19)µÄrankÃû´ÎÎª->(5,3,1,0,2,4,6,7,8,9)
-    // ÄÇÃ´°ÑÔ­À´µÄelement[0,1,2,3,4,5,6,7,8,9]=>element[5,3,1,0,2,4,6,7,8,9]¼´¿É
+    // åŸçŸ©é˜µè¡Œä¸»æ˜ å°„,é€è¡Œçš„ä»å·¦åˆ°å³ä¾æ¬¡æ˜ å°„åˆ°elementçš„0,1,2,..listSize-1çš„ä½ç½®
+    // è½¬ç½®çŸ©é˜µè¡Œä¸»æ˜ å°„åˆ°element,å°±æ˜¯æŒ‰åŸçŸ©é˜µçš„åˆ—æ˜ å°„
+    // ä¾‹å¦‚(2,6),(15,3),(26,2),(35,1),(42,2),(47,3),(50,6),(51,9),(50,14),(47,19)
+    // è¡Œåæ ‡æ˜¯ä»å°åˆ°å¤§é€ä¸ªæ˜ å°„çš„,ç°åœ¨è½¬ç½®åçš„çŸ©é˜µä¹Ÿè¦è¡Œä¸»æ˜ å°„æ˜ å°„,å°±æ˜¯å¯¹ç°åœ¨çš„åˆ—åæ ‡æ˜ å°„
+    // (6,3,2,1,2,3,6,9,14,19)çš„rankåæ¬¡ä¸º->(5,3,1,0,2,4,6,7,8,9)
+    // é‚£ä¹ˆæŠŠåŸæ¥çš„element[0,1,2,3,4,5,6,7,8,9]=>element[5,3,1,0,2,4,6,7,8,9]å³å¯
     T* ys = new T[terms.size()];
     int idx = 0;
     for (typename sparseMatrixArrayList<matrixTerm<T> >::iterator it = terms.begin();
@@ -159,7 +159,7 @@ void sparseMatrix<T>::t(sparseMatrix<T>& b)
     {
         ys[idx++] = (*it).col;
     }
-    int* rank = new int[terms.size()]; // ¼ÇÂ¼Ãû´Î ¶ÔÁĞ×ø±êÅÅÃû
+    int* rank = new int[terms.size()]; // è®°å½•åæ¬¡ å¯¹åˆ—åæ ‡æ’å
     for (int i = 0; i < terms.size(); i++)
         rank[i] = 0;
     for (int i =1;i<terms.size();i++)
@@ -195,8 +195,8 @@ template<class T>
 void sparseMatrix<T>::add(sparseMatrix<T> b, sparseMatrix<T>& c)
 {
     //  Compute c = (*this) + b.
-    // ÓÉÓÚbµÄerase²Ù×÷,¹Ê²»ÄÜ´«µİÒıÓÃ,·ñÔò»á¸Ä±äÔ­ÓĞµÄb
-    // µ«ÊÇ×îÖÕ²»ºÄ·ÑÄÚ´æ,ÒòÎªbµÄÊı¾İÁ¿Ò»Ö±ÔÚ¼õÉÙ
+    // ç”±äºbçš„eraseæ“ä½œ,æ•…ä¸èƒ½ä¼ é€’å¼•ç”¨,å¦åˆ™ä¼šæ”¹å˜åŸæœ‰çš„b
+    // ä½†æ˜¯æœ€ç»ˆä¸è€—è´¹å†…å­˜,å› ä¸ºbçš„æ•°æ®é‡ä¸€ç›´åœ¨å‡å°‘
     if (rows != b.rows || cols != b.cols)
         throw matrixSizeMismatch();
     c.rows = rows;
@@ -211,7 +211,7 @@ void sparseMatrix<T>::add(sparseMatrix<T> b, sparseMatrix<T>& c)
         int bidx = 0;
         for (; ib!= ibEnd; ib++)
         {
-            if ((*it).col == (*ib).col && (*it).row == (*ib).row) // Èç¹ûÓĞÏàÍ¬Î»ÖÃ
+            if ((*it).col == (*ib).col && (*it).row == (*ib).row) // å¦‚æœæœ‰ç›¸åŒä½ç½®
             {
                 if ((*it).value + (*ib).value != 0)
                 {
@@ -220,28 +220,28 @@ void sparseMatrix<T>::add(sparseMatrix<T> b, sparseMatrix<T>& c)
                     mTerm.col = (*it).col;
                     mTerm.value = (*it).value + (*ib).value;
                     //cout << "(" << mTerm.row << "," << mTerm.col << ")" << endl;
-                    //c.terms.push_back(mTerm); // push_back¿ÉÄÜÊ¹²åÈëµÄ½Úµã²¢²»·ûºÏĞĞÖ÷Ó³Éä
-                    b.terms.erase(bidx); // µ±Ç°µÄÎ»ÖÃ¿ÉÒÔÌŞ³ı,ÏÂÒ»´ÎbµÄÑ­»·²»»áÔÙÓĞÕâ¸öÎ»ÖÃ
+                    //c.terms.push_back(mTerm); // push_backå¯èƒ½ä½¿æ’å…¥çš„èŠ‚ç‚¹å¹¶ä¸ç¬¦åˆè¡Œä¸»æ˜ å°„
+                    b.terms.erase(bidx); // å½“å‰çš„ä½ç½®å¯ä»¥å‰”é™¤,ä¸‹ä¸€æ¬¡bçš„å¾ªç¯ä¸ä¼šå†æœ‰è¿™ä¸ªä½ç½®
                 }
-                ib = b.terms.begin(); //½«ib»Øµ½¿ªÍ·
-                ibEnd = b.terms.end(); // eraseºóendÎ»ÖÃÒ²±äÁË
-                it++; // itÔö¼ÓÒ²»á±ÜÃâÊ¹ÓÃtÖØ¸´µÄÎ»ÖÃ
-                break; // Ìø³öµ±Ç°forÑ­»·Ö±½Ó½øÈëÏÂÒ»¸öit,ºóÃæµÄib²»ÓÃÔÙ½øĞĞ±éÀúÒòÎª²»»áÓĞµÚ2¸öÖØ¸´µÄÎ»ÖÃ
+                ib = b.terms.begin(); //å°†ibå›åˆ°å¼€å¤´
+                ibEnd = b.terms.end(); // eraseåendä½ç½®ä¹Ÿå˜äº†
+                it++; // itå¢åŠ ä¹Ÿä¼šé¿å…ä½¿ç”¨té‡å¤çš„ä½ç½®
+                break; // è·³å‡ºå½“å‰forå¾ªç¯ç›´æ¥è¿›å…¥ä¸‹ä¸€ä¸ªit,åé¢çš„ibä¸ç”¨å†è¿›è¡Œéå†å› ä¸ºä¸ä¼šæœ‰ç¬¬2ä¸ªé‡å¤çš„ä½ç½®
             }
             bidx++;
         }
-        if (ib == ibEnd) // b±éÀú½áÊø¶¼Ã»ÓĞºÍµ±Ç°itÏàÍ¬µÄ
+        if (ib == ibEnd) // béå†ç»“æŸéƒ½æ²¡æœ‰å’Œå½“å‰itç›¸åŒçš„
         {
-            if (it == itEnd) // Õâ¸öÅĞ¶ÏÊÇ·ÀÖ¹Á½¸ö¾ØÕó¶¼ÊÇÏàÍ¬ÔªËØÊ± ÒıÆğµÄbug
+            if (it == itEnd) // è¿™ä¸ªåˆ¤æ–­æ˜¯é˜²æ­¢ä¸¤ä¸ªçŸ©é˜µéƒ½æ˜¯ç›¸åŒå…ƒç´ æ—¶ å¼•èµ·çš„bug
                 break;
-            c.terms.push_back(*it); // it²»ºÍÈÎºÎibÖØ¸´
+            c.terms.push_back(*it); // itä¸å’Œä»»ä½•ibé‡å¤
             //cout << "(" << (*it).row << "," << (*it).col << ")" << endl;
-            ib = b.terms.begin();// ib»Øµ½¿ªÍ·
+            ib = b.terms.begin();// ibå›åˆ°å¼€å¤´
             it++;
             continue;
         }
     }
-    if (!b.terms.empty()) // Èç¹ûb»¹ÓĞÊ£ÓàËµÃ÷ÊÇ²»ºÍÈÎºÎtÖØ¸´µÄ
+    if (!b.terms.empty()) // å¦‚æœbè¿˜æœ‰å‰©ä½™è¯´æ˜æ˜¯ä¸å’Œä»»ä½•té‡å¤çš„
     {
         //cout << "!b.terms.empty()" << endl;
         ib = b.terms.begin();
@@ -249,44 +249,44 @@ void sparseMatrix<T>::add(sparseMatrix<T> b, sparseMatrix<T>& c)
         for (; ib != ibEnd; ib++)
             c.terms.push_back(*ib);
     }
-    // ÊéÉÏµÄ´úÂë´æÔÚbug,Èç¹ûÁ½¸ö¾ØÕó¶¼ÔÚÏàÍ¬µÄÎ»ÖÃÓĞ1¸öÔªËØ,µ«ÊÇÄÚ´æË³Ğò²»Ò»ÖÂÊ±»á³ö´í
-    // ÀıÈçA¾ØÕóÓĞ(4,5),(5,8),(6,2)Èı¸ö×ø±ê,ÇÒÈ·Êµ°´Ë³Ğò°Ú·Å,BÊÇ(6,2),(4,5),(5,8),ÄÇÃ´Ïà¼ÓµÄ½á¹ûÓĞÖØ¸´µÄ
-    // ÒòÎªÁ½¸ö¾ØÕó¶¼ÊÇĞĞÖ÷Ó³ÉäµÄ»°Ïà¼ÓÈ·ÊµÓ¦¸ÃÃ»ÓĞÎÊÌâ,µ«ÊÇ¼ÙÈô¹¹ÔìµÄÊ±ºòÃ»ÓĞ°´ÕÕĞĞÖ÷Ó³Éä¾Í»áÓĞÎÊÌâ
-    //int cSize = 0;//ÓÃÀ´¼ÆËã²åÈëµÄÎ»ÖÃ,Ã¿µ±²åÈë1¸ö¾ÍÔö1
-    //while (it != itEnd && ib != ibEnd) // 2¸öÏ¡Êè¾ØÕóµÄ·ÇÁãÔªËØ¸öÊıºÍÎ»ÖÃ¿ÉÄÜ²»Í¬
+    // ä¹¦ä¸Šçš„ä»£ç å­˜åœ¨bug,å¦‚æœä¸¤ä¸ªçŸ©é˜µéƒ½åœ¨ç›¸åŒçš„ä½ç½®æœ‰1ä¸ªå…ƒç´ ,ä½†æ˜¯å†…å­˜é¡ºåºä¸ä¸€è‡´æ—¶ä¼šå‡ºé”™
+    // ä¾‹å¦‚AçŸ©é˜µæœ‰(4,5),(5,8),(6,2)ä¸‰ä¸ªåæ ‡,ä¸”ç¡®å®æŒ‰é¡ºåºæ‘†æ”¾,Bæ˜¯(6,2),(4,5),(5,8),é‚£ä¹ˆç›¸åŠ çš„ç»“æœæœ‰é‡å¤çš„
+    // å› ä¸ºä¸¤ä¸ªçŸ©é˜µéƒ½æ˜¯è¡Œä¸»æ˜ å°„çš„è¯ç›¸åŠ ç¡®å®åº”è¯¥æ²¡æœ‰é—®é¢˜,ä½†æ˜¯å‡è‹¥æ„é€ çš„æ—¶å€™æ²¡æœ‰æŒ‰ç…§è¡Œä¸»æ˜ å°„å°±ä¼šæœ‰é—®é¢˜
+    //int cSize = 0;//ç”¨æ¥è®¡ç®—æ’å…¥çš„ä½ç½®,æ¯å½“æ’å…¥1ä¸ªå°±å¢1
+    //while (it != itEnd && ib != ibEnd) // 2ä¸ªç¨€ç–çŸ©é˜µçš„éé›¶å…ƒç´ ä¸ªæ•°å’Œä½ç½®å¯èƒ½ä¸åŒ
     //{
-    //    // Èç¹û¸öÊı²»Í¬,ĞèÒªÔÚºó±ß²åÈëÊ£ÓàÏî,¿ÉÄÜÊÇitÒ²¿ÉÄÜÊÇib¶à³öÀ´µÄ
-    //    // ¼ÌĞøÅĞ¶ÏÎ»ÖÃ,Î»ÖÃÏàÍ¬ĞèÒªĞÂ½¨1¸ö½Úµã,ÖµÏà¼Ó
-    //    // Èç¹û²»ÊÇÏàÍ¬Î»ÖÃ,¾ÍÒªÔö¼Ó1¸ö½Úµã,Ö±½Ó´æ´¢it»òÕßibµÄ½Úµã¼´¿É
-    //    // Ë­ÏÈ´æ´¢È¡¾öÓÚÎ»ÖÃµÄÇ°ºó,Ğ¡µÄÏÈ²å
-    //    int tIndex = (*it).row * cols + (*it).col; // Ä³¸ö½ÚµãµÄÊµ¼ÊÎ»ÖÃ=µ±Ç°ĞĞÊı*×ÜÁĞÊı+µ±Ç°ÁĞÊı
-    //    int bIndex = (*ib).row * cols + (*ib).col;// bºÍ*thisÊÇÍ¬ĞÍµÄ,×ÜÁĞÊı¶¼ÊÇcols
+    //    // å¦‚æœä¸ªæ•°ä¸åŒ,éœ€è¦åœ¨åè¾¹æ’å…¥å‰©ä½™é¡¹,å¯èƒ½æ˜¯itä¹Ÿå¯èƒ½æ˜¯ibå¤šå‡ºæ¥çš„
+    //    // ç»§ç»­åˆ¤æ–­ä½ç½®,ä½ç½®ç›¸åŒéœ€è¦æ–°å»º1ä¸ªèŠ‚ç‚¹,å€¼ç›¸åŠ 
+    //    // å¦‚æœä¸æ˜¯ç›¸åŒä½ç½®,å°±è¦å¢åŠ 1ä¸ªèŠ‚ç‚¹,ç›´æ¥å­˜å‚¨itæˆ–è€…ibçš„èŠ‚ç‚¹å³å¯
+    //    // è°å…ˆå­˜å‚¨å–å†³äºä½ç½®çš„å‰å,å°çš„å…ˆæ’
+    //    int tIndex = (*it).row * cols + (*it).col; // æŸä¸ªèŠ‚ç‚¹çš„å®é™…ä½ç½®=å½“å‰è¡Œæ•°*æ€»åˆ—æ•°+å½“å‰åˆ—æ•°
+    //    int bIndex = (*ib).row * cols + (*ib).col;// bå’Œ*thisæ˜¯åŒå‹çš„,æ€»åˆ—æ•°éƒ½æ˜¯cols
     //    //cout << "tindex = " << tIndex << "  bindex = " << bIndex << endl;
-    //    if (tIndex < bIndex) // Êµ¼ÊÎ»ÖÃ¿¼Ç°µÄÏÈ²åÈë,cSize++ÏÈÊ¹ÓÃ
+    //    if (tIndex < bIndex) // å®é™…ä½ç½®è€ƒå‰çš„å…ˆæ’å…¥,cSize++å…ˆä½¿ç”¨
     //    {
-    //        cout << "it < ib£ºcSize = " << cSize << endl;
-    //        c.terms.insert(cSize++, *it); // ÄÇÃ´²åĞ¡µÄt½Úµã
-    //        it++; // 1¸öit½Úµã±»Ê¹ÓÃ¾Íµ½ÏÂÒ»¸ö
+    //        cout << "it < ibï¼šcSize = " << cSize << endl;
+    //        c.terms.insert(cSize++, *it); // é‚£ä¹ˆæ’å°çš„tèŠ‚ç‚¹
+    //        it++; // 1ä¸ªitèŠ‚ç‚¹è¢«ä½¿ç”¨å°±åˆ°ä¸‹ä¸€ä¸ª
     //    }
     //    else 
     //    {
-    //        if (tIndex == bIndex) // Êµ¼ÊÎ»ÖÃÏàµÈÇÒÖµÏà¼Ó²»Îª0µÄcSize++Æä´ÎÊ¹ÓÃ
+    //        if (tIndex == bIndex) // å®é™…ä½ç½®ç›¸ç­‰ä¸”å€¼ç›¸åŠ ä¸ä¸º0çš„cSize++å…¶æ¬¡ä½¿ç”¨
     //        {
     //            if ((*it).value + (*ib).value != 0) 
     //            {
-    //                cout << "it = ib£ºcSize = " << cSize << endl;
-    //                matrixTerm<T> mTerm; // Òª¹¹½¨ĞÂ½Úµã,ÒòÎª´ËÊ±²åÈë*itºÍ*ib¶¼²»¶Ô
-    //                mTerm.row = (*it).row; // ÒòÎªÎ»ÖÃÏàÍ¬,Ê¹ÓÃ(*ib).rowÒ²¿ÉÒÔ
-    //                mTerm.col = (*it).col;// ÒòÎªÎ»ÖÃÏàÍ¬,Ê¹ÓÃ(*ib).colÒ²¿ÉÒÔ
-    //                mTerm.value = (*it).value + (*ib).value; // ÖµÖ±½ÓÏà¼Ó¼´¿É
+    //                cout << "it = ibï¼šcSize = " << cSize << endl;
+    //                matrixTerm<T> mTerm; // è¦æ„å»ºæ–°èŠ‚ç‚¹,å› ä¸ºæ­¤æ—¶æ’å…¥*itå’Œ*ibéƒ½ä¸å¯¹
+    //                mTerm.row = (*it).row; // å› ä¸ºä½ç½®ç›¸åŒ,ä½¿ç”¨(*ib).rowä¹Ÿå¯ä»¥
+    //                mTerm.col = (*it).col;// å› ä¸ºä½ç½®ç›¸åŒ,ä½¿ç”¨(*ib).colä¹Ÿå¯ä»¥
+    //                mTerm.value = (*it).value + (*ib).value; // å€¼ç›´æ¥ç›¸åŠ å³å¯
     //                c.terms.insert(cSize++, mTerm); //
     //            }
     //            it++;
     //            ib++;
     //        }
     //        else
-    //        { // cSize++ºóÊ¹ÓÃ
-    //            cout << "it>ib£ºcSize = " << cSize << endl;
+    //        { // cSize++åä½¿ç”¨
+    //            cout << "it>ibï¼šcSize = " << cSize << endl;
     //            c.terms.insert(cSize++, *ib);
     //            ib++;
     //        }
