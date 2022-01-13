@@ -10,13 +10,13 @@ void _charter7_sparse_matrix()
 	//cout << "b.capacity() = " << b.capacity() << endl;
 	//cin >> a;
 	//cout << "Matrix a is" << endl << a;
-	//b = a;  // ÄÚ²¿Ö»ÊÇ1¸öÒıÓÃ²»»á¸´ÖÆÊı¾İ
+	//b = a;  // å†…éƒ¨åªæ˜¯1ä¸ªå¼•ç”¨ä¸ä¼šå¤åˆ¶æ•°æ®
 	//cout << "Matrix b is" << endl << b;
 	
 	const int rows  = 60;
 	const int cols = 20;
 	const int size = 10;
-	_charter6_point2D<int>  points[size] = {}; // 10¸öÔªËØ¶ÔÓ¦µÄ×ø±ê
+	_charter6_point2D<int>  points[size] = {}; // 10ä¸ªå…ƒç´ å¯¹åº”çš„åæ ‡
 	_charter6_point2D<int> point;
 	for (int i = 0; i < size; i++)
 	{
@@ -61,11 +61,11 @@ void _charter7_sparse_matrix()
 		cout << endl<<"The sum of c and f is" << endl << k;
 		
 		matrixTerm<double> term;
-		term.col = 19;
-		term.row = 59;
+		term.col = 20;
+		term.row = 60;
 		term.value = -1.0;
 		f.append(term);
-		cout << "after f.append  Matrix f is" << endl << f; // ²âÊÔappendº¯Êı
+		cout << "after f.append  Matrix f is" << endl << f; // æµ‹è¯•appendå‡½æ•°
 
 		sparseMatrix<double> m;
 		c.add(f, m);
