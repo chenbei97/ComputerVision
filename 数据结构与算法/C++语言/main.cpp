@@ -5,6 +5,7 @@
 #include "charter5.h"
 #include "charter6.h"
 #include "charter7.h"
+#include "charter8.h"
 #include "sort_method.h"
 #include <iostream>
 using namespace std;
@@ -55,6 +56,9 @@ int main()
 	_charter7_symmetric_matrix();
 	_charter7_sparse_matrix();
 	_charter7_linkedMatrix();
+	_charter8_derivedArrayStack();
+	_charter8_arrayStack();
+	
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);
