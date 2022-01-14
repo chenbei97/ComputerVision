@@ -58,7 +58,7 @@ int main()
 	_charter7_linkedMatrix();
 	_charter8_derivedArrayStack();
 	_charter8_arrayStack();
-	
+	_charter8_linkedStack();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);
