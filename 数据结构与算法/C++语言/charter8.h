@@ -6,3 +6,4 @@ void _charter8_parenthesis_matching();
 void _charter8_towerOfHanoi_byRecursion();
 void _charter8_towerOfHanoi_byStack();
 void _charter8_carriageRearrange();
+void _charter8_switchBoxWiring();
