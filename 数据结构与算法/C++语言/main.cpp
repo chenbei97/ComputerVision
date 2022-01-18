@@ -62,6 +62,7 @@ int main()
 	_charter8_parenthesis_matching();
 	_charter8_towerOfHanoi_byRecursion();
         _charter8_towerOfHanoi_byStack();
+	_charter8_carriageRearrange();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);
