@@ -6,6 +6,7 @@
 #include "charter6.h"
 #include "charter7.h"
 #include "charter8.h"
+#include "charter9.h"
 #include "sort_method.h"
 #include <iostream>
 using namespace std;
@@ -64,6 +65,8 @@ int main()
 	//_charter8_towerOfHanoi_byStack();
 	//_charter8_carriageRearrange();
 	_charter8_switchBoxWiring();
+	_charter9_arrayQueue();
+	_charter9_linkedQueue();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);
