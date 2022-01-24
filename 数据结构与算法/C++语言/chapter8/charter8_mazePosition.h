@@ -5,6 +5,11 @@ struct mazePosition
 {
     int row, 
         col;  
-    operator int() const { return row; } // 强转转换,返回所在行
+    operator int() const { return row; } // 脟驴脳陋脳陋禄禄,路碌禄脴脣霉脭脷脨脨
 };
+std::ostream& operator<<(std::ostream& out, const mazePosition& x)
+{
+    out << "(" << x.row << "," << x.col << ") =>";
+    return out; // 鍛婅瘔stack濡備綍鎵撳嵃杩欑鏁版嵁绫诲瀷
+}
 #endif charter8_mazePosition_
