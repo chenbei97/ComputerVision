@@ -64,8 +64,9 @@ int main()
 	//_charter8_towerOfHanoi_byRecursion();
 	//_charter8_towerOfHanoi_byStack();
 	//_charter8_carriageRearrange();
-	_charter8_switchBoxWiring();
-	_charter9_arrayQueue();
+	//_charter8_switchBoxWiring();
+	_charter8_maze_mouse();
+	//_charter9_arrayQueue();
 	_charter9_linkedQueue();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
