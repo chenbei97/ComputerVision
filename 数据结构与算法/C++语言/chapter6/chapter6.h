@@ -1,0 +1,12 @@
+#pragma once
+#ifndef chapter6_
+#define chapter6_
+void _chapter6_chainNode_testCode();
+void _chapter6_chainList_testCode();
+void _chapter6_chainListWithIterator_testCode();
+void _chapter6_chainListWithIteratorExtend_testCode();
+void _chapter6_chainListCircular_testCode();
+void _chapter6_StudentRecord1_binSort_testCode();
+void _chapter6_StudentRecord2_binSort_testCode();
+void _chapter6_convex_hull();
+#endif chapter6_
