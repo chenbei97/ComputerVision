@@ -54,6 +54,7 @@ bool railroad(int* inputOrder,int theNumberOfCars, int theNumberOfTracks)
 
 void outputFromHoldingTrack(int c)
 {
+    // 能进入此函数的前提是车厢c找到了合适的缓冲车道,即whichTrack[i]!=0
     // 可以看出,与使用栈和队列的方法相比,此函数多了一个形参,即车厢编号
     cout << "Move car " << c << " from holding track "
         << whichTrackC9[c] << " to output track" << endl;
