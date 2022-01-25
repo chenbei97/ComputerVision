@@ -1,0 +1,10 @@
+#pragma once
+#ifndef chapter5_
+#define chapter5_
+void _chapter5_changeLength1D();
+void _chapter5_concrete_class_instantiation();
+void _chapter5_iterator_concept();
+void _chapter5_bidirectional_iterator();
+void _chapter5_arrayList_with_bidirectionalIterator();
+void _chapter5_linearList_by_vector();
+#endif chapter5_
