@@ -1,49 +1,49 @@
 #include <iostream>
 using namespace std;
-// ±¾cppÎÄ¼ş»ù±¾±£ÁôÁËÊéÔ­Ê¼´úÂë,Ã»ÓĞĞŞ¸Äº¯ÊıÃû,Ö»¶ÔÈ«¾Ö±äÁ¿¼ÓÁËC9·ÀÖ¹±äÁ¿ÃûÖØ¸´
-int* whichTrackC9;  // ³µÏáÊôÓÚµÄ»º³å³µµÀ(Ö¸Õë),¿ÉÒÔ´æ¶à¸ö»º³å³µµÀ,whichTrackC9[i]ÊÇ1¸ö³µµÀ,ÏÂ±ê1¿ªÊ¼
-int* lastCarC9;     // »º³å³µµÀ×îºó1¸ö³µÏáµÄ±àºÅ(Ö¸Õë),whichTrackC9[i]¶ÔÓ¦lastCarC9[i]
-int numberOfCarsC9; // ×ÜµÄ³µÁ¾Êı
-int numberOfTracksC9; // ×ÜµÄ»º³åµÀÊı
+// æœ¬cppæ–‡ä»¶åŸºæœ¬ä¿ç•™äº†ä¹¦åŸå§‹ä»£ç ,æ²¡æœ‰ä¿®æ”¹å‡½æ•°å,åªå¯¹å…¨å±€å˜é‡åŠ äº†C9é˜²æ­¢å˜é‡åé‡å¤
+int* whichTrackC9;  // 1â‰¤iâ‰¤numberOfCarsC9,whichTrackC9[i]æ˜¯è½¦å¢iå»çš„ç¼“å­˜è½¦é“,1â‰¤whichTrackC9[i]â‰¤numberOfTracksC9-1
+int* lastCarC9;     // 1â‰¤iâ‰¤numberOfTracksC9-1,lastCarC9[i]æ˜¯ç¼“å†²é“iå­˜å‚¨çš„æœ€å1ä¸ªè½¦å¢ç¼–å·,æœ¬èº«æ˜¯1â‰¤lastCarC9[i]â‰¤numberOfCarsC9
+int numberOfCarsC9; // æ€»çš„è½¦è¾†æ•°
+int numberOfTracksC9; // æ€»çš„ç¼“å†²é“æ•°
 void outputFromHoldingTrack(int);
 bool putInHoldingTrack(int);
 bool railroad(int*, int, int);
 void _chapter9_carriageRearrange_noQueue()
 {
-    const int nCars = 9; // 9½Ú³µÏá
-    const int nTracks = 3; // 3¸ö»º³åµÀ
-    int permutation[nCars + 1] = { 0, 3,6,9,2,4,7,1,8,5 }; // Êı×éĞ¡±ê0µÄÎ»ÖÃ²»ÓÃ,´Ó1¿ªÊ¼±È½Ï·½±ã
-    cout << "Input permutation is 581742963" << endl; // ³õÊ¼µÄÊäÈëÅÅÁĞ
+    const int nCars = 9; // 9èŠ‚è½¦å¢
+    const int nTracks = 3; // 3ä¸ªç¼“å†²é“
+    int permutation[nCars + 1] = { 0, 3,6,9,2,4,7,1,8,5 }; // æ•°ç»„å°æ ‡0çš„ä½ç½®ä¸ç”¨,ä»1å¼€å§‹æ¯”è¾ƒæ–¹ä¾¿
+    cout << "Input permutation is 581742963" << endl; // åˆå§‹çš„è¾“å…¥æ’åˆ—
     railroad(permutation, 9, 3);
-    cout << "Output permutation is 123456789" << endl; // ³õÊ¼µÄÊäÈëÅÅÁĞ
+    cout << "Output permutation is 123456789" << endl; // åˆå§‹çš„è¾“å…¥æ’åˆ—
 }
 
 bool railroad(int* inputOrder,int theNumberOfCars, int theNumberOfTracks)
 {
     numberOfCarsC9 = theNumberOfCars;
-    numberOfTracksC9 = theNumberOfTracks - 1; // ÓĞ1¸öÊÇ²»×÷Îª»º³åµÀµÄ
+    numberOfTracksC9 = theNumberOfTracks - 1; // æœ‰1ä¸ªæ˜¯ä¸ä½œä¸ºç¼“å†²é“çš„
 
-    // ³õÊ¼»¯Ã¿¸ö»º³åµÀºÍÎ²²¿³µÏá±àºÅ,È«²¿Îª0,Ã¿¸ö³µÏÕ¶¼ÓĞ×Ô¼ºµÄ»º³åµÀ(ËùÒÔĞ§ÂÊµÍ..)
-    lastCarC9 = new int[numberOfTracksC9 + 1]; // Ã¿¸ö»º³åµÀ¶¼ÓĞ1¸öÎ²²¿³µÁ¾,¿ÉÒÔÃ»ÓĞ,ÄÇÃ´lastCarC9[i]±£³Ö=0
-    fill(lastCarC9 + 1, lastCarC9 + numberOfTracksC9 + 1, 0); // ³õÊ¼»¯Îª0,Ö»ÓÃµ½[1,numberOfTracksC9],¼´»º³åµÀÊÇÏÂ±ê1¿ªÊ¼¼ÆÊıµÄ±È½Ï·½±ã
-    whichTrackC9 = new int[numberOfCarsC9 + 1]; // »º³åµÀÍ¬Àí½øĞĞ0³õÊ¼»¯
+    // åˆå§‹åŒ–æ¯ä¸ªç¼“å†²é“å’Œå°¾éƒ¨è½¦å¢ç¼–å·,å…¨éƒ¨ä¸º0,æ¯ä¸ªè½¦é™©éƒ½æœ‰è‡ªå·±çš„ç¼“å†²é“(æ‰€ä»¥æ•ˆç‡ä½..)
+    lastCarC9 = new int[numberOfTracksC9 + 1]; // æ¯ä¸ªç¼“å†²é“éƒ½æœ‰1ä¸ªå°¾éƒ¨è½¦è¾†,å¯ä»¥æ²¡æœ‰,é‚£ä¹ˆlastCarC9[i]ä¿æŒ=0
+    fill(lastCarC9 + 1, lastCarC9 + numberOfTracksC9 + 1, 0); // åˆå§‹åŒ–ä¸º0,åªç”¨åˆ°[1,numberOfTracksC9],å³ç¼“å†²é“æ˜¯ä¸‹æ ‡1å¼€å§‹è®¡æ•°çš„æ¯”è¾ƒæ–¹ä¾¿
+    whichTrackC9 = new int[numberOfCarsC9 + 1]; // ç¼“å†²é“åŒç†è¿›è¡Œ0åˆå§‹åŒ–
     fill(whichTrackC9 + 1, whichTrackC9 + numberOfCarsC9 + 1, 0);
     int nextCarToOutput = 1;
 
-    for (int i = 1; i <= numberOfCarsC9; i++) // ±éÀúÃ¿¸ö³µÁ¾
-        if (inputOrder[i] == nextCarToOutput) // Èç¹ûÊäÈëµÄ³µÏá¾ÍÊÇÏÂÒ»¸öÒªÊä³öµÄ
+    for (int i = 1; i <= numberOfCarsC9; i++) // éå†æ¯ä¸ªè½¦è¾†
+        if (inputOrder[i] == nextCarToOutput) // å¦‚æœè¾“å…¥çš„è½¦å¢å°±æ˜¯ä¸‹ä¸€ä¸ªè¦è¾“å‡ºçš„
         {
             cout << "Move car " << inputOrder[i] << " from input "
                 << "track to output track" << endl;
             nextCarToOutput++;
-            while (nextCarToOutput <= numberOfCarsC9 && // ÏÂ1¸ö³µÏá±àºÅ²»ÒªÔ½½ç
-                whichTrackC9[nextCarToOutput] != 0) // ÏÂ¸ö³µÏá¶ÔÓ¦µÄ»º³åµÀ²»Îª0,ËµÃ÷Õâ¸ö»º³åµÀÓĞÕâ¸ö³µÏá
+            while (nextCarToOutput <= numberOfCarsC9 && // ä¸‹1ä¸ªè½¦å¢ç¼–å·ä¸è¦è¶Šç•Œ
+                whichTrackC9[nextCarToOutput] != 0) // ä¸‹ä¸ªè½¦å¢å¯¹åº”çš„ç¼“å†²é“ä¸ä¸º0,è¯´æ˜è¿™ä¸ªç¼“å†²é“æœ‰è¿™ä¸ªè½¦å¢
             {
-                outputFromHoldingTrack(nextCarToOutput); // ÒÆ³ıÕâ¸ö³µÏá
-                nextCarToOutput++; // ¼ÌĞøÏÂ1Á¾
+                outputFromHoldingTrack(nextCarToOutput); // ç§»é™¤è¿™ä¸ªè½¦å¢
+                nextCarToOutput++; // ç»§ç»­ä¸‹1è¾†
             }
         }
-        else // Èç¹û²»ÊÇ,¾Í°ÑÕâ¸ö³µÏáËÍµ½ºÍËü¶ÔÓ¦µÄÄÇ¸ö»º³åµÀ
+        else // å¦‚æœä¸æ˜¯,å°±æŠŠè¿™ä¸ªè½¦å¢é€åˆ°å’Œå®ƒå¯¹åº”çš„é‚£ä¸ªç¼“å†²é“
             // inputOrder[i] to whichTrackC9[i]
             if (!putInHoldingTrack(inputOrder[i]))
                 return false;
@@ -53,44 +53,44 @@ bool railroad(int* inputOrder,int theNumberOfCars, int theNumberOfTracks)
 
 void outputFromHoldingTrack(int c)
 {
-    // ¿ÉÒÔ¿´³ö,ÓëÊ¹ÓÃÕ»ºÍ¶ÓÁĞµÄ·½·¨Ïà±È,´Ëº¯Êı¶àÁËÒ»¸öĞÎ²Î,¼´³µÏá±àºÅ
+    // å¯ä»¥çœ‹å‡º,ä¸ä½¿ç”¨æ ˆå’Œé˜Ÿåˆ—çš„æ–¹æ³•ç›¸æ¯”,æ­¤å‡½æ•°å¤šäº†ä¸€ä¸ªå½¢å‚,å³è½¦å¢ç¼–å·
     cout << "Move car " << c << " from holding track "
         << whichTrackC9[c] << " to output track" << endl;
 
-    // Èç¹ûÒªÒÆ³öµÄ³µÏácÏÖÔÚÊÇ»º³å³µµÀµÄ×îºó1¸ö
-    if (c == lastCarC9[whichTrackC9[c]]) // whichTrackC9[c]µÃµ½µÄÊÇc×îºÏÊÊµÄ»º³åµÀË÷Òı¼´bestTrack
-        // lastCarC9[bestTrack] µÃµ½µÄÓ¦¸ÃÊÇÕâ¸öºÏÊÊµÄ»º³åË÷ÒıÓ¦¸Ã´æ·ÅµÄ³µÏá
-        lastCarC9[whichTrackC9[c]] = 0; // Èç¹ûÁ½ÕßÏàµÈÁË,¾Í¿ÉÒÔÒÆ³ı³µÏá,ÖØÖÃÎª0 
+    // å¦‚æœè¦ç§»å‡ºçš„è½¦å¢cç°åœ¨æ˜¯ç¼“å†²è½¦é“çš„æœ€å1ä¸ª
+    if (c == lastCarC9[whichTrackC9[c]]) // whichTrackC9[c]å¾—åˆ°çš„æ˜¯cæœ€åˆé€‚çš„ç¼“å†²é“ç´¢å¼•å³bestTrack
+        // lastCarC9[bestTrack] å¾—åˆ°çš„åº”è¯¥æ˜¯è¿™ä¸ªåˆé€‚çš„ç¼“å†²ç´¢å¼•åº”è¯¥å­˜æ”¾çš„è½¦å¢
+        lastCarC9[whichTrackC9[c]] = 0; // å¦‚æœä¸¤è€…ç›¸ç­‰äº†,å°±å¯ä»¥ç§»é™¤è½¦å¢,é‡ç½®ä¸º0 
 }
 
 bool putInHoldingTrack(int c)
 {
-    int bestTrack = 0,  // ³õÊ¼»¯×îºÏÊÊµÄ»º³åµÀÎª0
-        bestLast = 0;  // ³õÊ¼»¯×îºÏÊÊµÄ»º³åµÀµÄÎ²²¿³µÏá±àºÅÎª0
+    int bestTrack = 0,  // åˆå§‹åŒ–æœ€åˆé€‚çš„ç¼“å†²é“ä¸º0
+        bestLast = 0;  // åˆå§‹åŒ–æœ€åˆé€‚çš„ç¼“å†²é“çš„å°¾éƒ¨è½¦å¢ç¼–å·ä¸º0
 
-    for (int i = 1; i <= numberOfTracksC9; i++) // ±éÀúÃ¿¸ö»º³åµÀ
-        if (lastCarC9[i] != 0) // »º³åµÀwhichTrack[i]Èç¹ûÃ»ÓĞÔªËØÔòlastCarC9»áµÈÓÚ0,·´Ö®ËµÃ÷ÓĞÔªËØ
+    for (int i = 1; i <= numberOfTracksC9; i++) // éå†æ¯ä¸ªç¼“å†²é“
+        if (lastCarC9[i] != 0) // ç¼“å†²é“whichTrack[i]å¦‚æœæ²¡æœ‰å…ƒç´ åˆ™lastCarC9ä¼šç­‰äº0,åä¹‹è¯´æ˜æœ‰å…ƒç´ 
         {   
-            // ÓÅÏÈ½øÈë·Ç¿Õ»º³åµÀ,Ö´ĞĞÏÂ·½ÅĞ¶Ï,Ñ°ÕÒ×îºÏÊÊµÄ·Ç¿Õ»º³åµÀ
-            if (c > lastCarC9[i] && lastCarC9[i] > bestLast) // ÒªÊä³öµÄ³µÏá±àºÅÒª±Èµ±Ç°»º³åµÀµÄÎ²²¿³µÏá±àºÅ´ó
+            // ä¼˜å…ˆè¿›å…¥éç©ºç¼“å†²é“,æ‰§è¡Œä¸‹æ–¹åˆ¤æ–­,å¯»æ‰¾æœ€åˆé€‚çš„éç©ºç¼“å†²é“
+            if (c > lastCarC9[i] && lastCarC9[i] > bestLast) // è¦è¾“å‡ºçš„è½¦å¢ç¼–å·è¦æ¯”å½“å‰ç¼“å†²é“çš„å°¾éƒ¨è½¦å¢ç¼–å·å¤§
             {
-                // bestLastÒ»¿ªÊ¼0,Ëæ×Å»º³åµÀµÄ±éÀú,bestLast»áÕÒµ½ËùÓĞ»º³åµÀÀï±ß³µÏá±àºÅ×î´óµÄÄÇ¸ö
-                bestLast = lastCarC9[i]; // ¸üĞÂ×îºÃµÄ»º³åµÀÎ²²¿³µÏá±àºÅ
-                bestTrack = i; // ÓëÖ®¶ÔÓ¦µÄ»º³åµÀ±àºÅ
+                // bestLastä¸€å¼€å§‹0,éšç€ç¼“å†²é“çš„éå†,bestLastä¼šæ‰¾åˆ°æ‰€æœ‰ç¼“å†²é“é‡Œè¾¹è½¦å¢ç¼–å·æœ€å¤§çš„é‚£ä¸ª
+                bestLast = lastCarC9[i]; // æ›´æ–°æœ€å¥½çš„ç¼“å†²é“å°¾éƒ¨è½¦å¢ç¼–å·
+                bestTrack = i; // ä¸ä¹‹å¯¹åº”çš„ç¼“å†²é“ç¼–å·
             }
         }
-        else // Ã»ÓĞºÏÊÊµÄ·Ç¿Õ»º³åµÀ¾ÍÓÃ¿Õ»º³åµÀ
+        else // æ²¡æœ‰åˆé€‚çš„éç©ºç¼“å†²é“å°±ç”¨ç©ºç¼“å†²é“
             if (bestTrack == 0)
                 bestTrack = i;
 
-    if (bestTrack == 0) // ¿Õ»º³åµÀÒ²Ã»ÓĞÔòÖØÅÅÊ§°Ü
+    if (bestTrack == 0) // ç©ºç¼“å†²é“ä¹Ÿæ²¡æœ‰åˆ™é‡æ’å¤±è´¥
         return false; 
 
-    whichTrackC9[c] = bestTrack; // °Ñ×îºÏÊÊµÄ»º³åµÀË÷Òı´æÈëÕâ¸ö³µÏá±àºÅ¶ÔÓ¦µÄÎ»ÖÃ
-    lastCarC9[bestTrack] = c; // ³µÏá±àºÅÔò´æÈëËü×îºÏÊÊ¶ÔÓ¦µÄ»º³åµÀË÷Òı
-    // ¸Õ½øÈëÊ±c=3,i=1,bestTrack=1,whichTrack[3]=1,lastCar[1]=3,i=2,3Ã»ÓĞÔËĞĞ
-    // ÔÙ´Î½øÈëc=6,i=1,lastCar[1]=3²»Îª¿Õ,c=6>3 && 3 > 0,ËùÒÔbestLast=3,bestTrack=1,whichTrack[6]=1,lastCar[1]=6
-    // c=9,Í¬ÀíÔÚi=1¾Í³ÉÁ¢ÁË, 9>lastCar[1]=6 &&  6>3
+    whichTrackC9[c] = bestTrack; // æŠŠæœ€åˆé€‚çš„ç¼“å†²é“ç´¢å¼•å­˜å…¥è¿™ä¸ªè½¦å¢ç¼–å·å¯¹åº”çš„ä½ç½®
+    lastCarC9[bestTrack] = c; // è½¦å¢ç¼–å·åˆ™å­˜å…¥å®ƒæœ€åˆé€‚å¯¹åº”çš„ç¼“å†²é“ç´¢å¼•
+    // åˆšè¿›å…¥æ—¶c=3,i=1,bestTrack=1,whichTrack[3]=1,lastCar[1]=3,i=2,3æ²¡æœ‰è¿è¡Œ
+    // å†æ¬¡è¿›å…¥c=6,i=1,lastCar[1]=3ä¸ä¸ºç©º,c=6>3 && 3 > 0,æ‰€ä»¥bestLast=3,bestTrack=1,whichTrack[6]=1,lastCar[1]=6
+    // c=9,åŒç†åœ¨i=1å°±æˆç«‹äº†, 9>lastCar[1]=6 &&  6>3
     cout << "Move car " << c << " from input track "
         << "to holding track " << bestTrack << endl;
     return true;
