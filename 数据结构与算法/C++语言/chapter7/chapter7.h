@@ -1,0 +1,22 @@
+#pragma once
+#ifndef chapter7_
+#define chapter7_
+void _chapter7_array2D_pointer();
+void _chapter7_irregular_array2d();
+void _chapter7_matrixAdd();
+void _chapter7_matrixMultiply_sameSize();
+void _chapter7_matrixMultiply_differentSize();
+void _chapter7_matrixTranspose();
+void _chapter7_matrix_testCode();
+void _chapter7_diagonalMatrix();
+void _chapter7_tridiagonalMatrixRowMapping();
+void _chapter7_tridiagonalMatrixColMapping();
+void _chapter7_tridiagonalMatrixDiagMapping();
+void _chapter7_lowerTriangularMatrixRow();
+void _chapter7_lowerTriangularMatrixCol();
+void _chapter7_upperTriangularMatrixRow();
+void _chapter7_upperTriangularMatrixCol();
+void _chapter7_symmetric_matrix();
+void _chapter7_sparse_matrix();
+void _chapter7_linkedMatrix();
+#endif // !chapter7_
