@@ -69,6 +69,7 @@ int main()
 	//_chapter9_arrayQueue();
 	//_chapter9_linkedQueue();
 	_chapter9_carriageRearrange();
+	_chapter9_carriageRearrange_noQueue();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);
