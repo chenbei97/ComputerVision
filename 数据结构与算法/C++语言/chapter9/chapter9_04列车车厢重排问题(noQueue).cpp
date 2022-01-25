@@ -23,11 +23,13 @@ bool railroad(int* inputOrder,int theNumberOfCars, int theNumberOfTracks)
     numberOfCarsC9 = theNumberOfCars;
     numberOfTracksC9 = theNumberOfTracks - 1; // 有1个是不作为缓冲道的
 
-    // 初始化每个缓冲道和尾部车厢编号,全部为0,每个车险都有自己的缓冲道(所以效率低..)
-    lastCarC9 = new int[numberOfTracksC9 + 1]; // 每个缓冲道都有1个尾部车辆,可以没有,那么lastCarC9[i]保持=0
-    fill(lastCarC9 + 1, lastCarC9 + numberOfTracksC9 + 1, 0); // 初始化为0,只用到[1,numberOfTracksC9],即缓冲道是下标1开始计数的比较方便
-    whichTrackC9 = new int[numberOfCarsC9 + 1]; // 缓冲道同理进行0初始化
-    fill(whichTrackC9 + 1, whichTrackC9 + numberOfCarsC9 + 1, 0);
+    // 初始化每个缓冲道和尾部车厢编号,全部为0
+    //每缓存1个车厢c,都要记录它最合适的缓冲道索引whichTrackC9[c]
+    // 以及根据c的编号大小更新这个缓冲车道的最后1个车厢编号lastCarC9[whichTrackC9[c]]
+    lastCarC9 = new int[numberOfTracksC9 + 1]; // 每个缓冲道都有1个尾部车辆,这个缓存车道可以没有车,那么lastCarC9[i]保持=0
+    fill(lastCarC9 + 1, lastCarC9 + numberOfTracksC9 + 1, 0); // 初始化为0,只用到[1,numberOfTracksC9],即缓冲道索引是下标1开始计数的比较方便
+    whichTrackC9 = new int[numberOfCarsC9 + 1]; // whichTrackC9[c] 表示c应该去向的车道是whichTrackC9[c]
+    fill(whichTrackC9 + 1, whichTrackC9 + numberOfCarsC9 + 1, 0); // 初始化都是0
     int nextCarToOutput = 1;
 
     for (int i = 1; i <= numberOfCarsC9; i++) // 遍历每个车辆
@@ -37,14 +39,13 @@ bool railroad(int* inputOrder,int theNumberOfCars, int theNumberOfTracks)
                 << "track to output track" << endl;
             nextCarToOutput++;
             while (nextCarToOutput <= numberOfCarsC9 && // 下1个车厢编号不要越界
-                whichTrackC9[nextCarToOutput] != 0) // 下个车厢对应的缓冲道不为0,说明这个缓冲道有这个车厢
+                whichTrackC9[nextCarToOutput] != 0) // 这个车厢对应的最合适缓冲道不能为0,为0说明没有车移除应该执行下边的缓存操作才对
             {
                 outputFromHoldingTrack(nextCarToOutput); // 移除这个车厢
                 nextCarToOutput++; // 继续下1辆
             }
         }
-        else // 如果不是,就把这个车厢送到和它对应的那个缓冲道
-            // inputOrder[i] to whichTrackC9[i]
+        else // 如果不是,给车厢i寻找合适的缓冲道,记录在whichTrackC9[i]
             if (!putInHoldingTrack(inputOrder[i]))
                 return false;
 
@@ -69,14 +70,15 @@ bool putInHoldingTrack(int c)
         bestLast = 0;  // 初始化最合适的缓冲道的尾部车厢编号为0
 
     for (int i = 1; i <= numberOfTracksC9; i++) // 遍历每个缓冲道
-        if (lastCarC9[i] != 0) // 缓冲道whichTrack[i]如果没有元素则lastCarC9会等于0,反之说明有元素
+        if (lastCarC9[i] != 0) // 先从非空的缓冲道寻找合适的,i=1,2,有元素不会等于0
         {   
-            // 优先进入非空缓冲道,执行下方判断,寻找最合适的非空缓冲道
-            if (c > lastCarC9[i] && lastCarC9[i] > bestLast) // 要输出的车厢编号要比当前缓冲道的尾部车厢编号大
+            if (c > lastCarC9[i] && lastCarC9[i] > bestLast) 
             {
-                // bestLast一开始0,随着缓冲道的遍历,bestLast会找到所有缓冲道里边车厢编号最大的那个
-                bestLast = lastCarC9[i]; // 更新最好的缓冲道尾部车厢编号
-                bestTrack = i; // 与之对应的缓冲道编号
+                // c > lastCarC9[i]是第1个要求,至少c得比缓存道的车厢编号大才能被继续缓存
+                // lastCarC9[i] > bestLast是第2个要求,可能2个缓存道都合适,那就需要比较这2个缓存道的尾部车厢
+                // bestLast用于记录满足条件的缓存道的尾部车厢编号更大的那个,更大的那个更接近车厢c,初始时为0
+                bestLast = lastCarC9[i]; // lastCarC9[i]就是个车厢编号,记录它,它目前是最大的车厢编号
+                bestTrack = i; // 记录当前最大车厢编号所属的缓冲道
             }
         }
         else // 没有合适的非空缓冲道就用空缓冲道
@@ -86,8 +88,8 @@ bool putInHoldingTrack(int c)
     if (bestTrack == 0) // 空缓冲道也没有则重排失败
         return false; 
 
-    whichTrackC9[c] = bestTrack; // 把最合适的缓冲道索引存入这个车厢编号对应的位置
-    lastCarC9[bestTrack] = c; // 车厢编号则存入它最合适对应的缓冲道索引
+    whichTrackC9[c] = bestTrack; // 找到了车厢c最合适的缓存车道,记录在whichTrackC9中
+    lastCarC9[bestTrack] = c; // 更新这个车道的尾部车厢编号为c,因为是车厢c被缓存
     // 刚进入时c=3,i=1,bestTrack=1,whichTrack[3]=1,lastCar[1]=3,i=2,3没有运行
     // 再次进入c=6,i=1,lastCar[1]=3不为空,c=6>3 && 3 > 0,所以bestLast=3,bestTrack=1,whichTrack[6]=1,lastCar[1]=6
     // c=9,同理在i=1就成立了, 9>lastCar[1]=6 &&  6>3
