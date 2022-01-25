@@ -1,0 +1,17 @@
+#pragma once
+#ifndef charter2_
+#define charter2_
+#include <string.h>
+#include <vector>
+void _chapter2_test_and_debug();
+void  _chapter2_spatial_complexity();
+void _chapter2_time_complexity();
+void _chapter2_best_worst_average_operation_count();
+void _chapter2_count_sort_situ_rearrangement();
+void _chapter2_select_sort_timely_termination();
+void _chapter2_bubble_sort_timely_termination();
+void _chapter2_insert_sort();
+void _chapter2_calculation_of_program_steps();
+void _chapter2_analytic_method_steps();
+void _chapter2_analytic_best_worst_mean_steps();
+#endif charter2_
