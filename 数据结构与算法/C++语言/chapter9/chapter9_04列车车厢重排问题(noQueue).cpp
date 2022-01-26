@@ -16,7 +16,10 @@ void _chapter9_carriageRearrange_noQueue()
     int permutation[nCars + 1] = { 0, 3,6,9,2,4,7,1,8,5 }; // 数组小标0的位置不用,从1开始比较方便
     cout << "Input permutation is 581742963" << endl; // 初始的输入排列
     railroad(permutation, 9, 3);
-    cout << "Output permutation is 123456789" << endl; // 初始的输入排列
+    cout << "Output permutation is " << endl; 
+    for (int i = 1; i <= numberOfCarsC9; i++)
+        cout << sortedPermuationC9[i] << "  ";
+    cout << endl;
 }
 
 bool railroad(int* inputOrder,int theNumberOfCars, int theNumberOfTracks)
