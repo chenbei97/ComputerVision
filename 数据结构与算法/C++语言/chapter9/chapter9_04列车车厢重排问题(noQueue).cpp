@@ -3,6 +3,7 @@ using namespace std;
 // 本cpp文件基本保留了书原始代码,没有修改函数名,只对全局变量加了C9防止变量名重复
 int* whichTrackC9;  // 1≤i≤numberOfCarsC9,whichTrackC9[i]是车厢i去的缓存车道,1≤whichTrackC9[i]≤numberOfTracksC9-1
 int* lastCarC9;     // 1≤i≤numberOfTracksC9-1,lastCarC9[i]是缓冲道i存储的最后1个车厢编号,本身是1≤lastCarC9[i]≤numberOfCarsC9
+int* sortedPermuationC9; // 存储排序后的序列
 int numberOfCarsC9; // 总的车辆数
 int numberOfTracksC9; // 总的缓冲道数
 void outputFromHoldingTrack(int);
@@ -30,6 +31,7 @@ bool railroad(int* inputOrder,int theNumberOfCars, int theNumberOfTracks)
     fill(lastCarC9 + 1, lastCarC9 + numberOfTracksC9 + 1, 0); // 初始化为0,只用到[1,numberOfTracksC9],即缓冲道索引是下标1开始计数的比较方便
     whichTrackC9 = new int[numberOfCarsC9 + 1]; // whichTrackC9[c] 表示c应该去向的车道是whichTrackC9[c]
     fill(whichTrackC9 + 1, whichTrackC9 + numberOfCarsC9 + 1, 0); // 初始化都是0
+    sortedPermuationC9 = new int[numberOfCarsC9 + 1];//车厢节数+1,下标0弃用
     int nextCarToOutput = 1;
 
     for (int i = 1; i <= numberOfCarsC9; i++) // 遍历每个车辆
@@ -37,6 +39,7 @@ bool railroad(int* inputOrder,int theNumberOfCars, int theNumberOfTracks)
         {
             cout << "Move car " << inputOrder[i] << " from input "
                 << "track to output track" << endl;
+            sortedPermuationC9[nextCarToOutput] = inputOrder[i]; // nextCar=1,5,8会存入1,5,8
             nextCarToOutput++;
             while (nextCarToOutput <= numberOfCarsC9 && // 下1个车厢编号不要越界
                 whichTrackC9[nextCarToOutput] != 0) // 这个车厢对应的最合适缓冲道不能为0,为0说明没有车移除应该执行下边的缓存操作才对
@@ -58,7 +61,7 @@ void outputFromHoldingTrack(int c)
     // 可以看出,与使用栈和队列的方法相比,此函数多了一个形参,即车厢编号
     cout << "Move car " << c << " from holding track "
         << whichTrackC9[c] << " to output track" << endl;
-
+    sortedPermuationC9[c] = c; // c=2,3,4,6,7,9会存储2,3,4,6,7,9
     // 如果要移出的车厢c现在是缓冲车道的最后1个
     if (c == lastCarC9[whichTrackC9[c]]) // whichTrackC9[c]得到的是c最合适的缓冲道索引即bestTrack
         // lastCarC9[bestTrack] 得到的应该是这个合适的缓冲索引应该存放的车厢
