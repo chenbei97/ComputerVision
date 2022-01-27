@@ -70,6 +70,9 @@ int main()
 	//_chapter9_linkedQueue();
 	_chapter9_carriageRearrange();
 	_chapter9_carriageRearrange_noQueue();
+	_chapter9_circuit_wiring();
+	_chapter9_element_recognition();
+	_chapter9_factory_simulation();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);
