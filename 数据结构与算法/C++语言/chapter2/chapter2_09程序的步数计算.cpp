@@ -10,35 +10,35 @@ void _chapter2_calculation_of_program_steps()
     const int n = 4;
     int a[n] = { 1,2,3,4 };
     printf("sum = %d stepCount = %d\n", sum_cops(a, 4), step_count_cops);
-    assert(step_count_cops = 2 * n + 3); // ÀÛ¼Ó×Ü²½Êı=2n+3
+    assert(step_count_cops == 2 * n + 3); // ç´¯åŠ æ€»æ­¥æ•°=2n+3
     step_count_cops = NULL;
     printf("rsum = %d stepCount = %d\n", rsum_cops(a, 4), step_count_cops);
-    assert(step_count_cops = 2 * n + 2); // µİ¹é×Ü²½Êı=2n+2
+    assert(step_count_cops == 2 * n + 2); // é€’å½’æ€»æ­¥æ•°=2n+2
 
 }
 template<class T>
 T sum_cops(T a[], int n)
 {
-    T res = 0; step_count_cops++; // T res = 0 =1¸ö³ÌĞò²½=1²½
-    for (int i = 0; i < n; i++) // Ò²ÊÇ1¸ö³ÌĞò²½ µ«ÊÇÖ´ĞĞÆµÂÊ²»Í¬,°üº¬ÁËn+1²½,ÒòÎªi=n»¹ÒªÅĞ¶ÏÒ»´Î²ÅÄÜÖÕÖ¹forÑ­»· 
+    T res = 0; step_count_cops++; // T res = 0 =1ä¸ªç¨‹åºæ­¥=1æ­¥
+    for (int i = 0; i < n; i++) // ä¹Ÿæ˜¯1ä¸ªç¨‹åºæ­¥ ä½†æ˜¯æ‰§è¡Œé¢‘ç‡ä¸åŒ,åŒ…å«äº†n+1æ­¥,å› ä¸ºi=nè¿˜è¦åˆ¤æ–­ä¸€æ¬¡æ‰èƒ½ç»ˆæ­¢forå¾ªç¯ 
     {
-        step_count_cops++; // Ã¿´ÎforÑ­»·Ö´ĞĞÒ»´Î¶¼Ôö¼ÓÒ»²½,ÕâÀïÀÛ»ıÁËn²½
-        res += a[i]; step_count_cops++; // ¸ÃÓï¾äÊÇ1¸ö³ÌĞò²½,Ö´ĞĞÒ»´ÎÔö¼Ó1²½,ÕâÀïÀÛ»ıÁËn²½
+        step_count_cops++; // æ¯æ¬¡forå¾ªç¯æ‰§è¡Œä¸€æ¬¡éƒ½å¢åŠ ä¸€æ­¥,è¿™é‡Œç´¯ç§¯äº†næ­¥
+        res += a[i]; step_count_cops++; // è¯¥è¯­å¥æ˜¯1ä¸ªç¨‹åºæ­¥,æ‰§è¡Œä¸€æ¬¡å¢åŠ 1æ­¥,è¿™é‡Œç´¯ç§¯äº†næ­¥
     }
-    step_count_cops++;//ÕâÊÇi=nµÄÄÇÒ»²½
-    step_count_cops++;// returnÓï¾äµÄ¸ö³ÌĞò²½=>¹²¼Æ1+n+n+1+1=2n+3²½
-    return res;//×îºóÒ»¸ö³ÌĞò²½
+    step_count_cops++;//è¿™æ˜¯i=nçš„é‚£ä¸€æ­¥
+    step_count_cops++;// returnè¯­å¥çš„ä¸ªç¨‹åºæ­¥=>å…±è®¡1+n+n+1+1=2n+3æ­¥
+    return res;//æœ€åä¸€ä¸ªç¨‹åºæ­¥
 }
 template<class T>
 T rsum_cops(T a[], int n)
 {
-    step_count_cops++; // ifÓï¾äÊÇ1¸ö³ÌĞò²½
-    if (n > 0) // ½øÈë´Ëº¯ÊıÒ»¶¨»áÖ´ĞĞÒ»´Î
+    step_count_cops++; // ifè¯­å¥æ˜¯1ä¸ªç¨‹åºæ­¥
+    if (n > 0) // è¿›å…¥æ­¤å‡½æ•°ä¸€å®šä¼šæ‰§è¡Œä¸€æ¬¡
     {
-        step_count_cops++;// returnÊÇ1¸ö³ÌĞò²½
-        return rsum_cops(a, n - 1) + a[n - 1];//a[n-1]+a[n-2]+...a[1]±¾ÉíÊÇÒ»¸ö³ÌĞò²½
-        // n=1Ê±Ò²»á¼ÌĞøÖ´ĞĞ2²½,È»ºó½øÈërsum(a,0)+a[0],ÖÁ´ËÎªÖ¹ÀÛ»ı2n²½,rsum(a,0)ÔÙÖ´ĞĞ2²½
+        step_count_cops++;// returnæ˜¯1ä¸ªç¨‹åºæ­¥
+        return rsum_cops(a, n - 1) + a[n - 1];//a[n-1]+a[n-2]+...a[1]æœ¬èº«æ˜¯ä¸€ä¸ªç¨‹åºæ­¥
+        // n=1æ—¶ä¹Ÿä¼šç»§ç»­æ‰§è¡Œ2æ­¥,ç„¶åè¿›å…¥rsum(a,0)+a[0],è‡³æ­¤ä¸ºæ­¢ç´¯ç§¯2næ­¥,rsum(a,0)å†æ‰§è¡Œ2æ­¥
     }
-    step_count_cops++; // rsum(a,0)Ö´ĞĞµÄÒ»²½
+    step_count_cops++; // rsum(a,0)æ‰§è¡Œçš„ä¸€æ­¥
     return 0;
 }
