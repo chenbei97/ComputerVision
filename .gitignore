@@ -1,0 +1,7 @@
+*.pdf
+*.csv
+*.jpg
+*.png
+opencv4.5.4/images/
+ImageProcessing/images/
+jupyterLab/images/
