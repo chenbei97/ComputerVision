@@ -7,6 +7,7 @@
 #include "chapter7.h"
 #include "chapter8.h"
 #include "chapter9.h"
+#include "chapter10.h"
 #include "sort_method.h"
 #include <iostream>
 using namespace std;
@@ -21,12 +22,12 @@ int main()
 	//_chapter2_select_sort_timely_termination();
 	//_chapter2_bubble_sort_timely_termination();
 	//_chapter2_insert_sort();
-/*	_chapter2_calculation_of_program_steps();
-	_chapter2_analytic_method_steps();
-	_chapter2_analytic_best_worst_mean_steps();
-	_chapter3_binarySearch();
-	_chapter4_program_performance_measurement();
-	_chapter5_changeLength1D()*/;
+	//_chapter2_calculation_of_program_steps();
+	//_chapter2_analytic_method_steps();
+	//_chapter2_analytic_best_worst_mean_steps();
+	//_chapter3_binarySearch();
+	//_chapter4_program_performance_measurement();
+	//_chapter5_changeLength1D();
 	//_chapter5_concrete_class_instantiation();
 	//_chapter5_bidirectional_iterator();
 	//_chapter5_arrayList_with_bidirectionalIterator();
@@ -46,7 +47,7 @@ int main()
 	// _chapter7_matrixMultiply_differentSize();
 	//_chapter7_matrixTranspose();
 	//_chapter7_matrix_testCode();
-	// _chapter7_diagonalMatrix();
+    //_chapter7_diagonalMatrix();
 	// _chapter7_tridiagonalMatrixRowMapping();
 	// _chapter7_tridiagonalMatrixColMapping();
 	// _chapter7_tridiagonalMatrixDiagMapping();
@@ -73,6 +74,10 @@ int main()
 	//_chapter9_circuit_wiring();
 	//_chapter9_element_recognition();
 	//_chapter9_factory_simulation();
+	//_chapter10_pairStruct_testCode();
+	//_chapter10_pairNode_testCode();
+	_chapter10_dictionaryArray_testCode();
+	//_chapter10_dictionaryChain_testVode();
 	//_chapter9_factoryTask();
 	//_chapter9_factoryJob();
 	//_chapter9_factoryMachine();
