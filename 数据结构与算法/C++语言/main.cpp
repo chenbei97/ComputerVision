@@ -47,7 +47,7 @@ int main()
 	// _chapter7_matrixMultiply_differentSize();
 	//_chapter7_matrixTranspose();
 	//_chapter7_matrix_testCode();
-    //_chapter7_diagonalMatrix();
+    	//_chapter7_diagonalMatrix();
 	// _chapter7_tridiagonalMatrixRowMapping();
 	// _chapter7_tridiagonalMatrixColMapping();
 	// _chapter7_tridiagonalMatrixDiagMapping();
