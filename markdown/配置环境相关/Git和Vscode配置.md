@@ -226,7 +226,7 @@ doc/*.txt # doc下的某个txt文件忽略,但是doc/server/目录的txt不会�
 
 ​		staged：此时可以执行git commit同步到本地仓库，那么本地仓库和工作区文件又变为一致，文件为unmodify状态，执行git reset HEAD filename取消暂存，文件状态为modified，取消暂存就是取消回退版本，版本已经更新过。
 
-		## 1.6 创建分支
+## 1.6 创建分支
 
 ​		重点说明git branch的使用方法。
 
@@ -256,7 +256,7 @@ git checkout dev
 
 ## 1.7 创建密匙
 
-		### 1.7.1 Github
+### 1.7.1 Github
 
 ​		创建密匙的前提是全局邮箱和用户名是正确的，要和github一致，即
 
@@ -727,7 +727,7 @@ C:\Users\chenb\VscodeItems\helloPython
 code .
 ```
 
-		#### 2.3.2.2 选择解释器
+#### 2.3.2.2 选择解释器
 
 Python 是一种解释型语言，为了运行 Python 代码并获得 Python IntelliSense，必须告诉 VS Code 使用哪个解释器。在 VS Code 中，通过打开命令面板 (Ctrl+Shift+P) 选择 Python 3 解释器，开始输入 Python：选择要搜索的解释器命令，然后选择命令。 如果可用，您还可以使用状态栏上的 Select Python Environment 选项（它也可能已经显示了选定的解释器）。
 
