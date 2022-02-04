@@ -160,7 +160,7 @@
 
 ​		git rm：删除工作区文件
 
-​		git mv：移动工作区文件
+​		git mv：移动工作区文件，例如git mv Git和Vscode配置.md markdown，移动md文件到目录markdown下
 
 ​		git log：查看历史提交记录
 
@@ -363,6 +363,8 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDcGBmWuqHe23n8R2yf/+ebvIa35bXCiY72wyHSk/4/
 ![image-20220131211128139](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\SSH公匙Gitee.png)
 
 ## 1.8 创建仓库的案例
+
+​		初始化仓库可以在项目文件夹中初始化，这样就可以在VisualStudio或者Pycharm等直接实现文件的上传和更新了。
 
 ```bash
 cd C:\\Users\\chenb\\VscodeItems  要用双引号
