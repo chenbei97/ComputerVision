@@ -84,7 +84,10 @@ int main()
 	//_chapter10_dictionaryChain_testVode();
 	//_chapter10_skipNode_testCode();
 	//_chapter10_skipList_testCode();
-	_chapter10_long2String();
+	//_chapter10_long2String();
+	//_chapter10_int2String();
+	//_chapter10_hashTable_testCode();
+	_chapter10_hashChain_testCode();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);
