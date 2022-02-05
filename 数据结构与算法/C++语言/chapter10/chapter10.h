@@ -7,4 +7,5 @@ void _chapter10_dictionaryArray_testCode();
 void _chapter10_dictionaryChain_testVode();
 void _chapter10_skipNode_testCode();
 void _chapter10_skipList_testCode();
+void _chapter10_long2String();
 #endif // !chapter10_
