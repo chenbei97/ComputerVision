@@ -8,6 +8,8 @@
 #include "chapter8.h"
 #include "chapter9.h"
 #include "chapter10.h"
+#include "chapter11.h"
+#include "chapter12.h"
 #include "sort_method.h"
 #include <iostream>
 using namespace std;
