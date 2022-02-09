@@ -14,4 +14,5 @@ void _chapter11_binaryTreeNode_testCode()
 	node.leftChild = leftSon;
 	cout << node.leftChild << "  " << leftSon << endl; // 地址是一样的
 	cout << node.rightChild->leftChild->data << endl;
+	cout << node << endl; // 测试<<重载
 }

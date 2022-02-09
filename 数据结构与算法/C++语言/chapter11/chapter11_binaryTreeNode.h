@@ -2,6 +2,7 @@
 #ifndef chapter11_binaryTreeNode_
 #define chapter11_binaryTreeNode_
 using namespace std;
+#include <iostream>
 template<class T>
 struct binaryTreeNode
 {
@@ -25,4 +26,10 @@ struct binaryTreeNode
 		rightChild = theRightChild;
 	}
 };
+template<class T>
+inline ostream& operator<<(ostream& out, const binaryTreeNode<T>& x)
+{
+	out << x.data << "  ";
+	return out;
+}
 #endif // !chapter11_binaryTreeNode_

@@ -91,7 +91,9 @@ int main()
 	//_chapter10_hashTable_testCode();
 	//_chapter10_hashChain_testCode();
 	//_chapter11_binaryTreeNode_testCode();
-	_chapter11_binaryTree_through();
+	//_chapter11_binaryTree_through();
+	//_chapter11_function_as_parameter();
+	_chapter11_linkedBinaryTree_testCode();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);

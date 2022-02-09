@@ -154,4 +154,16 @@ public:
 private:
     string message;
 };
+class emptyTree
+{
+public:
+    emptyTree(string theMessage =
+        "Invalid operation on empty tree")
+    {
+        message = theMessage;
+    }
+    void outputMessage() { cout << message << endl; }
+private:
+    string message;
+};
 #endif myExceptions_
