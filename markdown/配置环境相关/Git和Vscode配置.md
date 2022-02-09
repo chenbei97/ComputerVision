@@ -124,7 +124,7 @@
 
 ​		下载代码流程：RemoteDirectory(远程仓库)->git pull->History(本地仓库)->git reset->Stage(暂存区)->git checkout->WorkingDirectory(工作目录)
 
-​	![image-20220131194216036](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\Git原理.png)
+​	![Git原理.png](Git原理.png)
 
 ​		git init：初始化仓库
 
@@ -214,7 +214,7 @@ doc/*.txt # doc下的某个txt文件忽略,但是doc/server/目录的txt不会�
 
 ​		将暂存区域的文件提交到git仓库
 
-![image-20220131194128114](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\Git工作流程.png)
+![Git工作流程.png](Git工作流程.png)
 
 ​		所以，git管理的文件主要有3种状态，已修改(modified)、已暂存(staged)、已提交(committed)，其实还有2种状态是未提交(untracked)和未修改(unmodify)。
 
@@ -248,7 +248,7 @@ git checkout dev
 
 ​		从图片可以看出，切换分支后，绿色字体从master变为dev。
 
-![image-20220201192208505](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\切换分支.png)
+![切换分支.png](切换分支.png)
 
 ​		git checkout -b [name]：新建一个分支并切换到该分支，是两个命令的结合
 
@@ -296,7 +296,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDFUejg3G/E2PncVK7Whl73OShxPKA288WInIaffdOJ
 
 ​		然后就是把密匙添加到GitHub，在个人设置中找到SSH and GPG keys给密匙取名字即可。
 
-![image-20220201204551858](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\SSH公匙Github.png)
+![SSH公匙Github.png](SSH公匙Github.png)
 
 ​		测试密匙是否有用的命令
 
@@ -360,7 +360,7 @@ ssh -T git@gitee.com
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDcGBmWuqHe23n8R2yf/+ebvIa35bXCiY72wyHSk/4/KQbtcksbeR6Otf4guZO1tll0Qh10LFpQ3pcwOD++n797RuJ96etKhWyC5Bo4svKbHmaX5qOpFRLabDnLeUOo1NxdJQPdf6ZHqXe60lLsvtZ66yTKGJu6WoOdPnsycXqYUrTIUWf9CRFGxg1R9qVPIe0rSoBcznrYO6tTwq1qNPuPuKq6r5JfCW8BLcuvuV8NrL/ppl3TPolGs5H30hKxQKCGeFYkU1up4lJ+XYmXP60grOvcFrW5776/f1CCwtoSkRaIgf0C6evVTo6uLefOgOk8yCFaddKQovvx6pxYfPqeUP2H4XQ7keEsEI+jYXDoutKZ6f0H0k1PpF7enCOvw59UsgpDtMbRO1xg6CtBWQrXz1W6Zv5Uj6QPXIbYlZINMxpnXQOX06evahUlonFIr32bUjkTHPRJPyXunpRPcevLaxrZwHlvVeKC+2UcWJwBN/xsIuYjSpTUlz8RZulCxCE= chenbei_electric@163.com
 ```
 
-![image-20220131211128139](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\SSH公匙Gitee.png)
+![SSH公匙Gitee.png](SSH公匙Gitee.png)
 
 ## 1.8 创建仓库的案例
 
@@ -392,13 +392,13 @@ git status 查看仓库状态
 
 ​		Ctrl+Shift+X快捷键，搜索c++下载扩展
 
-![image-20220131131937037](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\C++拓展.png)
+![C++拓展.png](C++拓展.png)
 
 ### 2.2.2下载MSYS2
 
 ​		1. 下载地址：[MSYS2](https://www.msys2.org/)，然后安装在C盘目录
 
-​		![image-20220131132431502](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\MSYS2下载.png)
+​		![MSYS2下载.png](MSYS2下载.png)
 
 ​		2. 打开终端 < MSYS2 MSYS >，输入命令 < pacman -Syu >，用于更新包数据库和基础包。
 
@@ -429,7 +429,7 @@ pacman -S --needed base-devel mingw-w64-x86_64-toolchain
 
 注意使用的是不一样的终端。常见的编译命令是g++ -o Test.exe Test.cpp
 
-![MSYS2](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\MSYS2.png)
+![MSYS2.png](MSYS2.png)
 
 ​		6.  把Mingw-w64 bin 文件夹的路径添加到 Windows PATH 环境变量，右击电脑属性找到环境变量。
 
@@ -500,11 +500,11 @@ int main()
 
 ​         1. 创建一个 tasks.json 文件来告诉 VS Code 如何构建（编译）程序。 此任务将调用 g++ 编译器以基于源代码创建可执行文件。菜单栏找到终端->配置任务，选择g++.exe 生成活动文件，可以看到会自动调用ming64\bin\g++.exe的编译器。
 
-![image-20220131144055262](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\g++.exe生成活动文件.png)
+![g++.exe生成活动文件.png](g++.exe生成活动文件.png)
 
 ​		2. 这将在 .vscode 文件夹中创建一个 tasks.json 文件并在编辑器中打开它。
 
-![image-20220131144352171](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\tasks和settings的json文件.png)
+![tasks和settings的json文件.png](tasks和settings的json文件.png)
 
 ​		可以在group参数修改一下命令，改动如下。加入的"isDefault": true，这个为true就可以使用快捷键 Ctrl+Shift+B 运行此任务，如果为false，在菜单栏找终端运行也可以，就是为了方便用的。
 
@@ -519,11 +519,11 @@ int main()
 
 ​		使用 + 按钮创建一个新终端，您将拥有一个以 helloworld 文件夹作为工作目录的新终端。 运行 dir，您现在应该会看到可执行文件 helloworld.exe
 
-![image-20220131145359025](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\helloEXE编辑结果.png)
+![helloEXE编辑结果.png](helloEXE编辑结果.png)
 
 ​		4. 然后通过键入 helloworld.exe（或 .\helloworld.exe，如果使用 PowerShell 终端）在终端中运行 helloworld，可以看出2种方式运行都可以打印容器信息。
 
-![image-20220131145700079](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\helloEXE输出结果.png)
+![helloEXE输出结果.png](helloEXE输出结果.png)
 
 ​		5. 还可以修改 tasks.json 的args参数，使用"${workspaceFolder}\\*.cpp"之类的参数而不是 ${file} 来构建多个 C++ 文件。 这将在当前文件夹中构建所有 cpp 文件。 还可以通过将"${fileDirname}\\${fileBasenameNoExtension}.exe"替换为硬编码文件名（例如"${workspaceFolder}\\myProgram.exe"）来修改输出文件名。
 
@@ -616,9 +616,9 @@ int main()
 
 ​		回到hello.cpp文件，首先设置断点，然后按 F5 或从主菜单中选择运行>开始调试。调试界面如下，调试语句会高亮。
 
-![image-20220131153831414](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\设置断点.png)
+![设置断点.png](设置断点.png)
 
-![image-20220131153647245](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置p\使用gdb调试.png)
+![使用gdb调试.png](使用gdb调试.png)
 
 #### 2.2.3.4 配置c_cpp_properties.json文件调整编译标准
 
@@ -626,7 +626,7 @@ int main()
 
 ​		只需要调整C++ 标准为20或者17即可，其他可以默认不变，这样就会自动生成c_cpp_properties.json文件。
 
-![](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\C++Configurations配置.png)
+![C++Configurations配置.png](C++Configurations配置.png)
 
 ​		注意，和C:/msys64/mingw64/bin/g++.exe对应的intelliSenseMode应该是windows-gcc-x64
 
@@ -712,7 +712,7 @@ C:\Users\chenb\VscodeItems\helloWorld\.vscode\settings.json
 
 ​		Ctrl+Shift+X快捷键，搜索python下载扩展。注意如果已经下载过python，无需再安装，也就省去了python的环境变量配置步骤，直接选择解释器即可。
 
-![image-20220131162942374](C:\Users\chenb\Desktop\2022.1备份\markdown文件\Git和Vscode配置\python选择解释器.png)
+![python选择解释器.png](python选择解释器.png)
 
 
 
