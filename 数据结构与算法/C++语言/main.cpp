@@ -93,7 +93,9 @@ int main()
 	//_chapter11_binaryTreeNode_testCode();
 	//_chapter11_binaryTree_through();
 	//_chapter11_function_as_parameter();
-	_chapter11_linkedBinaryTree_testCode();
+	//_chapter11_linkedBinaryTree_testCode();
+	// _chapter12_maxPriorityQueue_byNoSortedArray();
+	 _chapter12_maxHeap_testCode();
 	//const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);
