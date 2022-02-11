@@ -10,8 +10,7 @@ void changeLength1D(T*& a, int oldLength, int newLength)
         throw illegalParameterValue("new length must be >= 0");
 
     T* temp = new T[newLength];             
-    int number = min(oldLength, newLength);  
-    copy(a, a + number, temp);
+    copy(a, a + oldLength, temp);
     delete[] a;                             
     a = temp;
 }
