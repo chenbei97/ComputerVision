@@ -480,11 +480,12 @@ There is NO WARRANTY, to the extent permitted by law.
 
 ​		1. 下方命令是在C盘的用户文件夹下创建1个VscodeItems文件夹，然后内部再新建1个helloWorld的文件夹，code .是打开vscode文本编辑器。注意这些命令是在cmd终端输入的，不是MSYS2，且不能存到D盘。
 
-```
+```bash
 mkdir VscodeItems
 cd VscodeItems
 mkdir helloC++
 cd helloC++
+type nul> hello.cpp windows下创建文件的命令,linux为touch
 code .
 ```
 
@@ -737,8 +738,9 @@ C:\Users\chenb\VscodeItems\helloWorld\.vscode\settings.json
 
 ​		类似的操作，这里直接新建好了文件夹，首先cd到路径，code .就可以使用vscode打开这个文件夹了。或者直接在编辑器的菜单栏-文件打开文件夹也可以。code.是下载vscode的时候有个启动文件code.exe，属于vscode加到环境变量的一个命令。
 
-```c++
-C:\Users\chenb\VscodeItems\helloPython
+```bash
+cd C:\Users\chenb\VscodeItems\helloPython
+type nul> hello.py
 code .
 ```
 
