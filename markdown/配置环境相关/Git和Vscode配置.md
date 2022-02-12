@@ -152,7 +152,7 @@
 
 ​		git switch branchName：切换到已有分支
 
-​		git checkout -b branchName：创建并切换到新分支
+​		git checkout -b branchName：创建并切换到新分支，git checkout -b main
 
 ​		git merge branchName：合并指定分支到当前分支
 
@@ -391,6 +391,14 @@ git add hello.cpp 提交到暂存区
 git status 查看仓库状态
 git commit -m "create hello.cpp" 提交到本地仓库
 git status 查看仓库状态
+
+然后需要在Github事先创建好仓库
+然后使用命令关联远程和本地仓库
+git remote add myLeetCode https://github.com/chenbei97/myLeetCode.git
+git add .
+git commit -m "update"
+git push -u myLeetCode  仓库没有内容第一次用
+git push origin master or git push 下次使用可替代
 ```
 
 # 2.配置vscode
