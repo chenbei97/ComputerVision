@@ -152,7 +152,7 @@
 
 ​		git switch branchName：切换到已有分支
 
-​		git checkout -b branchName：创建并切换到新分支
+​		git checkout -b branchName：创建并切换到新分支，git checkout -b main
 
 ​		git merge branchName：合并指定分支到当前分支
 
@@ -275,7 +275,7 @@ cd .ssh
 
 ​		输入下边任一个命令即可。
 
-```
+```bash
 ssh-keygen
 ssh-keygen -t rsa -C chenbei_electric@163.com
 ```
@@ -284,7 +284,7 @@ ssh-keygen -t rsa -C chenbei_electric@163.com
 
 ​		SSH密匙就在key.pub中，可以使用文本方式打开直接复制，也可以使用命令行复制，自动复制在剪贴板上。
 
-```
+```bash
 clip < key.pub
 ```
 
@@ -314,7 +314,7 @@ git@github.com: Permission denied (publickey)
 
 ```bash
 ssh-agent -s
-ssg-add key.pub 在.ssh文件夹下
+ssh-add key 在.ssh文件夹下
 ```
 
 ​		如果之前设置密匙输入了密码，就会提示输入密码，再次使用ssh -T git@github.com命令，就会得到链接成功的消息。
@@ -323,7 +323,19 @@ ssg-add key.pub 在.ssh文件夹下
 Hi chenbei97! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
-​		
+​		如果提示
+
+```
+Could not open a connection to your authentication agent
+```
+
+​		那么输入命令
+
+```bash
+ssh-agent bash
+ssh-add key 再次输入,提示输入密码即可
+ssh -T git@github.com 再次测试
+```
 
 ​		上述还有个问题在于，VscodeItems下的.ssh文件夹是自行创建的，但是c/Users/chenb/的.ssh文件夹是自动创建的，里边会有known_hosts文件。现在再次输入命令申请1个新密匙，创建名称为newKey的密匙文件，但是不输入密码。
 
@@ -341,7 +353,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC99dvaz4qHJwcqLRtgVG0A0W19+eXiZ3EzTg8Je8Zn
 
 ​		chenb/的.ssh文件夹又会多1个文件，名称为known_hosts.old，验证直接成功无需输入密码。
 
-​		此时也可以使用ssh命令来下载项目
+​		此时也可以使用ssh命令来下载项目了，不仅仅是https的命令。Github找到项目的code这里，就可以复制这个命令链接。
 
 ```bash
 git clone git@github.com:chenbei97/ComputerVision.git
@@ -352,8 +364,11 @@ git clone git@github.com:chenbei97/ComputerVision.git
 ​		命令是类似的，也是创建新的密匙，名称为cb199791.pub，只是验证密匙变得不同。前提是全局邮箱和用户名要改为gitee对应的，才会链接成功。
 
 ```
+ssh-keygen
 clip < cb199791.pub
 ssh -T git@gitee.com
+输出信息：
+Hi 陈北! You've successfully authenticated, but GITEE.COM does not provide shell access.
 ```
 
 ```bash
@@ -376,6 +391,14 @@ git add hello.cpp 提交到暂存区
 git status 查看仓库状态
 git commit -m "create hello.cpp" 提交到本地仓库
 git status 查看仓库状态
+
+然后需要在Github事先创建好仓库
+然后使用命令关联远程和本地仓库
+git remote add myLeetCode https://github.com/chenbei97/myLeetCode.git
+git add .
+git commit -m "update"
+git push -u myLeetCode  仓库没有内容第一次用
+git push origin master or git push 下次使用可替代
 ```
 
 # 2.配置vscode
@@ -465,11 +488,12 @@ There is NO WARRANTY, to the extent permitted by law.
 
 ​		1. 下方命令是在C盘的用户文件夹下创建1个VscodeItems文件夹，然后内部再新建1个helloWorld的文件夹，code .是打开vscode文本编辑器。注意这些命令是在cmd终端输入的，不是MSYS2，且不能存到D盘。
 
-```
+```bash
 mkdir VscodeItems
 cd VscodeItems
 mkdir helloC++
 cd helloC++
+type nul> hello.cpp windows下创建文件的命令,linux为touch
 code .
 ```
 
@@ -714,26 +738,27 @@ C:\Users\chenb\VscodeItems\helloWorld\.vscode\settings.json
 
 ![python选择解释器.png](python选择解释器.png)
 
-
+​		如果没有自动配置解释器路径，可以ctrl+shift+p，输入Python：Select Interpreter
 
 ### 2.3.2 验证配置是否成功
 
 #### 2.3.2.1 配置文件夹为工作区
 
-​		类似的操作，这里直接新建好了文件夹，首先cd到路径，code .就可以使用vscode打开这个文件夹了。或者直接在编辑器的菜单栏-文件打开文件夹也可以。
+​		类似的操作，这里直接新建好了文件夹，首先cd到路径，code .就可以使用vscode打开这个文件夹了。或者直接在编辑器的菜单栏-文件打开文件夹也可以。code.是下载vscode的时候有个启动文件code.exe，属于vscode加到环境变量的一个命令。
 
-```c++
-C:\Users\chenb\VscodeItems\helloPython
+```bash
+cd C:\Users\chenb\VscodeItems\helloPython
+type nul> hello.py
 code .
 ```
 
 #### 2.3.2.2 选择解释器
 
-Python 是一种解释型语言，为了运行 Python 代码并获得 Python IntelliSense，必须告诉 VS Code 使用哪个解释器。在 VS Code 中，通过打开命令面板 (Ctrl+Shift+P) 选择 Python 3 解释器，开始输入 Python：选择要搜索的解释器命令，然后选择命令。 如果可用，您还可以使用状态栏上的 Select Python Environment 选项（它也可能已经显示了选定的解释器）。
+​		Python 是一种解释型语言，为了运行 Python 代码并获得 Python IntelliSense，必须告诉 VS Code 使用哪个解释器。在 VS Code 中，通过打开命令面板 (Ctrl+Shift+P) 选择 Python 3 解释器，开始输入 Python：选择要搜索的解释器命令，然后选择命令。 如果可用，您还可以使用状态栏上的 Select Python Environment 选项（它也可能已经显示了选定的解释器）。
 
 ​		解释器这里有推荐的解释器，是MSYS2的解释器，3.9版本。
 
-```
+```shell
 C:\msys64\mingw64\bin\python.exe
 ```
 
@@ -768,7 +793,7 @@ py -3 -m venv .venv
 
 ​		此时上述代码就会提示import numpy as np和import matplotlib.pyplot as plt导入存在问题，因为虚拟环境没有这两个包。
 
-继续在终端执行命令python -m pip install matplotlib和python -m pip install numpy。
+​		继续在终端执行命令python -m pip install matplotlib和python -m pip install numpy，安装matplotlib会自动安装numpy。
 
 ```python
 # macOS
@@ -788,6 +813,6 @@ python3 -m pip install matplotlib
 python -m pip install --upgrade pip
 ```
 
-​		安装完毕以后切换解释器路径为. \ . venv \ Scripts \ python.exe 就可以再次运行上述代码了，不过要注意多个虚拟环境会大量占用磁盘存储，如果无需隔离环境就使用公用的解释器路径即可。
+​		安装完毕以后切换解释器路径为. \ . venv \ Scripts \ python.exe （ctrl+shift+p自动显示，或者输入Python：Select Interpreter）就可以再次运行上述代码了，不过要注意多个虚拟环境会大量占用磁盘存储，如果无需隔离环境就使用公用的解释器路径即可。
 
 ​		完成后，在终端窗口中键入 deactivate 以停用虚拟环境。
