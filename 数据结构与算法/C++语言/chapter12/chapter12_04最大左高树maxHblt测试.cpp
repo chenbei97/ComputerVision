@@ -3,7 +3,7 @@
 using namespace std;
 void _chapter12_maxHblt_testCode() {
 	maxHblt<int> h, j;
-	int a[6] = { 0, 7, 9, 1, 8, 11 };
+	int a[6] = { 0, 7, 9, 1, 8, 11 }; // 奇数个元素合并
 	h.initialize(a, 5);
 	cout << "One tree level postorder is" << endl;
 	h.output(); // 层次遍历

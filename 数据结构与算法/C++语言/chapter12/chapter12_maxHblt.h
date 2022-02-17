@@ -27,7 +27,6 @@ protected:
 	static void maxHbltOutput(binaryTreeNode<pair<int, T>>* t) {
 		{cout <<t->data.second << "  "; } // 左高树的节点输出,声明为静态函数是所有类的实例都使用这1种方式输出
 	}// 可以作为链表二叉树类的visit函数
-
 };
 template<class T>
 void maxHblt<T>::initialize(T* theArray, int theSize) {
@@ -41,7 +40,7 @@ void maxHblt<T>::initialize(T* theArray, int theSize) {
 		q.push(new binaryTreeNode<pair<int, T> >
 			(pair<int, T>(1, theArray[i]))); // 构造这样的最大左高树节点,编号都初始化为1
 
-	for (int i = 1; i <= theSize - 1; i++) // 留出1个不构造
+	for (int i = 1; i <= theSize-1; i++)  // size个元素只需要size-1次合并即可
 	{
 		binaryTreeNode<pair<int, T> >* b = q.front(); // 作为左节点
 		q.pop();
@@ -52,7 +51,7 @@ void maxHblt<T>::initialize(T* theArray, int theSize) {
 	}
 	// 队列的最后1个就是元素就是最终的最大左高树
 	if (theSize > 0)
-		this->root = q.front();
+		this->root = q.front(); 
 	this->treeSize = theSize;
 }
 

@@ -118,6 +118,11 @@ void maxHeap<T>::pop()
     // currentNode是lastElement的兄弟节点填充的
     // 此时currentNode已经更新为heapSize,child*2=2*heapSize,退出while
     heap[currentNode] = lastElement; // 空缺的父节点插入新元素
+    cout << "after pop heap is  ";
+    for (int i = 1; i <= heapSize; i++) {
+        cout << heap[i] << " ";
+    }
+    cout << "\n";
 } 
 
 template<class T>
@@ -149,21 +154,25 @@ void maxHeap<T>::initialize(T *theHeap, int theSize)
         // 如果不是大根堆,就要调整这个节点作为根的大根堆的这些元素
         while (child <= heapSize)
         {
-            // 类似删除的过程,删除1个调整位置
-            // 这里不用删除,只需要调整位置
+            //cout << "before : heap["<<child<<"] = " << heap[child] 
+            //    << "  heap["<<child + 1<<"] = " << heap[child + 1] << endl;
             if (child < heapSize && heap[child] < heap[child + 1])
-                child++;
+                child++; // 找到2个孩子更大的那个
 
             if (rootElement >= heap[child])
-                break;  // yes
+                break;  // 如果满足大根堆无需操作
 
-             // no
-            heap[child / 2] = heap[child]; // currentNode就是child / 2
-            child *= 2;                    
+             // 不满足大根堆,就让这个孩子成为父节点,父节点位置是child/2
+            heap[child / 2] = heap[child]; // currentNode父节点就是child / 2
+            //cout << "after : heap[" << child << "] = " << heap[child]
+            //    << "  heap[" << child + 1 << "] = " << heap[child + 1] << endl;
+            child *= 2; 
+
         }
-        heap[child / 2] = rootElement;// currentNode就是child / 2
-        //for (int i = 1; i <= heapSize; i++)
-        //    cout << heap[i] << "  ";
+        heap[child / 2] = rootElement;// currentNode父节点就是child / 2
+        //cout << "root = "<<root<<"\n";
+        //for (int i = 1; i <= heapSize; i++) // 打印heap的变化过程
+        //    cout << heap[i] <<" ";
         //cout << "\n";
     }
 }
