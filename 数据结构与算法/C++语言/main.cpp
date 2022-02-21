@@ -10,6 +10,7 @@
 #include "chapter10.h"
 #include "chapter11.h"
 #include "chapter12.h"
+#include "chapter13.h"
 #include "sort_method.h"
 #include <iostream>
 using namespace std;
@@ -98,8 +99,9 @@ int main()
 	 //_chapter12_maxHeap_testCode();
 	 //_chapter12_minHeap_testCode();
 	// _chapter12_maxHblt_testCode();
-	 _chapter12_heapSort_testCode();
-	//const int n = 10;
+	 //_chapter12_heapSort_testCode();
+	_chapter13_winnerTree_testCode();
+	 //const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);
 	//std::cout << std::endl;
