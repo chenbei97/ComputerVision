@@ -11,6 +11,8 @@
 #include "chapter11.h"
 #include "chapter12.h"
 #include "chapter13.h"
+#include "chapter17.h"
+#include "chapter18.h"
 #include "sort_method.h"
 #include <iostream>
 using namespace std;
@@ -28,6 +30,7 @@ int main()
 	//_chapter2_calculation_of_program_steps();
 	//_chapter2_analytic_method_steps();
 	//_chapter2_analytic_best_worst_mean_steps();
+	//_chapter2_find_minMax_index();
 	//_chapter3_binarySearch();
 	//_chapter4_program_performance_measurement();
 	//_chapter5_changeLength1D();
@@ -100,7 +103,9 @@ int main()
 	 //_chapter12_minHeap_testCode();
 	// _chapter12_maxHblt_testCode();
 	 //_chapter12_heapSort_testCode();
-	_chapter13_winnerTree_testCode();
+	//_chapter13_winnerTree_testCode();
+	//_chapter17_containerLoading();
+	_chapter18_minMax();
 	 //const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);
