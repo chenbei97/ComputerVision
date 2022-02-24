@@ -105,7 +105,11 @@ int main()
 	 //_chapter12_heapSort_testCode();
 	//_chapter13_winnerTree_testCode();
 	//_chapter17_containerLoading();
-	_chapter18_minMax();
+	//_chapter18_minMax();
+	//_chapter18_mergeSort();
+	//_chapter18_indexOfMax_testCode();
+	//_chapter18_quickSort();
+	_chapter18_select_k_val();
 	 //const int n = 10;
 	//int a[n] = { 6,5,8,4,3,1,13,0,66 ,-2 };
 	//array_sorting_method(a, n ,countSort);
