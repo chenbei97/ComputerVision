@@ -395,10 +395,12 @@ git status 查看仓库状态
 然后需要在Github事先创建好仓库
 然后使用命令关联远程和本地仓库
 git remote add myLeetCode https://github.com/chenbei97/myLeetCode.git
+git checkout -b main
+git branch -d master
 git add .
 git commit -m "update"
 git push -u myLeetCode  仓库没有内容第一次用
-git push origin master or git push 下次使用可替代
+git push origin main or git push 下次使用可替代
 ```
 
 # 2.配置vscode
