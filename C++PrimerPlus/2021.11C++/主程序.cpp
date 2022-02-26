@@ -16,9 +16,12 @@ int main()
 	//Study_Class_inheritance();
 	//Study_STL();
 	//Compare_array_pointer();
-	//Study_allocate_release_arr2D();
-	//Study_Exception_Class();
-	//recursion_accumulation_of_summationFunction();
+	// Study_allocate_release_arr2D();
+	// Study_Exception_Handle();
+	// recursion_accumulation_of_summationFunction();
+	//local_static_variable();
+	//function_pointer_use();
+	cout << knm << endl; // 4头文件有
 	return 0;
 }
 

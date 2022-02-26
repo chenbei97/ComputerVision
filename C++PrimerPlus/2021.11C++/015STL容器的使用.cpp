@@ -82,4 +82,5 @@ void Study_STL()
 	Study_STL_String();
 	Study_STL_Vector();
 	Study_STL_Deque();
+	system("pause");
 }

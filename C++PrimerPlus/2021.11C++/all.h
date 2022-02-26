@@ -3,10 +3,10 @@
 #include <cmath> // or #include <math.h>
 #include <stdlib.h>
 #include <cstring>
-#include <vector> // åŠ¨æ€æ•°ç»„ä¸å›ºå®šé•¿åº¦
+#include <vector> // ¶¯Ì¬Êı×é²»¹Ì¶¨³¤¶È
 #include <deque>
 #include <algorithm>
-#include <array> // åŠ¨æ€æ•°ç»„å›ºå®šé•¿åº¦
+#include <array> // ¶¯Ì¬Êı×é¹Ì¶¨³¤¶È
 #include <ctime>
 #include <fstream>
 #include <cctype>
@@ -29,5 +29,13 @@ void Study_Class_inheritance();
 void Study_STL();
 void Compare_array_pointer();
 void Study_allocate_release_arr2D();
-void Study_Exception_Class();
+void Study_Exception_Handle();
 void recursion_accumulation_of_summationFunction();
+void local_static_variable();
+void function_pointer_use();
+const int knn = 6; // ²»»á¶àÖØ¶¨Òå
+// int knm = 6; // »á¶àÖØ¶¨Òå
+extern int knm; // ĞèÒªÔÚÍâ²¿³õÊ¼»¯Ëû
+const int vec[3] = { 1,2,3 };
+const int knp = 1;
+//extern int kpp = 6; // Ò²²»ÔÊĞí
